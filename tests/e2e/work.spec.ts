@@ -3,19 +3,29 @@ import site from "../../src/generated/site-data.json" with { type: "json" };
 import { open } from "./helpers";
 
 const shown = site.projects.length;
-const cards = (page: import("@playwright/test").Page) => page.locator(".grid .card, .archive li");
+const cards = (page: import("@playwright/test").Page) => page.locator(".work-item");
+
+test("shows flagships first and the archive folded away", async ({ page }) => {
+  await open(page, "/work");
+  const flagships = site.projects.filter((p) => p.featured).map((p) => p.name);
+  await expect(page.locator(".work-flagships .case-name")).toHaveText(flagships);
+  await expect(page.locator(".archive-fold")).not.toHaveAttribute("open", "");
+  await expect(page.locator(".archive-fold .work-item").first()).toBeHidden();
+  await page.locator(".archive-fold summary").click();
+  await expect(page.locator(".archive-fold .work-item").first()).toBeVisible();
+});
 
 test("shows every project, then filters by category and writes it to the URL", async ({ page }) => {
   await open(page, "/work");
   await expect(cards(page)).toHaveCount(shown);
-  await expect(page.getByRole("status")).toContainText(`${shown} projects`);
+  await expect(page.locator(".results-line[role=status]")).toContainText(`${shown} projects`);
 
   await page.getByRole("button", { name: /^Services/ }).click();
   const services = site.projects.filter((p) => p.category === "service").length;
   await expect(page).toHaveURL(/category=service/);
   await expect(cards(page)).toHaveCount(services);
   await expect(page.getByRole("button", { name: /^Services/ })).toHaveAttribute("aria-pressed", "true");
-  await expect(page.getByRole("status")).toContainText(`in Services`);
+  await expect(page.locator(".results-line[role=status]")).toContainText(`in Services`);
 
   // The back button undoes a filter, because the filter lives in the URL.
   await page.goBack();
@@ -28,7 +38,7 @@ test("a shared URL opens already filtered", async ({ page }) => {
   await expect(page.getByRole("button", { name: /^Products/ })).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator(".search input")).toHaveValue("fire");
   await expect(cards(page)).toHaveCount(1);
-  await expect(page.locator(".card h3")).toHaveText("Flint");
+  await expect(page.locator(".work-item .case-name")).toHaveText("Flint");
 });
 
 test("search matches stack and family, shows an empty state, and clears", async ({ page }) => {
@@ -41,7 +51,7 @@ test("search matches stack and family, shows an empty state, and clears", async 
 
   await input.fill("zzzz-nothing");
   await expect(page.locator(".empty")).toBeVisible();
-  await expect(page.getByRole("status")).toContainText("Nothing matches");
+  await expect(page.locator(".results-line[role=status]")).toContainText("Nothing matches");
   await page.getByRole("button", { name: /clear filters/i }).click();
   await expect(cards(page)).toHaveCount(shown);
   await expect(input).toBeFocused();
@@ -65,7 +75,10 @@ test("keyboard: / focuses search, Escape clears it, arrows move between chips", 
   await expect(page.getByRole("button", { name: /^Early work/ })).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/category=early/);
-  await expect(page.locator(".archive li")).toHaveCount(site.projects.filter((p) => p.category === "early").length);
+  await expect(page.locator(".archive-fold")).toHaveAttribute("open", "");
+  await expect(page.locator(".archive-fold .work-item")).toHaveCount(
+    site.projects.filter((p) => p.category === "early").length,
+  );
 });
 
 test("private projects are listed by name but never linked", async ({ page }) => {

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
 import { computed } from "vue";
-import ProjectCard from "../components/ProjectCard.vue";
+import ProofChips from "../components/ProofChips.vue";
 import { useReveal } from "../composables/useReveal";
-import { bySlug, CATEGORY_LABEL, profile, projects, STATUS_LABEL } from "../data";
+import { bySlug, CATEGORY_LABEL, profile, projects, STATUS_LABEL, shortDate } from "../data";
 import NotFoundView from "./NotFoundView.vue";
 
 const props = defineProps<{ slug: string }>();
@@ -62,26 +62,34 @@ useReveal();
 
 const linkLabel: Record<string, string> = {
   site: "Website",
-  source: "Source on GitHub",
   download: "Download",
   package: "Package",
+  source: "Source on GitHub",
 };
+// The project's own site first, then a way to run it, then the code.
+const links = computed(() => {
+  const l = project.value?.links ?? {};
+  return (["site", "download", "package", "source"] as const)
+    .filter((k) => l[k])
+    .map((k, i) => ({ kind: k, href: l[k]!, label: linkLabel[k]!, primary: i === 0 }));
+});
 </script>
 
 <template>
   <NotFoundView v-if="!project" />
   <div v-else class="container">
     <header class="page-hero">
-      <nav aria-label="Breadcrumb" class="eyebrow">
-        <router-link to="/work" style="color: inherit">Work</router-link> <span aria-hidden="true">/</span> {{ CATEGORY_LABEL[project.category] }}
+      <nav aria-label="Breadcrumb" class="crumbs">
+        <router-link to="/work">Work</router-link> <span aria-hidden="true">/</span> {{ CATEGORY_LABEL[project.category] }}
       </nav>
       <h1>{{ project.name }}</h1>
-      <p v-if="project.tagline" class="hero-lede">{{ project.tagline }}</p>
-      <div class="hero-meta">
-        <span class="badge" :class="`badge-${project.status}`">{{ STATUS_LABEL[project.status] }}</span>
-        <span v-if="project.visibility === 'private'">Private repository</span>
-        <span v-if="project.family === 'lucy'">LUCY family · {{ project.role }}</span>
-      </div>
+      <p v-if="project.tagline" class="lede">{{ project.tagline }}</p>
+      <ProofChips class="project-proof" :project="project" :max="6" />
+      <p class="mono faint">
+        <span class="status" :class="`status-${project.status}`">{{ STATUS_LABEL[project.status] }}</span>
+        <span v-if="project.visibility === 'private'"> · Private repository</span>
+        <span v-if="project.family === 'lucy'"> · LUCY family · {{ project.role }}</span>
+      </p>
     </header>
 
     <div class="project-layout">
@@ -103,19 +111,38 @@ const linkLabel: Record<string, string> = {
       </article>
 
       <aside class="aside" aria-label="Project details">
-        <div v-if="Object.keys(project.links).length" class="links">
-          <template v-for="(href, kind) in project.links" :key="kind">
-            <a class="button" :class="kind === 'site' || (kind === 'source' && !project.links.site) ? 'button-primary' : 'button-secondary'" :href="href" target="_blank" rel="noopener noreferrer">
-              {{ linkLabel[kind] }} <span aria-hidden="true">↗</span>
-            </a>
-          </template>
+        <div v-if="links.length" class="links">
+          <a
+            v-for="l in links"
+            :key="l.kind"
+            class="button"
+            :class="l.primary ? 'button-primary' : 'button-secondary'"
+            :href="l.href"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ l.label }} <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <div v-if="project.proof?.release" class="release-card">
+          <h2>Latest release</h2>
+          <strong><a :href="project.proof.release.url" target="_blank" rel="noopener noreferrer">{{ project.proof.release.tag }}</a></strong>
+          <span class="mono faint">{{ shortDate(project.proof.release.at) }}{{ project.proof.release.prerelease ? " · pre-release" : "" }} · {{ project.proof.release.count }} release{{ project.proof.release.count === 1 ? "" : "s" }}</span>
+          <span v-if="project.proof.release.words" class="muted">{{ project.proof.release.words }}</span>
+        </div>
+        <div v-if="project.proof?.npm || project.proof?.pypi" class="release-card">
+          <h2>Published</h2>
+          <span v-if="project.proof?.npm" class="mono">
+            <a :href="project.proof.npm.url" target="_blank" rel="noopener noreferrer">npm {{ project.proof.npm.name }}</a> v{{ project.proof.npm.version }}<template v-if="project.proof.npm.packages > 1"> · {{ project.proof.npm.packages }} packages</template>
+          </span>
+          <span v-if="project.proof?.pypi" class="mono">
+            <a :href="project.proof.pypi.url" target="_blank" rel="noopener noreferrer">PyPI {{ project.proof.pypi.name }}</a> v{{ project.proof.pypi.version }}<template v-if="project.proof.pypi.packages > 1"> · {{ project.proof.pypi.packages }} packages</template>
+          </span>
         </div>
         <div>
           <h2>Stack</h2>
-          <ul v-if="project.stack.length" class="tags" style="margin-top: 8px">
-            <li v-for="s in project.stack" :key="s" class="tag">{{ s }}</li>
-          </ul>
-          <p v-else class="results-line" style="margin: 8px 0 0">Not recorded.</p>
+          <p v-if="project.stack.length" class="stack-line">{{ project.stack.join(" · ") }}</p>
+          <p v-else class="stack-line">Not recorded.</p>
         </div>
         <dl class="dl">
           <dt>Repository</dt>
@@ -126,18 +153,28 @@ const linkLabel: Record<string, string> = {
           <dd>{{ project.year }}</dd>
           <dt>Visibility</dt>
           <dd>{{ project.visibility }}</dd>
+          <template v-if="project.proof?.commits">
+            <dt>Commits</dt>
+            <dd>{{ project.proof.commits.toLocaleString("en-GB") }}</dd>
+          </template>
         </dl>
       </aside>
     </div>
 
     <section v-if="related.length" class="related" aria-labelledby="related-title">
-      <div class="section-heading">
-        <div class="eyebrow">Related</div>
-        <h2 id="related-title" style="font-size: 26px">More like this</h2>
-      </div>
-      <div class="grid">
-        <ProjectCard v-for="(p, i) in related" :key="p.slug" :project="p" :index="i" />
-      </div>
+      <header class="work-group-head">
+        <h2 id="related-title">More like this</h2>
+      </header>
+      <ul class="work-list">
+        <li v-for="p in related" :key="p.slug" class="work-row">
+          <router-link class="work-main" :to="`/work/${p.slug}`">
+            <span class="work-name">{{ p.name }}</span>
+            <span class="work-what">{{ p.tagline }}</span>
+            <span class="work-meta">{{ p.stack.slice(0, 2).join(" · ") }}</span>
+          </router-link>
+          <a v-if="p.links.site" class="work-site" :href="p.links.site" target="_blank" rel="noopener noreferrer" :aria-label="`${p.name} website`">site ↗</a>
+        </li>
+      </ul>
     </section>
 
     <nav class="pager" aria-label="Previous and next project">

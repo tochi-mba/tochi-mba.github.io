@@ -12,7 +12,8 @@ function site(pages: Record<string, string>) {
     "robots.txt",
     "site.webmanifest",
     "schema/project.schema.json",
-    "fonts/inter-latin.woff2",
+    "fonts/bricolage-grotesque-latin.woff2",
+    "fonts/martian-mono-latin.woff2",
   ]) {
     mkdirSync(join(dir, f, ".."), { recursive: true });
     writeFileSync(join(dir, f), "");

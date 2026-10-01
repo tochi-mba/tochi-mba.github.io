@@ -123,6 +123,28 @@
       "type": "integer",
       "minimum": 2015,
       "maximum": 2100
+    },
+    "packages": {
+      "type": "object",
+      "properties": {
+        "npm": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "pypi": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": false
     }
   },
   "required": [

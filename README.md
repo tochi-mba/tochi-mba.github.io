@@ -11,7 +11,9 @@ never linked; any repository can opt out. The contract is in
 
 Vue 3 and TypeScript on Vite, prerendered to static HTML with vite-ssg, deployed to GitHub Pages by
 Actions. No runtime framework for the content: every page exists as HTML before JavaScript runs.
-The GitHub activity section is fetched at build time and rebuilt daily.
+Releases, package versions and GitHub activity are fetched at build time and the site is rebuilt
+daily, so no version or count on it is ever typed by hand. The design rules are in
+[docs/design.md](docs/design.md).
 
 ## Commands
 
@@ -34,12 +36,17 @@ at `schema/project.schema.json`.
 | `data/profile.json` | Who I am: narrative, skills, experience, contact. |
 | `scripts/schema.mjs` | The metadata contract and the publication policy. |
 | `scripts/build-data.mjs` | Validates data, applies the policy, writes `src/generated/site-data.json`. |
-| `scripts/fetch-activity.mjs` | GitHub contribution calendar and language mix, at build time. |
+| `scripts/fetch-activity.mjs` | GitHub calendar, languages, releases, commit counts and merged pull requests, at build time. |
+| `scripts/fetch-registry.mjs` | npm and PyPI versions and downloads for the packages a project declares. No token. |
+| `scripts/fetch-sites.mjs` | Finds each repository's GitHub Pages site, so every live site is linked. No token. |
+| `scripts/shipping.mjs` | Turns all of that into the build log and each project's proof line. Pure, unit-tested. |
+| `scripts/fonts.mjs` | Copies the two OFL typefaces from their packages into `public/fonts`. |
 | `scripts/check-site.mjs` | Fails the build on a dead link, a private link, a missing title and so on. |
-| `src/` | The Vue app: views, components, the REX stylesheet. |
+| `src/` | The Vue app: views, components, and the stylesheet split into tokens, base, layout and components. |
 | `tests/unit` | Vitest: schema, policy, generated data, components, the site checker. |
 | `tests/e2e` | Playwright: pages, filters, interactions, accessibility (axe). |
 
 ## Licence
 
-Code: MIT. The REX visual system and the written content are © Tochi Mba.
+Code: MIT. The written content is © Tochi Mba. Bricolage Grotesque and Martian Mono are under the SIL
+Open Font License; see `public/fonts/LICENSE.txt`.

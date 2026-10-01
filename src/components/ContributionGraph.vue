@@ -2,7 +2,9 @@
 import { computed, ref } from "vue";
 import { level } from "../activity";
 
-const props = defineProps<{ days: [string, number][]; total: number }>();
+const props = withDefaults(defineProps<{ days: [string, number][]; total: number; period?: string }>(), {
+  period: "in the last year",
+});
 
 const cell = 12;
 const gap = 3;
@@ -42,7 +44,7 @@ const months = computed(() => {
   let last = -1;
   for (const c of cells.value) {
     const d = new Date(`${c.date}T00:00:00Z`);
-    if (d.getUTCMonth() !== last && d.getUTCDate() <= 7) {
+    if (d.getUTCMonth() !== last && d.getUTCDate() <= 7 && c.x + 24 <= width.value) {
       last = d.getUTCMonth();
       out.push({ x: c.x, label: d.toLocaleString("en-GB", { month: "short", timeZone: "UTC" }) });
     }
@@ -75,7 +77,7 @@ const activeDays = computed(() => props.days.filter((d) => d[1] > 0).length);
         :width="width"
         :height="height + 18"
         role="img"
-        :aria-label="`${total} contributions in the last year, ${activeDays} active days, busiest day ${busiest.count} on ${dateLabel(busiest.date)}`"
+        :aria-label="`${total} contributions ${period}, ${activeDays} active days, busiest day ${busiest.count} on ${dateLabel(busiest.date)}`"
       >
         <text v-for="m in months" :key="m.x + m.label" class="contrib-month" :x="m.x" y="-6">{{ m.label }}</text>
         <rect
@@ -87,7 +89,7 @@ const activeDays = computed(() => props.days.filter((d) => d[1] > 0).length);
           :y="c.y"
           :width="cell"
           :height="cell"
-          rx="3"
+          rx="1"
           :style="{ '--i': c.order }"
           @pointerenter="active = c"
           @pointerleave="active = null"
@@ -100,7 +102,7 @@ const activeDays = computed(() => props.days.filter((d) => d[1] > 0).length);
       </svg>
     </div>
     <figcaption class="contrib-caption">
-      <span class="contrib-live" role="status" aria-live="polite">{{ active ? describe(active) : `${total} contributions in the last year · ${activeDays} active days` }}</span>
+      <span class="contrib-live" role="status" aria-live="polite">{{ active ? describe(active) : `${total} contributions ${period} · ${activeDays} active days` }}</span>
       <span class="contrib-legend" aria-hidden="true">
         Less
         <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i>
@@ -122,20 +124,19 @@ const activeDays = computed(() => props.days.filter((d) => d[1] > 0).length);
   overscroll-behavior-x: contain;
   padding-bottom: 4px;
   scrollbar-width: thin;
-  scrollbar-color: var(--line) transparent;
+  scrollbar-color: var(--rule) transparent;
 }
 .contrib-svg {
   display: block;
   max-width: none;
 }
 .contrib-month {
-  fill: var(--muted);
-  font-family: var(--font);
-  font-size: 10px;
-  font-weight: 600;
+  fill: var(--text-3);
+  font-family: var(--mono);
+  font-size: 9.5px;
 }
 .contrib-cell {
-  fill: var(--raised);
+  fill: var(--bg-2);
   stroke: transparent;
   transition: fill var(--t-fast), stroke var(--t-fast);
 }
@@ -177,8 +178,8 @@ const activeDays = computed(() => props.days.filter((d) => d[1] > 0).length);
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
-  font-size: 13px;
-  color: var(--muted);
+  font-size: var(--fs-mono-s);
+  color: var(--text-3);
   font-family: var(--mono);
 }
 .contrib-live {
@@ -192,8 +193,8 @@ const activeDays = computed(() => props.days.filter((d) => d[1] > 0).length);
 .contrib-legend i {
   width: 11px;
   height: 11px;
-  border-radius: 3px;
-  background: var(--raised);
+  border-radius: 1px;
+  background: var(--bg-2);
 }
 .contrib-legend .l1 {
   background: var(--heat-1);

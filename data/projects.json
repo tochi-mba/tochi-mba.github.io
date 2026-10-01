@@ -1,5 +1,4 @@
 {
-  "$schema": "./project.schema.json",
   "version": 1,
   "owner": "tochi-mba",
   "projects": [
@@ -58,14 +57,18 @@
         "source": "https://github.com/tochi-mba/weftai",
         "package": "https://www.npmjs.com/package/weftai"
       },
-      "year": 2026
+      "year": 2026,
+      "packages": {
+        "npm": ["weftai", "@weftai/providers", "@weftai/mcp", "@weftai/cli", "@weftai/testing"],
+        "pypi": ["weftai", "weftai-providers", "weftai-mcp", "weftai-cli", "weftai-testing"]
+      }
     },
     {
       "repo": "Android_Headless_Mirror",
       "slug": "android-headless-mirror",
       "name": "Android Headless Mirror",
       "tagline": "Your Android phone, in one window on your Windows PC, with its own screen off.",
-      "description": "Plug the phone in and it appears on screen. The app waits in the tray, opens when an authorised phone connects and restarts the mirror if it crashes. Two fingers on a Windows Precision Touchpad become two fingers on the phone. A GPU-rendered soft background, a live navigator, phone controls and phone settings all live in a single window, with a first-run tour and a CLI. Version 2.3.1 is released with a signed-off website, 26 Playwright site tests and UI Automation tests against the real window.",
+      "description": "Plug the phone in and it appears on screen. The app waits in the tray, opens when an authorised phone connects and restarts the mirror if it crashes. Two fingers on a Windows Precision Touchpad become two fingers on the phone. A GPU-rendered soft background, a live navigator, phone controls and phone settings all live in a single window, with a first-run tour and a CLI. Every release ships with a signed-off website, 26 Playwright site tests and UI Automation tests against the real window.",
       "highlights": [
         "Real touchpad gestures mapped to the phone: pinch, rotate, pan",
         "Blurred live background rendered on the graphics card at 60 fps",

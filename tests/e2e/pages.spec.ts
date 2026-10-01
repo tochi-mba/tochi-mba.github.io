@@ -1,6 +1,10 @@
 import { expect, test } from "@playwright/test";
+import type { ShipEvent } from "../../src/data";
 import site from "../../src/generated/site-data.json" with { type: "json" };
 import { open } from "./helpers";
+
+// The generated file's inferred type depends on the data fetched at build time; this is its contract.
+const shipping = site.shipping as unknown as ShipEvent[];
 
 const routes = ["/", "/work", "/about", ...site.projects.slice(0, 6).map((p) => `/work/${p.slug}`)];
 
@@ -29,14 +33,29 @@ test("the home page is prerendered: content exists before JavaScript runs", asyn
   const page = await context.newPage();
   await page.goto("/");
   await expect(page.locator("h1")).toContainText("Agent systems");
-  await expect(page.locator(".card").first()).toBeVisible();
+  await expect(page.locator(".case").first()).toBeVisible();
   await expect(page.locator(".principle").first()).toBeVisible();
+  if (shipping.length) {
+    await expect(page.locator(".ribbon a.tick")).toHaveCount(shipping.length);
+    await expect(page.locator(".ribbon-now strong")).toHaveText(shipping[0]!.title);
+  }
   await context.close();
+});
+
+test("every project with a website links to it from the work page", async ({ page }) => {
+  await open(page, "/work");
+  await page.locator(".archive-fold summary").click();
+  const hrefs = await page
+    .locator("a[href^='https://']")
+    .evaluateAll((as) => as.map((a) => (a as HTMLAnchorElement).href));
+  for (const p of site.projects.filter((x) => x.links.site)) {
+    expect(hrefs, p.slug).toContain(new URL(p.links.site!).href);
+  }
 });
 
 test("navigation marks the current page and moves focus to the heading", async ({ page, isMobile }) => {
   await open(page, "/");
-  await expect(page.locator('nav a[aria-current="page"]')).toHaveText("Home");
+  await expect(page.locator('nav a[aria-current="page"]')).toHaveCount(0);
   if (isMobile) await page.getByRole("button", { name: /toggle navigation/i }).click();
   await page.getByRole("link", { name: "Work", exact: true }).click();
   await expect(page).toHaveURL(/\/work$/);

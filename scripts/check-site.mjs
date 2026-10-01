@@ -4,6 +4,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { DRAFT_WORDS } from "./shipping.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -20,8 +21,6 @@ export function checkSite(dir) {
   const data = JSON.parse(readFileSync(resolve(root, "data/projects.json"), "utf8"));
   const privateRepos = data.projects.filter((p) => p.visibility === "private").map((p) => p.repo.toLowerCase());
   const hiddenNames = data.projects.filter((p) => !p.display).map((p) => p.name);
-  // Case matters: "todo-list" is a project, TODO is a draft marker.
-  const drafts = /\b(TODO|FIXME|TBD|XXX)\b|lorem ipsum|coming soon/;
 
   const sitemap = existsSync(join(dir, "sitemap.xml")) ? readFileSync(join(dir, "sitemap.xml"), "utf8") : "";
   const sitemapUrls = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]));
@@ -39,7 +38,7 @@ export function checkSite(dir) {
     if (rel !== "404.html" && !/<link rel="canonical" href="https:\/\/tochi-mba\.github\.io\//.test(html))
       say("no canonical");
     if (/\bhttp:\/\//.test(html)) say("http:// link");
-    if (drafts.test(html.replace(/<script[\s\S]*?<\/script>/g, ""))) say("draft words");
+    if (DRAFT_WORDS.test(html.replace(/<script[\s\S]*?<\/script>/g, ""))) say("draft words");
 
     for (const m of html.matchAll(/<a [^>]*target="_blank"[^>]*>/g)) {
       if (!/rel="noopener noreferrer"/.test(m[0])) say(`target=_blank without rel: ${m[0].slice(0, 80)}`);
@@ -71,7 +70,8 @@ export function checkSite(dir) {
     "robots.txt",
     "site.webmanifest",
     "schema/project.schema.json",
-    "fonts/inter-latin.woff2",
+    "fonts/bricolage-grotesque-latin.woff2",
+    "fonts/martian-mono-latin.woff2",
   ]) {
     if (!existsSync(join(dir, required))) problems.push(`missing ${required}`);
   }

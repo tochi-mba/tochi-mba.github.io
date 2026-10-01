@@ -47,8 +47,6 @@ onMounted(() => {
 
 <template>
   <a class="skip-link" href="#main">Skip to content</a>
-  <div class="ambient ambient-one" aria-hidden="true"></div>
-  <div class="ambient ambient-two" aria-hidden="true"></div>
   <SiteHeader />
   <main id="main">
     <router-view v-slot="{ Component }">
