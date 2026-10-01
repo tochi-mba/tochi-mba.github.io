@@ -18,7 +18,8 @@ interface Activity {
   commitsByRepo?: { repo: string; total: number; days: [string, number][] }[];
 }
 
-export const activity = generated as Activity;
+// The JSON's inferred type follows whatever GitHub returned at build time; the declared shape is the contract.
+export const activity = generated as unknown as Activity;
 
 /** A sentence for a time ago, kept short enough for the hero panel. */
 export function timeAgo(iso: string, now = Date.now()): string {

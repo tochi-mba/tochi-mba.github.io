@@ -123,7 +123,8 @@ interface SiteData {
   lanes: Lane[];
 }
 
-export const site = generated as SiteData;
+// The JSON's inferred type follows whatever the APIs returned at build time; the declared shape is the contract.
+export const site = generated as unknown as SiteData;
 export const profile = site.profile;
 export const totals = site.totals;
 export const projects = site.projects;

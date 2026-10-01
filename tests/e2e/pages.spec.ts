@@ -1,6 +1,10 @@
 import { expect, test } from "@playwright/test";
+import type { ShipEvent } from "../../src/data";
 import site from "../../src/generated/site-data.json" with { type: "json" };
 import { open } from "./helpers";
+
+// The generated file's inferred type depends on the data fetched at build time; this is its contract.
+const shipping = site.shipping as unknown as ShipEvent[];
 
 const routes = ["/", "/work", "/about", ...site.projects.slice(0, 6).map((p) => `/work/${p.slug}`)];
 
@@ -31,9 +35,9 @@ test("the home page is prerendered: content exists before JavaScript runs", asyn
   await expect(page.locator("h1")).toContainText("Agent systems");
   await expect(page.locator(".case").first()).toBeVisible();
   await expect(page.locator(".principle").first()).toBeVisible();
-  if (site.shipping.length) {
-    await expect(page.locator(".ribbon a.tick")).toHaveCount(site.shipping.length);
-    await expect(page.locator(".ribbon-now strong")).toHaveText(site.shipping[0]!.title);
+  if (shipping.length) {
+    await expect(page.locator(".ribbon a.tick")).toHaveCount(shipping.length);
+    await expect(page.locator(".ribbon-now strong")).toHaveText(shipping[0]!.title);
   }
   await context.close();
 });

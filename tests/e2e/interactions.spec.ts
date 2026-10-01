@@ -1,6 +1,10 @@
 import { expect, test } from "@playwright/test";
+import type { ShipEvent } from "../../src/data";
 import site from "../../src/generated/site-data.json" with { type: "json" };
 import { open, settle } from "./helpers";
+
+// The generated file's inferred type depends on the data fetched at build time; this is its contract.
+const shipping = site.shipping as unknown as ShipEvent[];
 
 test("the header earns its border on scroll", async ({ page }) => {
   await open(page, "/");
@@ -26,7 +30,7 @@ test("reduced motion: everything is visible at once, nothing animates, no animat
   await open(page, "/");
   await expect(page.locator("html")).not.toHaveClass(/motion/);
   await expect(page.locator(".case").last()).toHaveCSS("opacity", "1");
-  if (site.shipping.length) {
+  if (shipping.length) {
     const mark = page.locator(".ribbon .tick .mark").first();
     await expect(mark).toHaveCSS("opacity", "1");
     expect(await mark.evaluate((el) => getComputedStyle(el).animationName)).toBe("none");
@@ -35,18 +39,18 @@ test("reduced motion: everything is visible at once, nothing animates, no animat
 });
 
 test("the build log draws every event and moves with the keyboard", async ({ page, isMobile }) => {
-  test.skip(!site.shipping.length, "no shipping data in this build");
+  test.skip(!shipping.length, "no shipping data in this build");
   await open(page, "/");
   const ticks = page.locator(".ribbon a.tick");
-  await expect(ticks).toHaveCount(site.shipping.length);
+  await expect(ticks).toHaveCount(shipping.length);
   const caption = page.locator(".ribbon-now strong");
-  await expect(caption).toHaveText(site.shipping[0]!.title);
+  await expect(caption).toHaveText(shipping[0]!.title);
   await expect(page.locator('.ribbon a.tick[tabindex="0"]')).toHaveCount(1);
-  if (!isMobile && site.shipping.length > 1) {
+  if (!isMobile && shipping.length > 1) {
     await page.locator('.ribbon a.tick[tabindex="0"]').focus();
     await page.keyboard.press("ArrowLeft");
-    await expect(caption).toHaveText(site.shipping[1]!.title);
-    await expect(page.locator(".ribbon a.tick").nth(site.shipping.length - 2)).toBeFocused();
+    await expect(caption).toHaveText(shipping[1]!.title);
+    await expect(page.locator(".ribbon a.tick").nth(shipping.length - 2)).toBeFocused();
   }
 });
 
