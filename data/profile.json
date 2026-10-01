@@ -1,0 +1,119 @@
+{
+  "$schema": "./profile.schema.json",
+  "name": "Tochi Mba",
+  "handle": "tochi-mba",
+  "company": "REX Technologies",
+  "role": "AI engineer and full-stack developer",
+  "headline": "Agent systems that ship.",
+  "lede": "I build production AI systems and the software around them: assistant hubs, workflow runtimes, the services that keep a person's data and secrets where they belong, and the desktop and mobile apps that make it all usable. First Class BSc Computer Science with Cybersecurity.",
+  "location": "United Kingdom",
+  "email": "tochimba26@gmail.com",
+  "github": "https://github.com/tochi-mba",
+  "site": "https://tochi-mba.github.io/",
+  "availability": "Open to AI engineering and full-stack roles",
+  "now": [
+    {
+      "label": "Flint",
+      "detail": "PC-to-Fire TV casting, hardware encode end to end",
+      "slug": "flint"
+    },
+    {
+      "label": "LUCY",
+      "detail": "assistant hub and its eight-service family",
+      "slug": "lucy-assistant"
+    },
+    {
+      "label": "Android Headless Mirror",
+      "detail": "2.3.1 shipped, seven features planned",
+      "slug": "android-headless-mirror"
+    }
+  ],
+  "principles": [
+    {
+      "title": "Data is never instructions.",
+      "body": "Every service I build hands the model what a person said as a claim with provenance, not as a command. Four of the LUCY services make that an ADR with a test behind it."
+    },
+    {
+      "title": "The sandbox is the feature.",
+      "body": "Environments-api is remote code execution as a product, so path containment, PID ownership and sandbox tiers come first and the polish comes after."
+    },
+    {
+      "title": "Every gate, everywhere.",
+      "body": "Lint, types, imports and tests at 100% branch coverage, the same four checks in every family repository, with a parity script that notices when one drifts."
+    }
+  ],
+  "skills": [
+    {
+      "group": "AI and agents",
+      "items": [
+        "Agent orchestration",
+        "Declarative workflow plans",
+        "MCP (both directions)",
+        "Claude, OpenAI, Ollama and 50+ providers",
+        "Memory, persona and retrieval design",
+        "Prompt-injection defence"
+      ]
+    },
+    {
+      "group": "Backend",
+      "items": [
+        "Python 3.12+",
+        "FastAPI",
+        "TypeScript / Node",
+        "REST and OpenAPI",
+        "OAuth and credential vaults",
+        "SQL and durable event streams"
+      ]
+    },
+    {
+      "group": "Desktop and mobile",
+      "items": [
+        "C# / .NET and WPF",
+        "Rust",
+        "Kotlin and Compose for TV",
+        "Android",
+        "DXGI and Media Foundation",
+        "ADB and scrcpy"
+      ]
+    },
+    {
+      "group": "Web",
+      "items": [
+        "Vue and Nuxt",
+        "Vite",
+        "Chrome Extensions (MV3)",
+        "Accessible, static-first sites",
+        "Playwright and Vitest"
+      ]
+    },
+    {
+      "group": "Engineering practice",
+      "items": [
+        "100% branch coverage gates",
+        "Cross-language golden vectors",
+        "ADRs",
+        "GitHub Actions and OIDC",
+        "Self-updating installers",
+        "Security-first design"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "title": "Founder and engineer",
+      "org": "REX Technologies",
+      "period": "2025 \u2013 present",
+      "summary": "Design, build and ship the REX product line: the LUCY assistant hub and its service family, the weftai workflow runtime (npm and PyPI), Android Headless Mirror, Flint, textwire, chika and clyde. Every repository carries the same gates and the same visual system.",
+      "source": "github"
+    }
+  ],
+  "education": [
+    {
+      "title": "BSc (Hons) Computer Science with Cybersecurity",
+      "org": "First Class Honours",
+      "period": "Completed",
+      "summary": "",
+      "source": "cv"
+    }
+  ]
+}

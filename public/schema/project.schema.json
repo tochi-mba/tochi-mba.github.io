@@ -1,0 +1,147 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "repo": {
+      "type": "string",
+      "minLength": 1
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60
+    },
+    "tagline": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1200
+    },
+    "highlights": {
+      "maxItems": 8,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 160
+      }
+    },
+    "stack": {
+      "maxItems": 12,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 32
+      }
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "product",
+        "ai",
+        "service",
+        "tool",
+        "web",
+        "early"
+      ]
+    },
+    "family": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "wip",
+        "stable",
+        "archived"
+      ]
+    },
+    "featured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "order": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "public",
+        "private"
+      ]
+    },
+    "display": {
+      "type": "boolean"
+    },
+    "publicSafe": {
+      "default": false,
+      "type": "boolean"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "site": {
+          "type": "string",
+          "format": "starts_with",
+          "pattern": "^https:\\/\\/.*"
+        },
+        "source": {
+          "type": "string",
+          "format": "starts_with",
+          "pattern": "^https:\\/\\/.*"
+        },
+        "download": {
+          "type": "string",
+          "format": "starts_with",
+          "pattern": "^https:\\/\\/.*"
+        },
+        "package": {
+          "type": "string",
+          "format": "starts_with",
+          "pattern": "^https:\\/\\/.*"
+        }
+      },
+      "additionalProperties": false
+    },
+    "year": {
+      "type": "integer",
+      "minimum": 2015,
+      "maximum": 2100
+    }
+  },
+  "required": [
+    "repo",
+    "slug",
+    "name",
+    "tagline",
+    "description",
+    "highlights",
+    "stack",
+    "category",
+    "status",
+    "order",
+    "visibility",
+    "display",
+    "links",
+    "year"
+  ],
+  "additionalProperties": false,
+  "$id": "https://tochi-mba.github.io/schema/project.schema.json",
+  "title": "Portfolio project metadata"
+}

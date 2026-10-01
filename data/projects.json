@@ -1,0 +1,922 @@
+{
+  "$schema": "./project.schema.json",
+  "version": 1,
+  "owner": "tochi-mba",
+  "projects": [
+    {
+      "repo": "LUCY-assistant",
+      "slug": "lucy-assistant",
+      "name": "LUCY",
+      "tagline": "An assistant hub with a family of eight services behind it.",
+      "description": "Lucy is the hub: health, readiness, identity, sessions, a durable conversation runner, resumable event streaming, capability packs, child helpers, watches, MCP in both directions and a command-line client. It turns a request into a plan of named operations and feeds earlier results into later steps by reference, so the model never copies an identifier. Memory, persona and pinned account facts reach the model as separate sections whose retrieval scores are never merged.",
+      "highlights": [
+        "Durable conversation runner with resumable event streaming",
+        "Declarative plans: steps reference earlier results as $hits, not copied text",
+        "MCP server and client in the same hub",
+        "Any catalogued provider or a local runtime; lucy talk from a terminal",
+        "make check runs the same four gates in all nine family repositories"
+      ],
+      "stack": ["Python 3.12", "FastAPI", "MCP", "weftai", "uv"],
+      "category": "ai",
+      "family": "lucy",
+      "role": "hub",
+      "status": "active",
+      "featured": true,
+      "order": 10,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/LUCY-assistant/",
+        "source": "https://github.com/tochi-mba/LUCY-assistant"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "weftai",
+      "slug": "weftai",
+      "name": "weftai",
+      "tagline": "Composable AI workflows: the model plans, your code executes, results never travel through the model.",
+      "description": "A model emits a declarative plan of named steps. Your application validates it against Zod schemas and runs it. Results flow between steps by name and stay in a session-scoped store, so one tool call can chain three dependent lookups with zero identifiers copied by the model. Published as five npm packages under one version and as the same library on PyPI, with the same plan format.",
+      "highlights": [
+        "One tool call, three dependent lookups, zero identifiers copied by the model",
+        "Operations defined once: name, description, Zod input schema, output type, handler",
+        "Previews for the model, full sets for the code; positions index the full set",
+        "npm (weftai, @weftai/*) and PyPI releases from one versioned monorepo",
+        "Property-based tests with fast-check, Biome, changesets"
+      ],
+      "stack": ["TypeScript", "Zod", "pnpm workspaces", "Vitest", "Python"],
+      "category": "ai",
+      "family": "lucy",
+      "role": "runtime",
+      "status": "active",
+      "featured": true,
+      "order": 20,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/weftai/",
+        "source": "https://github.com/tochi-mba/weftai",
+        "package": "https://www.npmjs.com/package/weftai"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "Android_Headless_Mirror",
+      "slug": "android-headless-mirror",
+      "name": "Android Headless Mirror",
+      "tagline": "Your Android phone, in one window on your Windows PC, with its own screen off.",
+      "description": "Plug the phone in and it appears on screen. The app waits in the tray, opens when an authorised phone connects and restarts the mirror if it crashes. Two fingers on a Windows Precision Touchpad become two fingers on the phone. A GPU-rendered soft background, a live navigator, phone controls and phone settings all live in a single window, with a first-run tour and a CLI. Version 2.3.1 is released with a signed-off website, 26 Playwright site tests and UI Automation tests against the real window.",
+      "highlights": [
+        "Real touchpad gestures mapped to the phone: pinch, rotate, pan",
+        "Blurred live background rendered on the graphics card at 60 fps",
+        "Per-user installer, no admin rights, scrcpy bundled, auto-update",
+        "Repository rules that keep the site, the app and the CLI in agreement",
+        "Seven more features planned across twelve PRs, ~150 settings"
+      ],
+      "stack": ["C#", ".NET", "WPF", "scrcpy", "ADB", "Playwright"],
+      "category": "product",
+      "status": "active",
+      "featured": true,
+      "order": 30,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/Android_Headless_Mirror/",
+        "source": "https://github.com/tochi-mba/Android_Headless_Mirror",
+        "download": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/latest"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "flint-app-firestick-cast",
+      "slug": "flint",
+      "name": "Flint",
+      "tagline": "Cast a PC screen to a Fire TV at the lowest latency the hardware allows.",
+      "description": "A Windows host and a Compose-for-TV receiver. Desktop Duplication capture, colour conversion and downscale on the GPU's video processor, hardware H.264 encode, and a receiver that decodes and renders it, proven end to end on a Fire TV Stick. The REX wire protocol is implemented in Rust, C# and Kotlin and held byte-identical by a committed cross-language vector corpus. A capability prober reports, per device pair, which modes are actually possible, and the UI never presents an unavailable mode as a working control.",
+      "highlights": [
+        "GPU capture, convert, downscale and hardware encode on Windows",
+        "Fire TV receiver in Compose for TV: remote-operable, overscan-safe",
+        "One wire protocol in Rust, C# and Kotlin, checked by golden vectors",
+        "Authenticated, read-only ADB identification honouring the TV's consent prompt",
+        "Rolling releases; self-updating per-user installer with no .NET to install"
+      ],
+      "stack": ["C#", "Rust", "Kotlin", "DXGI", "Media Foundation", "Compose for TV"],
+      "category": "product",
+      "status": "active",
+      "featured": true,
+      "order": 40,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/flint-app-firestick-cast/",
+        "source": "https://github.com/tochi-mba/flint-app-firestick-cast"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "textwire",
+      "slug": "textwire",
+      "name": "textwire",
+      "tagline": "Browse the web and search from a phone with no data connection, over plain SMS.",
+      "description": "The phone texts a request to a number the server owns. The server fetches the page or runs the search, reduces it to readable text, compresses it with a trained zstd dictionary and sends it back as numbered SMS frames. The app reassembles them, asks again for any that went missing, and shows a clean, tappable page. Built and tested end to end in process, including lost and reordered texts, and runnable with no phone and no account.",
+      "highlights": [
+        "Trained zstd dictionary and a framed wire format with golden vectors",
+        "Retransmission of lost and reordered SMS frames",
+        "make simulate runs the real server against a virtual phone, sends nothing",
+        "A hard daily SMS budget caps the cost of any mistake",
+        "Landing page and handbook built from the repository's own Markdown"
+      ],
+      "stack": ["Python", "Android", "Kotlin", "zstd", "Twilio"],
+      "category": "product",
+      "status": "active",
+      "featured": true,
+      "order": 50,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/textwire/",
+        "source": "https://github.com/tochi-mba/textwire"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "chika",
+      "slug": "chika",
+      "name": "Chika",
+      "tagline": "An agentic assistant with full browser control, installed like a real app on Windows, macOS and Linux.",
+      "description": "Chika reads your open tabs, navigates pages, extracts data, takes screenshots and answers questions about anything you can see in Chrome, powered by Claude, GPT-4o or other providers. Each platform gets a real installer and a real uninstaller, per-user with no admin rights, and the CLI auto-updates on launch when upstream CI is green. A one-command extension install gives it hands in the browser.",
+      "highlights": [
+        "Chrome extension: read tabs, navigate, click, screenshot, watch for changes",
+        "Native installers for Windows, macOS, Debian and any Linux distro",
+        "Auto-update gated on green CI; chika doctor verifies the install",
+        "Provider and key setup in-app, changeable at any time"
+      ],
+      "stack": ["Python 3.11", "Chrome Extension", "Claude", "OpenAI"],
+      "category": "product",
+      "status": "active",
+      "featured": true,
+      "order": 60,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/chika/",
+        "source": "https://github.com/tochi-mba/chika"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "clyde",
+      "slug": "clyde",
+      "name": "clyde",
+      "tagline": "The Claude Code CLI as an OpenAI-compatible model provider on localhost.",
+      "description": "Point anything that speaks POST /v1/chat/completions at it and the replies come from claude -p under your own login, with no API key. It is deliberately not an agent: every call runs with no tools, no MCP servers, no skills and an empty working directory, and that lockdown is checked at startup rather than assumed. /ready reports exactly what the probe saw load and refuses every call until it was nothing.",
+      "highlights": [
+        "OpenAI wire format: /v1/models, /v1/chat/completions, JSON schema answers",
+        "Startup probe proves the lockdown; refuses calls otherwise",
+        "Loopback only, documented as such",
+        "Design doc records the measurements that chose each CLI flag"
+      ],
+      "stack": ["Python 3.12", "FastAPI", "uv", "Claude Code"],
+      "category": "ai",
+      "family": "lucy",
+      "role": "provider",
+      "status": "active",
+      "order": 70,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/clyde/",
+        "source": "https://github.com/tochi-mba/clyde"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "Keyring-api",
+      "slug": "keyring",
+      "name": "keyring",
+      "tagline": "Accounts, profiles and credentials: the vault the rest of the family authenticates against.",
+      "description": "One person logs in once. Their profiles hold the credentials for third-party services, and any service that needs one asks keyring for a usable credential at the moment it needs it: a refreshed OAuth token, an API key, or the fields for a login form. No other service stores a secret, and no endpoint ever hands a stored secret back out.",
+      "highlights": [
+        "OAuth consent flows and token refresh on behalf of a person",
+        "Internal credential resolution for services acting for a person",
+        "Master-key encryption at rest"
+      ],
+      "stack": ["Python 3.12", "FastAPI", "OAuth 2"],
+      "category": "service",
+      "family": "lucy",
+      "role": "vault",
+      "status": "active",
+      "order": 100,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/Keyring-api/",
+        "source": "https://github.com/tochi-mba/Keyring-api"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "Memory-api",
+      "slug": "memory",
+      "name": "memory",
+      "tagline": "Where what an assistant learns about a person goes, with provenance, confidence and corrections.",
+      "description": "A memory is a remembered claim with everything needed to judge it later: who asserted it, where it came from, how confident the writer was, when it was true and whether it has since been corrected. Episodes, facts, procedures and summaries; account, profile and session scopes; stated, observed, inferred and untrusted trust levels.",
+      "highlights": [
+        "Four kinds, three scopes, four trust levels",
+        "Episodes stay in their session; facts cross sessions",
+        "Everything shown back to the person it is about"
+      ],
+      "stack": ["Python 3.12", "FastAPI"],
+      "category": "service",
+      "family": "lucy",
+      "role": "memory",
+      "status": "active",
+      "order": 110,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/Memory-api/",
+        "source": "https://github.com/tochi-mba/Memory-api"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "Persona-api",
+      "slug": "persona",
+      "name": "persona",
+      "tagline": "Somewhere for an assistant to keep a model of itself and get it back later.",
+      "description": "A small identity card plus two kinds of knowledge the assistant writes for itself: typed fields it defines and fills, and free-text notes. Both are searchable, carry provenance and can be pinned into the identity block loaded at the start of a turn. One persona per profile, so a work assistant and a home assistant are different people. Four rules, each an ADR with a test: a persona is data, never instructions.",
+      "highlights": [
+        "Assistant-defined schema that grows as it learns",
+        "Pinned identity block per turn",
+        "Four ADRs enforced by tests"
+      ],
+      "stack": ["Python 3.12", "FastAPI"],
+      "category": "service",
+      "family": "lucy",
+      "role": "persona",
+      "status": "active",
+      "order": 120,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/Persona-api/",
+        "source": "https://github.com/tochi-mba/Persona-api"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "User-api",
+      "slug": "user",
+      "name": "user",
+      "tagline": "Structured data about the person an assistant is talking to, returned as claims with provenance.",
+      "description": "Preferred name, timezone, household, allergies, what they are working on, what they said last month. Everything comes back with provenance so it can be rendered as a claim rather than obeyed as an instruction; anything that looks like a credential is refused rather than stored; forget that reaches the bytes on disk; and no request can name a person other than the one its token was minted for.",
+      "highlights": [
+        "Credential-shaped values refused",
+        "Delete means the bytes on disk",
+        "Token-bound: no cross-person access"
+      ],
+      "stack": ["Python 3.12", "FastAPI"],
+      "category": "service",
+      "family": "lucy",
+      "role": "user",
+      "status": "active",
+      "order": 130,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/User-api/",
+        "source": "https://github.com/tochi-mba/User-api"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "Settings-api",
+      "slug": "settings",
+      "name": "settings",
+      "tagline": "One place a person decides how every service in the family behaves for them.",
+      "description": "Which country music searches resolve against, how long an idle workspace stays up, which model answers, which providers must never see a query. Decisions that belong to the person, lifted out of environment variables that applied to everybody on the box.",
+      "highlights": [
+        "Per-person, per-service settings over HTTP",
+        "settings-client consumed by the other services as a tagged source"
+      ],
+      "stack": ["Python 3.12", "FastAPI"],
+      "category": "service",
+      "family": "lucy",
+      "role": "settings",
+      "status": "active",
+      "order": 140,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/Settings-api/",
+        "source": "https://github.com/tochi-mba/Settings-api"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "Environments-api",
+      "slug": "environments",
+      "name": "environments",
+      "tagline": "Sandboxed environments and shells, as an API. Remote code execution as a product.",
+      "description": "Creates isolated workspaces, runs shells in them, reports what is running and lets an assistant kill or wait on it. Because it executes arbitrary commands for remote callers, the sandbox tiers, path containment and PID-ownership checks are the feature, not polish.",
+      "highlights": [
+        "Sandbox tiers reported by /ready",
+        "Path containment and PID ownership checks",
+        "Authenticates against keyring; per-person settings"
+      ],
+      "stack": ["Python 3.12", "FastAPI", "uv"],
+      "category": "service",
+      "family": "lucy",
+      "role": "environments",
+      "status": "active",
+      "order": 150,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/Environments-api/",
+        "source": "https://github.com/tochi-mba/Environments-api"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "Spotify-api",
+      "slug": "spotify-lookup",
+      "name": "spotify lookup",
+      "tagline": "Resolve batches of loosely specified tracks against Spotify, and control playback with every command confirmed on the device.",
+      "description": "Submit an array of { name, artist?, album?, year? } and get back one fully populated result per item, in order, each with its own status. It holds no Spotify credential of its own: every request carries the caller's keyring token and keyring hands over the headers for that person's own connection. 100% coverage.",
+      "highlights": [
+        "Batch, order-preserving resolution with per-item status",
+        "Playback commands confirmed on the device",
+        "No credential of its own"
+      ],
+      "stack": ["Python 3.12", "FastAPI", "Spotify Web API"],
+      "category": "service",
+      "family": "lucy",
+      "role": "music",
+      "status": "active",
+      "order": 160,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/Spotify-api/",
+        "source": "https://github.com/tochi-mba/Spotify-api"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "Web-search-api",
+      "slug": "web-search",
+      "name": "web search",
+      "tagline": "Scrape search results and pages, then synthesise an executive summary with any of 54 LLM providers.",
+      "description": "A FastAPI service that scrapes Google results and web pages and summarises them with local Ollama, every Anthropic and OpenAI model, and 51 more that speak OpenAI's wire format. API only, designed to sit behind an MCP server. Provider keys never live here; they are resolved per request from keyring for the person the request is for.",
+      "highlights": [
+        "54 providers behind one interface",
+        "Per-caller credentials, so answers are per caller",
+        "Local runtimes work with no keyring at all"
+      ],
+      "stack": ["Python 3.12", "FastAPI", "Ollama"],
+      "category": "service",
+      "family": "lucy",
+      "role": "research",
+      "status": "active",
+      "order": 170,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "site": "https://tochi-mba.github.io/Web-search-api/",
+        "source": "https://github.com/tochi-mba/Web-search-api"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "ai-context-bridge",
+      "slug": "ai-context-bridge",
+      "name": "AI Context Bridge",
+      "tagline": "Carry a conversation from ChatGPT to Claude to Gemini and back, in seconds.",
+      "description": "A Chrome extension that saves chat history from any of five AI platforms and injects it into another. Shadow DOM isolation keeps the injected UI clear of host styles; LZ-string compression keeps long conversations under a 5 MB cap; the save button disables while the AI is still generating; and every platform has ordered selector fallbacks against DOM changes.",
+      "highlights": [
+        "ChatGPT, Claude, Gemini, Perplexity and Grok: extract and inject",
+        "Native value setter and synthetic events for React and Vue inputs",
+        "Keyboard shortcuts, JSON import and export, UUID de-duplication"
+      ],
+      "stack": ["TypeScript", "Vite", "Chrome Manifest V3", "Vitest"],
+      "category": "tool",
+      "status": "stable",
+      "order": 200,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "source": "https://github.com/tochi-mba/ai-context-bridge"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "Flint-mobile",
+      "slug": "flint-mobile",
+      "name": "Flint mobile",
+      "tagline": "The phone-side companion to Flint.",
+      "description": "The mobile companion app for Flint, published through Flint's rolling mobile release.",
+      "highlights": [],
+      "stack": ["Android", "Kotlin"],
+      "category": "product",
+      "status": "wip",
+      "order": 210,
+      "visibility": "public",
+      "display": false,
+      "links": {
+        "source": "https://github.com/tochi-mba/Flint-mobile"
+      },
+      "year": 2026,
+      "reason": "Empty repository on GitHub; the phone app lives in flint-app-firestick-cast."
+    },
+    {
+      "repo": "maryjo-events",
+      "slug": "maryjo-events",
+      "name": "Mary-Jo Corporate Events",
+      "tagline": "A static client site with a branded contact form that posts to Google Apps Script.",
+      "description": "A static Nuxt, Vue and TypeScript website for a corporate events business. The branded contact form is built into the static site and posts to a Google Apps Script web app in production, with a local fallback route for development. Typecheck, lint, unit and end-to-end tests.",
+      "highlights": [
+        "Nuxt static generation",
+        "Serverless contact form via Apps Script",
+        "Playwright end-to-end tests"
+      ],
+      "stack": ["Nuxt", "Vue", "TypeScript", "Playwright"],
+      "category": "web",
+      "status": "stable",
+      "order": 300,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "source": "https://github.com/tochi-mba/maryjo-events"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "webtools",
+      "slug": "codeconnect",
+      "name": "CodeConnect",
+      "tagline": "A platform for creating, hosting and sharing JavaScript libraries.",
+      "description": "An early full-stack project: file hosting with a real-time search bar built on Levenshtein similarity, customisable HTML documentation sections, rendered code boxes with copy buttons, a node registry for CLI installs, collaboration, chat and a user dashboard.",
+      "highlights": ["Levenshtein-based live search", "User-authored documentation templates"],
+      "stack": ["PHP", "JavaScript"],
+      "category": "web",
+      "status": "archived",
+      "order": 310,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "source": "https://github.com/tochi-mba/webtools",
+        "site": "https://webtools-iota.vercel.app"
+      },
+      "year": 2024
+    },
+    {
+      "repo": "Playground",
+      "slug": "playground",
+      "name": "Playground",
+      "tagline": "Playground for Rex: spikes and a mobile test harness.",
+      "description": "A scratch repository for experiments before they earn a repository of their own.",
+      "highlights": [],
+      "stack": ["Kotlin", "Shell", "Python"],
+      "category": "tool",
+      "status": "wip",
+      "order": 320,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "source": "https://github.com/tochi-mba/Playground"
+      },
+      "year": 2026
+    },
+    {
+      "repo": "JigsawProject",
+      "slug": "jigsaw-project",
+      "name": "Jigsaw",
+      "tagline": "A full-stack Jigsaw client and server.",
+      "description": "",
+      "highlights": [],
+      "stack": ["TypeScript", "C#"],
+      "category": "early",
+      "status": "archived",
+      "order": 400,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "source": "https://github.com/tochi-mba/JigsawProject"
+      },
+      "year": 2024
+    },
+    {
+      "repo": "ToDoList",
+      "slug": "todo-list",
+      "name": "To-do list CLI",
+      "tagline": "A CLI to-do list with commands and arguments, built on string manipulation.",
+      "description": "",
+      "highlights": [],
+      "stack": ["C#"],
+      "category": "early",
+      "status": "archived",
+      "order": 410,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "source": "https://github.com/tochi-mba/ToDoList"
+      },
+      "year": 2024
+    },
+    {
+      "repo": "valentine-s",
+      "slug": "valentines",
+      "name": "Valentine's",
+      "tagline": "A small front-end piece.",
+      "description": "",
+      "highlights": [],
+      "stack": ["JavaScript"],
+      "category": "early",
+      "status": "archived",
+      "order": 420,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "source": "https://github.com/tochi-mba/valentine-s"
+      },
+      "year": 2024
+    },
+    {
+      "repo": "NoughtsAndCrosses",
+      "slug": "noughts-and-crosses",
+      "name": "Noughts and Crosses",
+      "tagline": "A WinForms noughts and crosses game, written with matrices.",
+      "description": "",
+      "highlights": [],
+      "stack": ["C#"],
+      "category": "early",
+      "status": "archived",
+      "order": 430,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "source": "https://github.com/tochi-mba/NoughtsAndCrosses"
+      },
+      "year": 2024
+    },
+    {
+      "repo": "Simple-Calculator-IMPOSSIBLE-TO-BREAK",
+      "slug": "simple-calculator",
+      "name": "Simple Calculator",
+      "tagline": "The most robust simple console calculator possible.",
+      "description": "",
+      "highlights": [],
+      "stack": ["C#"],
+      "category": "early",
+      "status": "archived",
+      "order": 440,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "source": "https://github.com/tochi-mba/Simple-Calculator-IMPOSSIBLE-TO-BREAK"
+      },
+      "year": 2024
+    },
+    {
+      "repo": "csharp-workspace",
+      "slug": "csharp-workspace",
+      "name": "C# workspace",
+      "tagline": "C# exercises and first programs.",
+      "description": "",
+      "highlights": [],
+      "stack": ["C#"],
+      "category": "early",
+      "status": "archived",
+      "order": 450,
+      "visibility": "public",
+      "display": true,
+      "links": {
+        "source": "https://github.com/tochi-mba/csharp-workspace"
+      },
+      "year": 2024
+    },
+    {
+      "repo": "Media-tool",
+      "slug": "media-tool",
+      "name": "Media-tool",
+      "tagline": "Media tool API for the LUCY assistant family.",
+      "description": "A media service for the assistant family. Opted out of the public portfolio by its owner; the metadata is kept so the opt-out is explicit rather than an omission.",
+      "highlights": [],
+      "stack": ["Python"],
+      "category": "service",
+      "status": "active",
+      "order": 900,
+      "visibility": "private",
+      "display": false,
+      "publicSafe": true,
+      "reason": "Opted out of the portfolio by its owner.",
+      "links": {},
+      "year": 2026,
+      "family": "lucy",
+      "role": "media"
+    },
+    {
+      "repo": "YTMusic-api",
+      "slug": "ytmusic-api",
+      "name": "YTMusic-api",
+      "tagline": "YouTube Music lookup and playback for the LUCY assistant family.",
+      "description": "",
+      "highlights": [],
+      "stack": ["Python"],
+      "category": "service",
+      "status": "active",
+      "order": 901,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2026,
+      "family": "lucy",
+      "role": "music"
+    },
+    {
+      "repo": "weftai-python",
+      "slug": "weftai-python",
+      "name": "weftai-python",
+      "tagline": "weftai for Python: the same composable workflow runtime, released in lockstep with the npm packages.",
+      "description": "The Python line of weftai. Model-facing strings, error sentences, catalog rows, CLI usage and exit codes match the TypeScript line, and the two are released together at the same version. Five packages on PyPI: weftai, weftai-providers, weftai-mcp, weftai-cli and weftai-testing.",
+      "highlights": [
+        "Behavioural parity with the TypeScript packages, checked in CI",
+        "Five PyPI packages, lockstep versions",
+        "Hypothesis property tests"
+      ],
+      "stack": ["Python 3.12", "Hypothesis", "uv"],
+      "category": "ai",
+      "status": "active",
+      "order": 902,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {
+        "package": "https://pypi.org/project/weftai/"
+      },
+      "year": 2026,
+      "family": "lucy",
+      "role": "runtime"
+    },
+    {
+      "repo": "agentic",
+      "slug": "agentic",
+      "name": "agentic",
+      "tagline": "Agent experiments in C#.",
+      "description": "",
+      "highlights": [],
+      "stack": ["C#"],
+      "category": "ai",
+      "status": "wip",
+      "order": 903,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2026
+    },
+    {
+      "repo": "outmogged",
+      "slug": "outmogged",
+      "name": "outmogged",
+      "tagline": "A TypeScript web project.",
+      "description": "",
+      "highlights": [],
+      "stack": ["TypeScript"],
+      "category": "web",
+      "status": "wip",
+      "order": 904,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2026
+    },
+    {
+      "repo": "JARVIS-V00",
+      "slug": "jarvis-v00",
+      "name": "JARVIS-V00",
+      "tagline": "An early personal assistant prototype.",
+      "description": "",
+      "highlights": [],
+      "stack": ["TypeScript"],
+      "category": "ai",
+      "status": "archived",
+      "order": 905,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2025
+    },
+    {
+      "repo": "jigbot-dash",
+      "slug": "jigbot-dash",
+      "name": "jigbot-dash",
+      "tagline": "Dashboard for the Jigsaw bot.",
+      "description": "",
+      "highlights": [],
+      "stack": ["TypeScript"],
+      "category": "web",
+      "status": "archived",
+      "order": 906,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2025
+    },
+    {
+      "repo": "jigsawManual",
+      "slug": "jigsaw-manual",
+      "name": "jigsawManual",
+      "tagline": "The Jigsaw manual, as a Vue site.",
+      "description": "",
+      "highlights": [],
+      "stack": ["Vue"],
+      "category": "tool",
+      "status": "archived",
+      "order": 907,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "repo": "jigbot-training",
+      "slug": "jigbot-training",
+      "name": "jigbot-training",
+      "tagline": "Training pipeline for the Jigsaw bot.",
+      "description": "",
+      "highlights": [],
+      "stack": ["JavaScript"],
+      "category": "ai",
+      "status": "archived",
+      "order": 908,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "repo": "projectGenMain",
+      "slug": "project-gen",
+      "name": "projectGenMain",
+      "tagline": "A project generator.",
+      "description": "",
+      "highlights": [],
+      "stack": ["Vue"],
+      "category": "tool",
+      "status": "archived",
+      "order": 909,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "repo": "test2",
+      "slug": "test2",
+      "name": "test2",
+      "tagline": "",
+      "description": "",
+      "highlights": [],
+      "stack": [],
+      "category": "early",
+      "status": "archived",
+      "order": 910,
+      "visibility": "private",
+      "display": false,
+      "publicSafe": false,
+      "reason": "Scratch repository.",
+      "links": {},
+      "year": 2024
+    },
+    {
+      "repo": "test",
+      "slug": "test",
+      "name": "test",
+      "tagline": "",
+      "description": "",
+      "highlights": [],
+      "stack": [],
+      "category": "early",
+      "status": "archived",
+      "order": 911,
+      "visibility": "private",
+      "display": false,
+      "publicSafe": false,
+      "reason": "Scratch repository.",
+      "links": {},
+      "year": 2024
+    },
+    {
+      "repo": "room-dashboard",
+      "slug": "room-dashboard",
+      "name": "room-dashboard",
+      "tagline": "A room dashboard.",
+      "description": "",
+      "highlights": [],
+      "stack": ["Vue"],
+      "category": "web",
+      "status": "archived",
+      "order": 912,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "repo": "Jarvis",
+      "slug": "jarvis",
+      "name": "Jarvis",
+      "tagline": "The first Jarvis.",
+      "description": "",
+      "highlights": [],
+      "stack": [],
+      "category": "ai",
+      "status": "archived",
+      "order": 913,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "repo": "GHub",
+      "slug": "ghub",
+      "name": "GHub",
+      "tagline": "A GitHub client experiment in Vue.",
+      "description": "",
+      "highlights": [],
+      "stack": ["Vue"],
+      "category": "tool",
+      "status": "archived",
+      "order": 914,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "repo": "jigChat",
+      "slug": "jigchat",
+      "name": "jigChat",
+      "tagline": "Chat for the Jigsaw project.",
+      "description": "",
+      "highlights": [],
+      "stack": ["Python"],
+      "category": "ai",
+      "status": "archived",
+      "order": 915,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "repo": "jigsawtxt2diagram",
+      "slug": "jigsaw-txt2diagram",
+      "name": "jigsawtxt2diagram",
+      "tagline": "Text to diagram.",
+      "description": "",
+      "highlights": [],
+      "stack": ["JavaScript"],
+      "category": "ai",
+      "status": "archived",
+      "order": 916,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "repo": "tochis-world",
+      "slug": "tochis-world",
+      "name": "tochis-world",
+      "tagline": "The beginning of my legacy written in code.",
+      "description": "",
+      "highlights": [],
+      "stack": [],
+      "category": "web",
+      "status": "archived",
+      "order": 917,
+      "visibility": "private",
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2023
+    }
+  ]
+}
