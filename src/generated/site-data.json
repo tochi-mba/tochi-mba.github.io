@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T18:34:51.673Z",
+  "generatedAt": "2026-10-01T19:17:21.783Z",
   "profile": {
     "name": "Tochi Mba",
     "handle": "tochi-mba",
@@ -222,9 +222,9 @@
       "proof": {
         "npm": {
           "name": "weftai",
-          "version": "0.5.2",
-          "at": "2026-09-30T21:18:42.655Z",
-          "versions": 10,
+          "version": "0.6.0",
+          "at": "2026-10-01T18:34:05.139Z",
+          "versions": 11,
           "downloadsMonth": 1356,
           "daily": [
             [
@@ -1322,6 +1322,20 @@
     }
   ],
   "shipping": [
+    {
+      "id": "weftai@0.6.0",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.6.0",
+      "title": "weftai v0.6.0",
+      "words": null,
+      "at": "2026-10-01T18:32:14.788Z",
+      "url": "https://www.npmjs.com/package/weftai",
+      "channels": [
+        "npm"
+      ]
+    },
     {
       "id": "weftai@0.5.2",
       "lane": "weftai",

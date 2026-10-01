@@ -108,7 +108,7 @@ const now = profile.now.map((n) => ({ ...n, project: bySlug.get(n.slug)! }));
           <ul class="now-list">
             <li v-for="n in now" :key="n.slug">
               <router-link :to="`/work/${n.slug}`">{{ n.label }}</router-link>
-              <span>{{ n.detail }}</span>
+              <span class="now-detail">{{ n.detail }}</span>
             </li>
           </ul>
         </div>

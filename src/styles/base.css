@@ -9,9 +9,6 @@ html {
   overflow-x: hidden;
   scroll-padding-top: calc(var(--header-h) + 16px);
 }
-.motion {
-  scroll-behavior: smooth;
-}
 body {
   margin: 0;
   background: var(--bg);
@@ -82,12 +79,14 @@ h1,
 h2,
 h3 {
   margin: 0;
+  font-family: var(--font-heading);
   font-weight: 650;
   line-height: 1.05;
   letter-spacing: -0.02em;
   text-wrap: balance;
 }
 h1 {
+  font-family: var(--font-display);
   font-size: var(--fs-hero);
   font-weight: 700;
   line-height: 0.92;
@@ -181,12 +180,16 @@ strong {
   opacity: 0;
 }
 
+/* Deliberately !important: nothing may out-rank a person's request for less motion. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced motion wins over every component rule */
     animation-duration: 0.01ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: same */
     animation-iteration-count: 1 !important;
+    /* biome-ignore lint/complexity/noImportantStyles: same */
     transition-duration: 0.01ms !important;
   }
 }

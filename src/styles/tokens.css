@@ -19,22 +19,43 @@
   unicode-range:
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2190-2199, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* Fallbacks shaped to the web fonts' metrics (measured with fontTools against Liberation Sans/Mono,
-   which share Arial's and Courier New's metrics), so the swap moves nothing. */
+/* Fallbacks sized to the web fonts, so lines wrap the same way before and after the swap and nothing
+   moves. The ratios are frequency-weighted glyph widths measured with fontTools against Liberation
+   Sans/Mono (metric twins of Arial and Courier New), at the optical size and weight each role uses:
+   Bricolage is much wider than Arial as text (opsz 17) and about Arial's width as display (opsz 96).
+   Measures are in rem, never ch, because a ch is a different length in the fallback. */
 @font-face {
   font-family: "Bricolage Fallback";
   src: local("Arial"), local("Liberation Sans"), local("Helvetica Neue"), local("Helvetica");
-  size-adjust: 97%;
-  ascent-override: 95.9%;
-  descent-override: 27.8%;
+  size-adjust: 105%;
+  ascent-override: 93%;
+  descent-override: 27%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Bricolage Heading Fallback";
+  src: local("Arial"), local("Liberation Sans"), local("Helvetica Neue"), local("Helvetica");
+  font-weight: 500 800;
+  size-adjust: 106%;
+  ascent-override: 93%;
+  descent-override: 27%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Bricolage Display Fallback";
+  src: local("Arial"), local("Liberation Sans"), local("Helvetica Neue"), local("Helvetica");
+  font-weight: 500 800;
+  size-adjust: 101%;
+  ascent-override: 93%;
+  descent-override: 27%;
   line-gap-override: 0%;
 }
 @font-face {
   font-family: "Martian Mono Fallback";
   src: local("Courier New"), local("Liberation Mono"), local("Menlo"), local("Consolas");
   size-adjust: 116.6%;
-  ascent-override: 85.7%;
-  descent-override: 17.2%;
+  ascent-override: 80%;
+  descent-override: 16%;
   line-gap-override: 0%;
 }
 
@@ -57,6 +78,8 @@
 
   /* Type */
   --font: "Bricolage", "Bricolage Fallback", system-ui, sans-serif;
+  --font-heading: "Bricolage", "Bricolage Heading Fallback", system-ui, sans-serif;
+  --font-display: "Bricolage", "Bricolage Display Fallback", system-ui, sans-serif;
   --mono: "Martian Mono", "Martian Mono Fallback", ui-monospace, monospace;
   --fs-hero: clamp(3.5rem, 1.6rem + 7.6vw, 8.5rem);
   --fs-1: clamp(2.25rem, 1.55rem + 2.8vw, 3.5rem);

@@ -1,11 +1,11 @@
 {
   "available": true,
-  "fetchedAt": "2026-10-01T18:30:33.995Z",
+  "fetchedAt": "2026-10-01T19:17:20.964Z",
   "npm": {
     "weftai": {
       "name": "weftai",
-      "version": "0.5.2",
-      "publishedAt": "2026-09-30T21:18:42.655Z",
+      "version": "0.6.0",
+      "publishedAt": "2026-10-01T18:34:05.139Z",
       "versions": [
         {
           "version": "0.1.0",
@@ -46,6 +46,10 @@
         {
           "version": "0.5.2",
           "at": "2026-09-30T21:18:42.655Z"
+        },
+        {
+          "version": "0.6.0",
+          "at": "2026-10-01T18:34:05.139Z"
         }
       ],
       "downloadsMonth": 1356,
@@ -175,8 +179,8 @@
     },
     "@weftai/providers": {
       "name": "@weftai/providers",
-      "version": "0.5.2",
-      "publishedAt": "2026-09-30T21:17:01.559Z",
+      "version": "0.6.0",
+      "publishedAt": "2026-10-01T18:34:05.823Z",
       "versions": [
         {
           "version": "0.2.0",
@@ -209,6 +213,10 @@
         {
           "version": "0.5.2",
           "at": "2026-09-30T21:17:01.559Z"
+        },
+        {
+          "version": "0.6.0",
+          "at": "2026-10-01T18:34:05.823Z"
         }
       ],
       "downloadsMonth": 696,
@@ -338,8 +346,8 @@
     },
     "@weftai/mcp": {
       "name": "@weftai/mcp",
-      "version": "0.5.2",
-      "publishedAt": "2026-09-30T21:17:03.360Z",
+      "version": "0.6.0",
+      "publishedAt": "2026-10-01T18:33:04.868Z",
       "versions": [
         {
           "version": "0.1.0",
@@ -380,6 +388,10 @@
         {
           "version": "0.5.2",
           "at": "2026-09-30T21:17:03.360Z"
+        },
+        {
+          "version": "0.6.0",
+          "at": "2026-10-01T18:33:04.868Z"
         }
       ],
       "downloadsMonth": 1216,
@@ -509,8 +521,8 @@
     },
     "@weftai/cli": {
       "name": "@weftai/cli",
-      "version": "0.5.2",
-      "publishedAt": "2026-09-30T21:17:24.759Z",
+      "version": "0.6.0",
+      "publishedAt": "2026-10-01T18:32:14.788Z",
       "versions": [
         {
           "version": "0.1.0",
@@ -551,6 +563,10 @@
         {
           "version": "0.5.2",
           "at": "2026-09-30T21:17:24.759Z"
+        },
+        {
+          "version": "0.6.0",
+          "at": "2026-10-01T18:32:14.788Z"
         }
       ],
       "downloadsMonth": 1079,
@@ -680,8 +696,8 @@
     },
     "@weftai/testing": {
       "name": "@weftai/testing",
-      "version": "0.5.2",
-      "publishedAt": "2026-09-30T21:17:02.011Z",
+      "version": "0.6.0",
+      "publishedAt": "2026-10-01T18:33:04.840Z",
       "versions": [
         {
           "version": "0.1.0",
@@ -722,6 +738,10 @@
         {
           "version": "0.5.2",
           "at": "2026-09-30T21:17:02.011Z"
+        },
+        {
+          "version": "0.6.0",
+          "at": "2026-10-01T18:33:04.840Z"
         }
       ],
       "downloadsMonth": 1093,
@@ -946,7 +966,7 @@
           "at": "2026-09-30T22:03:54.013529Z"
         }
       ],
-      "downloadsMonth": 856,
+      "downloadsMonth": null,
       "url": "https://pypi.org/project/weftai-providers/"
     },
     "weftai-mcp": {
