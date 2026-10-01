@@ -3,30 +3,23 @@
 <head>
 <meta charset="utf-8">
 <style>
-  @font-face { font-family: Inter; src: url("../public/fonts/inter-latin.woff2") format("woff2"); font-weight: 100 900; }
-  html, body { margin: 0; width: 1200px; height: 630px; background: #080A09; color: #F2F5EE; font-family: Inter, system-ui, sans-serif; overflow: hidden; }
-  .wrap { position: relative; width: 1200px; height: 630px; padding: 72px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; }
-  .glow { position: absolute; border-radius: 50%; filter: blur(110px); opacity: .22; }
-  .g1 { width: 560px; height: 560px; background: #D7FF3F; right: -200px; top: -200px; }
-  .g2 { width: 420px; height: 420px; background: #FF774D; left: -220px; bottom: -240px; }
-  .eyebrow { font-size: 22px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #D7FF3F; display: flex; align-items: center; gap: 14px; }
-  .dot { width: 14px; height: 14px; border-radius: 50%; background: #D7FF3F; box-shadow: 0 0 0 10px rgba(215,255,63,.12); }
-  h1 { margin: 0; font-size: 112px; font-weight: 900; letter-spacing: -.04em; line-height: .98; }
-  h1 span { color: #D7FF3F; }
-  .foot { display: flex; justify-content: space-between; align-items: flex-end; font-size: 26px; color: #858D83; }
-  .foot strong { color: #F2F5EE; font-weight: 700; }
-  .mark { width: 64px; height: 64px; border-radius: 16px; background: #181E19; border: 2px solid #29302A; display: grid; place-items: center; }
+  @font-face { font-family: Bricolage; src: url("../public/fonts/bricolage-grotesque-latin.woff2") format("woff2"); font-weight: 200 800; }
+  @font-face { font-family: "Martian Mono"; src: url("../public/fonts/martian-mono-latin.woff2") format("woff2"); font-weight: 100 800; }
+  html, body { margin: 0; width: 1200px; height: 630px; background: #080b07; color: #f4f4eb; font-family: Bricolage, system-ui, sans-serif; font-optical-sizing: auto; overflow: hidden; }
+  .wrap { width: 1200px; height: 630px; padding: 64px 72px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; }
+  .top, .foot { font-family: "Martian Mono", ui-monospace, monospace; font-size: 22px; color: #8b8d85; display: flex; justify-content: space-between; align-items: center; }
+  .top strong { color: #f4f4eb; font-weight: 600; }
+  h1 { margin: 0; font-size: 142px; font-weight: 700; letter-spacing: -0.045em; line-height: 0.9; }
+  .foot { border-top: 1px solid #2b2f29; padding-top: 22px; white-space: nowrap; }
+  .live { display: inline-flex; align-items: center; gap: 14px; color: #b0b2a9; }
+  .live i { width: 14px; height: 14px; background: #d7ff3f; display: inline-block; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="glow g1"></div><div class="glow g2"></div>
-  <div class="eyebrow"><span class="dot"></span> Tochi Mba · call me Rex · REX Technologies</div>
-  <h1>Agent systems<br><span>that ship.</span></h1>
-  <div class="foot">
-    <div><strong>AI engineer and full-stack developer</strong><br>44 repositories · one metadata contract · tochi-mba.github.io</div>
-    <div class="mark"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#D7FF3F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 12 5l7 14M8.5 13h7"/></svg></div>
-  </div>
+  <div class="top"><span><strong>Tochi Mba</strong> · AI engineer and full-stack developer</span><span>United Kingdom</span></div>
+  <h1>Agent systems<br>that ship.</h1>
+  <div class="foot"><span class="live"><i></i>Built from GitHub, npm and PyPI daily</span><span>tochi-mba.github.io</span></div>
 </div>
 </body>
 </html>

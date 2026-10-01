@@ -11,7 +11,8 @@
     "dev": "vite",
     "build": "npm run data && vite-ssg build && node scripts/sitemap.mjs && node scripts/og.mjs",
     "preview": "vite preview",
-    "data": "node scripts/build-data.mjs && node scripts/fetch-activity.mjs",
+    "data": "node scripts/fetch-activity.mjs && node scripts/fetch-registry.mjs && node scripts/fetch-sites.mjs && node scripts/build-data.mjs",
+    "fonts": "node scripts/fonts.mjs",
     "sync": "node scripts/sync-projects.mjs",
     "check": "npm run data && npm run lint && npm run typecheck && npm run test && npm run build && npm run check:site",
     "check:site": "node scripts/check-site.mjs dist",
@@ -29,6 +30,8 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
     "@biomejs/biome": "^2.5.15",
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/martian-mono": "^5.3.0",
     "@playwright/test": "^1.63.0",
     "@vitejs/plugin-vue": "^6.0.9",
     "@vue/test-utils": "^2.5.1",

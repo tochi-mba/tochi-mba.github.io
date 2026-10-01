@@ -2,12 +2,11 @@ import { onBeforeUnmount, onMounted } from "vue";
 
 // Adds .visible to every .reveal element as it enters the viewport, once. Elements already in
 // view on load are revealed on the first frame, so nothing above the fold waits for a scroll.
-export function useReveal(root?: () => HTMLElement | null) {
+export function useReveal() {
   let observer: IntersectionObserver | null = null;
 
   function observe() {
-    const scope = root?.() ?? document;
-    const targets = scope.querySelectorAll<HTMLElement>(".reveal:not(.visible)");
+    const targets = document.querySelectorAll<HTMLElement>(".reveal:not(.visible)");
     if (!("IntersectionObserver" in window)) {
       for (const t of targets) t.classList.add("visible");
       return;

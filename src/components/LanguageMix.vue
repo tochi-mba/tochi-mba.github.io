@@ -35,28 +35,27 @@ const pct1 = (v: number) => (v * 100 >= 10 ? `${Math.round(v * 100)}%` : `${(v *
 }
 .langs-row {
   display: grid;
-  grid-template-columns: 110px 1fr 52px;
+  grid-template-columns: 110px 1fr 56px;
   align-items: center;
   gap: 12px;
-  font-size: 14px;
+  font-size: var(--fs-small);
 }
 .langs-name {
-  font-weight: 700;
+  font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .langs-track {
-  height: 8px;
-  border-radius: 4px;
-  background: var(--raised);
+  height: 3px;
+  border-radius: 0;
+  background: var(--rule);
   overflow: hidden;
 }
 .langs-bar {
   display: block;
   height: 100%;
   width: var(--w);
-  border-radius: 4px;
   background: var(--signal);
 }
 .motion .reveal .langs-bar {
@@ -69,8 +68,8 @@ const pct1 = (v: number) => (v * 100 >= 10 ? `${Math.round(v * 100)}%` : `${(v *
 }
 .langs-value {
   font-family: var(--mono);
-  font-size: 12px;
-  color: var(--muted);
+  font-size: var(--fs-mono-s);
+  color: var(--text-3);
   text-align: right;
   font-variant-numeric: tabular-nums;
 }

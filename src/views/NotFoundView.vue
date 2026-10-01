@@ -8,9 +8,9 @@ useHead({ title: "Not found", meta: [{ name: "robots", content: "noindex" }] });
 
 <template>
   <div class="container not-found">
-    <div class="eyebrow signal"><span class="pulse-dot"></span> 404</div>
-    <h1>Nothing lives at <span>that address.</span></h1>
-    <p class="hero-lede">
+    <p class="crumbs">404</p>
+    <h1>Nothing lives at that address.</h1>
+    <p class="lede">
       <code>{{ route.path }}</code> is not a page here. Project links moved when the portfolio moved to its own metadata; the work page has every current one.
     </p>
     <div class="hero-actions">

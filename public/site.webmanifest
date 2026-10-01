@@ -1,10 +1,10 @@
 {
   "name": "Tochi Mba",
   "short_name": "Tochi Mba",
-  "description": "Tochi Mba (Rex), AI engineer and full-stack developer. REX Technologies.",
+  "description": "Tochi Mba (Rex), AI engineer and full-stack developer.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#080A09",
-  "theme_color": "#080A09",
+  "background_color": "#080B07",
+  "theme_color": "#080B07",
   "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
 }

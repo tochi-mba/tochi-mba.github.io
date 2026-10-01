@@ -1,7 +1,10 @@
 import { ViteSSG } from "vite-ssg";
 import App from "./App.vue";
 import { routes } from "./routes";
-import "./styles/site.css";
+import "./styles/tokens.css";
+import "./styles/base.css";
+import "./styles/layout.css";
+import "./styles/components.css";
 
 export const createApp = ViteSSG(App, {
   routes,

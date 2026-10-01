@@ -29,14 +29,29 @@ test("the home page is prerendered: content exists before JavaScript runs", asyn
   const page = await context.newPage();
   await page.goto("/");
   await expect(page.locator("h1")).toContainText("Agent systems");
-  await expect(page.locator(".card").first()).toBeVisible();
+  await expect(page.locator(".case").first()).toBeVisible();
   await expect(page.locator(".principle").first()).toBeVisible();
+  if (site.shipping.length) {
+    await expect(page.locator(".ribbon a.tick")).toHaveCount(site.shipping.length);
+    await expect(page.locator(".ribbon-now strong")).toHaveText(site.shipping[0]!.title);
+  }
   await context.close();
+});
+
+test("every project with a website links to it from the work page", async ({ page }) => {
+  await open(page, "/work");
+  await page.locator(".archive-fold summary").click();
+  const hrefs = await page
+    .locator("a[href^='https://']")
+    .evaluateAll((as) => as.map((a) => (a as HTMLAnchorElement).href));
+  for (const p of site.projects.filter((x) => x.links.site)) {
+    expect(hrefs, p.slug).toContain(new URL(p.links.site!).href);
+  }
 });
 
 test("navigation marks the current page and moves focus to the heading", async ({ page, isMobile }) => {
   await open(page, "/");
-  await expect(page.locator('nav a[aria-current="page"]')).toHaveText("Home");
+  await expect(page.locator('nav a[aria-current="page"]')).toHaveCount(0);
   if (isMobile) await page.getByRole("button", { name: /toggle navigation/i }).click();
   await page.getByRole("link", { name: "Work", exact: true }).click();
   await expect(page).toHaveURL(/\/work$/);

@@ -1,5 +1,4 @@
 {
-  "$schema": "./profile.schema.json",
   "name": "Tochi Mba",
   "handle": "tochi-mba",
   "company": "REX Technologies",
@@ -24,7 +23,7 @@
     },
     {
       "label": "Android Headless Mirror",
-      "detail": "2.3.1 shipped, seven features planned",
+      "detail": "seven features planned across twelve PRs",
       "slug": "android-headless-mirror"
     }
   ],
@@ -100,7 +99,7 @@
   ],
   "experience": [
     {
-      "title": "Founder and engineer",
+      "title": "Founder and sole engineer",
       "org": "REX Technologies",
       "period": "2025 \u2013 present",
       "summary": "Design, build and ship the REX product line: the LUCY assistant hub and its service family, the weftai workflow runtime (npm and PyPI), Android Headless Mirror, Flint, textwire, chika and clyde. Every repository carries the same gates and the same visual system.",

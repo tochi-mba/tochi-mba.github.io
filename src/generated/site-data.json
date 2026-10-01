@@ -1,7 +1,6 @@
 {
-  "generatedAt": "2026-10-01T16:53:42.997Z",
+  "generatedAt": "2026-10-01T18:30:34.875Z",
   "profile": {
-    "$schema": "./profile.schema.json",
     "name": "Tochi Mba",
     "handle": "tochi-mba",
     "company": "REX Technologies",
@@ -26,7 +25,7 @@
       },
       {
         "label": "Android Headless Mirror",
-        "detail": "2.3.1 shipped, seven features planned",
+        "detail": "seven features planned across twelve PRs",
         "slug": "android-headless-mirror"
       }
     ],
@@ -102,7 +101,7 @@
     ],
     "experience": [
       {
-        "title": "Founder and engineer",
+        "title": "Founder and sole engineer",
         "org": "REX Technologies",
         "period": "2025 – present",
         "summary": "Design, build and ship the REX product line: the LUCY assistant hub and its service family, the weftai workflow runtime (npm and PyPI), Android Headless Mirror, Flint, textwire, chika and clyde. Every repository carries the same gates and the same visual system.",
@@ -164,7 +163,10 @@
         "site": "https://tochi-mba.github.io/LUCY-assistant/",
         "source": "https://github.com/tochi-mba/LUCY-assistant"
       },
-      "year": 2026
+      "year": 2026,
+      "proof": {
+        "services": 12
+      }
     },
     {
       "repo": "weftai",
@@ -200,14 +202,172 @@
         "source": "https://github.com/tochi-mba/weftai",
         "package": "https://www.npmjs.com/package/weftai"
       },
-      "year": 2026
+      "year": 2026,
+      "packages": {
+        "npm": [
+          "weftai",
+          "@weftai/providers",
+          "@weftai/mcp",
+          "@weftai/cli",
+          "@weftai/testing"
+        ],
+        "pypi": [
+          "weftai",
+          "weftai-providers",
+          "weftai-mcp",
+          "weftai-cli",
+          "weftai-testing"
+        ]
+      },
+      "proof": {
+        "npm": {
+          "name": "weftai",
+          "version": "0.5.2",
+          "at": "2026-09-30T21:18:42.655Z",
+          "versions": 10,
+          "downloadsMonth": 1356,
+          "daily": [
+            [
+              "2026-08-31",
+              0
+            ],
+            [
+              "2026-09-01",
+              0
+            ],
+            [
+              "2026-09-02",
+              0
+            ],
+            [
+              "2026-09-03",
+              0
+            ],
+            [
+              "2026-09-04",
+              0
+            ],
+            [
+              "2026-09-05",
+              0
+            ],
+            [
+              "2026-09-06",
+              0
+            ],
+            [
+              "2026-09-07",
+              0
+            ],
+            [
+              "2026-09-08",
+              0
+            ],
+            [
+              "2026-09-09",
+              0
+            ],
+            [
+              "2026-09-10",
+              0
+            ],
+            [
+              "2026-09-11",
+              0
+            ],
+            [
+              "2026-09-12",
+              0
+            ],
+            [
+              "2026-09-13",
+              0
+            ],
+            [
+              "2026-09-14",
+              0
+            ],
+            [
+              "2026-09-15",
+              0
+            ],
+            [
+              "2026-09-16",
+              651
+            ],
+            [
+              "2026-09-17",
+              50
+            ],
+            [
+              "2026-09-18",
+              53
+            ],
+            [
+              "2026-09-19",
+              23
+            ],
+            [
+              "2026-09-20",
+              6
+            ],
+            [
+              "2026-09-21",
+              13
+            ],
+            [
+              "2026-09-22",
+              10
+            ],
+            [
+              "2026-09-23",
+              250
+            ],
+            [
+              "2026-09-24",
+              174
+            ],
+            [
+              "2026-09-25",
+              52
+            ],
+            [
+              "2026-09-26",
+              46
+            ],
+            [
+              "2026-09-27",
+              7
+            ],
+            [
+              "2026-09-28",
+              5
+            ],
+            [
+              "2026-09-29",
+              16
+            ]
+          ],
+          "url": "https://www.npmjs.com/package/weftai",
+          "packages": 5
+        },
+        "pypi": {
+          "name": "weftai",
+          "version": "0.5.2",
+          "at": "2026-09-30T22:03:50.172743Z",
+          "versions": 10,
+          "downloadsMonth": 1079,
+          "url": "https://pypi.org/project/weftai/",
+          "packages": 4
+        }
+      }
     },
     {
       "repo": "Android_Headless_Mirror",
       "slug": "android-headless-mirror",
       "name": "Android Headless Mirror",
       "tagline": "Your Android phone, in one window on your Windows PC, with its own screen off.",
-      "description": "Plug the phone in and it appears on screen. The app waits in the tray, opens when an authorised phone connects and restarts the mirror if it crashes. Two fingers on a Windows Precision Touchpad become two fingers on the phone. A GPU-rendered soft background, a live navigator, phone controls and phone settings all live in a single window, with a first-run tour and a CLI. Version 2.3.1 is released with a signed-off website, 26 Playwright site tests and UI Automation tests against the real window.",
+      "description": "Plug the phone in and it appears on screen. The app waits in the tray, opens when an authorised phone connects and restarts the mirror if it crashes. Two fingers on a Windows Precision Touchpad become two fingers on the phone. A GPU-rendered soft background, a live navigator, phone controls and phone settings all live in a single window, with a first-run tour and a CLI. Every release ships with a signed-off website, 26 Playwright site tests and UI Automation tests against the real window.",
       "highlights": [
         "Real touchpad gestures mapped to the phone: pinch, rotate, pan",
         "Blurred live background rendered on the graphics card at 60 fps",
@@ -783,6 +943,7 @@
       "display": true,
       "publicSafe": false,
       "links": {
+        "site": "https://tochi-mba.github.io/valentine-s/",
         "source": "https://github.com/tochi-mba/valentine-s"
       },
       "year": 2024
@@ -1158,6 +1319,217 @@
       "publicSafe": true,
       "links": {},
       "year": 2023
+    }
+  ],
+  "shipping": [
+    {
+      "id": "weftai@0.5.2",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.5.2",
+      "title": "weftai v0.5.2",
+      "words": null,
+      "at": "2026-09-30T21:17:01.559Z",
+      "url": "https://www.npmjs.com/package/weftai",
+      "channels": [
+        "npm",
+        "PyPI"
+      ]
+    },
+    {
+      "id": "weftai@0.5.1",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.5.1",
+      "title": "weftai v0.5.1",
+      "words": null,
+      "at": "2026-09-30T20:56:29.294Z",
+      "url": "https://www.npmjs.com/package/weftai",
+      "channels": [
+        "npm"
+      ]
+    },
+    {
+      "id": "weftai@0.5.0",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.5.0",
+      "title": "weftai v0.5.0",
+      "words": null,
+      "at": "2026-09-30T18:33:22.907Z",
+      "url": "https://www.npmjs.com/package/weftai",
+      "channels": [
+        "npm",
+        "PyPI"
+      ]
+    },
+    {
+      "id": "weftai@0.4.0",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.4.0",
+      "title": "weftai v0.4.0",
+      "words": null,
+      "at": "2026-09-24T16:21:14.800Z",
+      "url": "https://www.npmjs.com/package/weftai",
+      "channels": [
+        "npm",
+        "PyPI"
+      ]
+    },
+    {
+      "id": "weftai@0.3.0",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.3.0",
+      "title": "weftai v0.3.0",
+      "words": null,
+      "at": "2026-09-23T15:34:52.150027Z",
+      "url": "https://www.npmjs.com/package/weftai",
+      "channels": [
+        "npm",
+        "PyPI"
+      ]
+    },
+    {
+      "id": "weftai@0.2.5",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.2.5",
+      "title": "weftai v0.2.5",
+      "words": null,
+      "at": "2026-09-23T14:44:36.341960Z",
+      "url": "https://www.npmjs.com/package/weftai",
+      "channels": [
+        "npm",
+        "PyPI"
+      ]
+    },
+    {
+      "id": "weftai@0.2.4",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.2.4",
+      "title": "weftai v0.2.4",
+      "words": null,
+      "at": "2026-09-16T23:58:15.445417Z",
+      "url": "https://pypi.org/project/weftai/",
+      "channels": [
+        "PyPI"
+      ]
+    },
+    {
+      "id": "weftai@0.2.3",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.2.3",
+      "title": "weftai v0.2.3",
+      "words": null,
+      "at": "2026-09-16T23:47:07.529533Z",
+      "url": "https://pypi.org/project/weftai/",
+      "channels": [
+        "PyPI"
+      ]
+    },
+    {
+      "id": "weftai@0.2.2",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.2.2",
+      "title": "weftai v0.2.2",
+      "words": null,
+      "at": "2026-09-16T21:12:44.242153Z",
+      "url": "https://pypi.org/project/weftai/",
+      "channels": [
+        "PyPI"
+      ]
+    },
+    {
+      "id": "weftai@0.2.1",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.2.1",
+      "title": "weftai v0.2.1",
+      "words": null,
+      "at": "2026-09-16T20:49:04.669866Z",
+      "url": "https://www.npmjs.com/package/weftai",
+      "channels": [
+        "npm",
+        "PyPI"
+      ]
+    },
+    {
+      "id": "weftai@0.1.0a1",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.1.0a1",
+      "title": "weftai v0.1.0a1",
+      "words": null,
+      "at": "2026-09-16T13:07:01.283257Z",
+      "url": "https://pypi.org/project/weftai/",
+      "channels": [
+        "PyPI"
+      ]
+    },
+    {
+      "id": "weftai@0.2.0",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.2.0",
+      "title": "weftai v0.2.0",
+      "words": null,
+      "at": "2026-09-16T11:38:13.094Z",
+      "url": "https://www.npmjs.com/package/weftai",
+      "channels": [
+        "npm"
+      ]
+    },
+    {
+      "id": "weftai@0.1.1",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.1.1",
+      "title": "weftai v0.1.1",
+      "words": null,
+      "at": "2026-09-16T10:32:55.958Z",
+      "url": "https://www.npmjs.com/package/weftai",
+      "channels": [
+        "npm"
+      ]
+    },
+    {
+      "id": "weftai@0.1.0",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "release",
+      "label": "v0.1.0",
+      "title": "weftai v0.1.0",
+      "words": null,
+      "at": "2026-09-16T09:34:47.298Z",
+      "url": "https://www.npmjs.com/package/weftai",
+      "channels": [
+        "npm"
+      ]
+    }
+  ],
+  "lanes": [
+    {
+      "id": "weftai",
+      "name": "weftai",
+      "slug": "weftai"
     }
   ]
 }

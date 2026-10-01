@@ -32,7 +32,8 @@ repository into `data/projects.json`; a repository's own file wins over the cura
   "display": true,
   "publicSafe": false,
   "links": { "site": "https://…", "source": "https://github.com/tochi-mba/weftai", "package": "https://…" },
-  "year": 2026
+  "year": 2026,
+  "packages": { "npm": ["weftai", "@weftai/mcp"], "pypi": ["weftai"] }
 }
 ```
 
@@ -46,6 +47,11 @@ repository into `data/projects.json`; a repository's own file wins over the cura
 | `display` | `false` opts the repository out entirely. Nothing about it reaches the site, not even its name. |
 | `publicSafe` | For a private repository: `true` means the name, tagline, description, highlights and stack may be shown. Links are always dropped for private repositories. |
 | `reason` | Free text saying why `display` is false, so an opt-out is explicit. |
+| `links.site` | Optional. A public repository with a live GitHub Pages site is linked to it automatically at build time; set this only for a site hosted elsewhere. |
+| `packages` | Optional. Package names on npm and PyPI. Versions, release dates and downloads are fetched at build time, the first name in each list being the main package. |
+
+Never write a version number in `tagline`, `description`, `highlights` or `profile.now`: it is stale the
+day after the next release. The build fails if one appears; the site shows fetched versions instead.
 
 ## The policy, in one table
 

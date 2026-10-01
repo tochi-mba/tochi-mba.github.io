@@ -1,6 +1,6 @@
 import generated from "./generated/activity.json";
 
-export interface Activity {
+interface Activity {
   available: boolean;
   fetchedAt: string;
   reason?: string;
@@ -14,6 +14,8 @@ export interface Activity {
   };
   languages?: { name: string; share: number }[];
   recent?: { name: string; pushedAt: string }[];
+  recordAvailable?: boolean;
+  commitsByRepo?: { repo: string; total: number; days: [string, number][] }[];
 }
 
 export const activity = generated as Activity;
@@ -32,7 +34,7 @@ export function timeAgo(iso: string, now = Date.now()): string {
   return mo < 12 ? `${mo} mo ago` : `${Math.floor(mo / 12)} y ago`;
 }
 
-/** Four magnitude steps over zero, so the heatmap's legend and cells agree. */
+/** Four magnitude steps over zero, so the strip's legend and cells agree. */
 export function level(count: number, max: number): 0 | 1 | 2 | 3 | 4 {
   if (count <= 0 || max <= 0) return 0;
   const q = count / max;
@@ -42,9 +44,13 @@ export function level(count: number, max: number): 0 | 1 | 2 | 3 | 4 {
   return 4;
 }
 
-/** Browser-side fallback: the newest public push, from the unauthenticated events API. */
+/**
+ * Browser-side fallback: the newest public push, from the unauthenticated events API. `allowed`
+ * holds the repositories the site may name (shown in full), so an opted-out one never appears.
+ */
 export async function fetchLatestPush(
   login: string,
+  allowed: Set<string>,
   signal?: AbortSignal,
 ): Promise<{ repo: string; at: string } | null> {
   try {
@@ -54,8 +60,12 @@ export async function fetchLatestPush(
     });
     if (!res.ok) return null;
     const events = (await res.json()) as { type: string; repo: { name: string }; created_at: string }[];
-    const push = events.find((e) => e.type === "PushEvent");
-    return push ? { repo: push.repo.name.split("/")[1] ?? push.repo.name, at: push.created_at } : null;
+    for (const e of events) {
+      if (e.type !== "PushEvent") continue;
+      const repo = e.repo.name.split("/")[1] ?? e.repo.name;
+      if (allowed.has(repo.toLowerCase())) return { repo, at: e.created_at };
+    }
+    return null;
   } catch {
     return null;
   }

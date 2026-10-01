@@ -1,39 +1,53 @@
 import { expect, test } from "@playwright/test";
+import site from "../../src/generated/site-data.json" with { type: "json" };
 import { open, settle } from "./helpers";
 
-test("the header earns its border and progress line on scroll", async ({ page }) => {
+test("the header earns its border on scroll", async ({ page }) => {
   await open(page, "/");
   const header = page.locator("header.site-header");
   await expect(header).not.toHaveClass(/scrolled/);
   await page.mouse.wheel(0, 600);
   await expect(header).toHaveClass(/scrolled/);
-  const progress = await page
-    .locator(".scroll-progress")
-    .evaluate((el) => getComputedStyle(el).getPropertyValue("--progress"));
-  expect(Number.parseFloat(progress)).toBeGreaterThan(0);
 });
 
-test("sections reveal as they scroll into view, and stay revealed", async ({ page }) => {
+test("rows reveal as they scroll into view, and stay revealed", async ({ page }) => {
   await open(page, "/");
   const motion = await page.evaluate(() => document.documentElement.classList.contains("motion"));
   test.skip(!motion, "reduced motion: nothing to reveal");
-  const cta = page.locator(".cta");
-  await expect(cta).not.toHaveClass(/visible/);
-  await cta.scrollIntoViewIfNeeded();
-  await expect(cta).toHaveClass(/visible/);
-  await expect(cta).toHaveCSS("opacity", "1");
+  const last = page.locator(".case").last();
+  await expect(last).not.toHaveClass(/visible/);
+  await last.scrollIntoViewIfNeeded();
+  await expect(last).toHaveClass(/visible/);
+  await expect(last).toHaveCSS("opacity", "1");
 });
 
-test("reduced motion: everything is visible at once and nothing animates", async ({ page }) => {
+test("reduced motion: everything is visible at once, nothing animates, no animation code loads", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await open(page, "/");
   await expect(page.locator("html")).not.toHaveClass(/motion/);
-  await expect(page.locator(".cta")).toHaveCSS("opacity", "1");
-  const duration = await page
-    .locator(".card")
-    .first()
-    .evaluate((el) => getComputedStyle(el).transitionDuration);
-  expect(duration.split(",").every((d) => Number.parseFloat(d) < 0.01)).toBe(true);
+  await expect(page.locator(".case").last()).toHaveCSS("opacity", "1");
+  if (site.shipping.length) {
+    const mark = page.locator(".ribbon .tick .mark").first();
+    await expect(mark).toHaveCSS("opacity", "1");
+    expect(await mark.evaluate((el) => getComputedStyle(el).animationName)).toBe("none");
+  }
+  expect(await page.evaluate(() => "gsap" in window)).toBe(false);
+});
+
+test("the build log draws every event and moves with the keyboard", async ({ page, isMobile }) => {
+  test.skip(!site.shipping.length, "no shipping data in this build");
+  await open(page, "/");
+  const ticks = page.locator(".ribbon a.tick");
+  await expect(ticks).toHaveCount(site.shipping.length);
+  const caption = page.locator(".ribbon-now strong");
+  await expect(caption).toHaveText(site.shipping[0]!.title);
+  await expect(page.locator('.ribbon a.tick[tabindex="0"]')).toHaveCount(1);
+  if (!isMobile && site.shipping.length > 1) {
+    await page.locator('.ribbon a.tick[tabindex="0"]').focus();
+    await page.keyboard.press("ArrowLeft");
+    await expect(caption).toHaveText(site.shipping[1]!.title);
+    await expect(page.locator(".ribbon a.tick").nth(site.shipping.length - 2)).toBeFocused();
+  }
 });
 
 test("the LUCY map responds to hover, click and arrow keys", async ({ page, isMobile }) => {
@@ -72,7 +86,7 @@ test("the copy button copies the email and announces it", async ({ page, context
   await open(page, "/about");
   await page.getByRole("button", { name: "Copy" }).click();
   await expect(page.getByRole("button", { name: "Copied" })).toBeVisible();
-  await expect(page.getByRole("status")).toContainText("Copied");
+  await expect(page.getByRole("status").filter({ hasText: "Copied" })).toHaveCount(1);
   const text = await page.evaluate(() => navigator.clipboard.readText());
   expect(text).toContain("@");
 });
@@ -86,14 +100,12 @@ test("the skip link is the first tab stop and lands on main", async ({ page, isM
   await expect(page).toHaveURL(/#main$/);
 });
 
-test("card hover lifts the card and lights the arrow", async ({ page, isMobile }) => {
+test("a case study row underlines its name in lime on hover", async ({ page, isMobile }) => {
   test.skip(isMobile, "no hover on touch");
   await open(page, "/");
-  const card = page.locator(".card").first();
-  await card.scrollIntoViewIfNeeded();
-  await expect(card).toHaveClass(/visible/);
+  const name = page.locator(".case-name a").first();
+  await name.scrollIntoViewIfNeeded();
   await settle(page);
-  await card.hover();
-  await expect(card).toHaveCSS("transform", /matrix/);
-  await expect(card.locator(".arrow")).toHaveCSS("color", "rgb(215, 255, 63)");
+  await name.hover();
+  await expect(name).toHaveCSS("text-decoration-color", "rgb(215, 255, 63)");
 });

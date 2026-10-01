@@ -37,6 +37,11 @@ export const Project = z
       })
       .strict(),
     year: z.number().int().min(2015).max(2100),
+    // Published packages the registries describe at build time; names only, never numbers.
+    packages: z
+      .object({ npm: z.array(z.string().min(1)).default([]), pypi: z.array(z.string().min(1)).default([]) })
+      .strict()
+      .optional(),
   })
   .strict()
   .refine((p) => p.visibility === "private" || p.links.source, {

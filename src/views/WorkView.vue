@@ -2,9 +2,9 @@
 import { useHead } from "@unhead/vue";
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import ProjectCard from "../components/ProjectCard.vue";
+import CaseStudyRow from "../components/CaseStudyRow.vue";
 import { useReveal } from "../composables/useReveal";
-import { CATEGORY_LABEL, type Category, profile, projects, totals } from "../data";
+import { CATEGORY_LABEL, type Category, type Project, profile, projects, STATUS_LABEL, totals } from "../data";
 
 useHead({
   title: "Work",
@@ -70,9 +70,39 @@ const filtered = computed(() => {
     return normalised(`${p.name} ${p.tagline} ${p.stack.join(" ")} ${p.repo} ${p.family ?? ""}`).includes(q);
   });
 });
-const cards = computed(() => filtered.value.filter((p) => p.category !== "early"));
-const archive = computed(() => filtered.value.filter((p) => p.category === "early"));
+// Four tiers, so six flagships are never one card among forty: what to look at first, the system
+// behind it, everything else that is current, and the archive (folded away until asked for).
+const isArchive = (p: Project) => p.category === "early" || p.status === "archived";
+const groups = computed(() => [
+  {
+    id: "flagships",
+    title: "Flagships",
+    note: "products and runtimes with releases",
+    items: filtered.value.filter((p) => p.featured),
+  },
+  {
+    id: "lucy",
+    title: "The LUCY family",
+    note: "services behind the assistant hub",
+    items: filtered.value.filter((p) => !p.featured && p.family === "lucy" && !isArchive(p)),
+  },
+  {
+    id: "also",
+    title: "Also built",
+    note: "tools, sites and work in progress",
+    items: filtered.value.filter((p) => !p.featured && p.family !== "lucy" && !isArchive(p)),
+  },
+  {
+    id: "archive",
+    title: "Archive",
+    note: "early and archived work, 2023 to 2025",
+    items: filtered.value.filter((p) => !p.featured && isArchive(p)),
+  },
+]);
+const archiveOpen = computed(() => category.value !== "all" || query.value.trim() !== "");
 const privateCount = computed(() => filtered.value.filter((p) => p.visibility === "private").length);
+const meta = (p: Project) =>
+  [p.visibility === "private" ? "private" : STATUS_LABEL[p.status].toLowerCase(), p.year].join(" · ");
 
 const resultLine = computed(() => {
   const n = filtered.value.length;
@@ -123,9 +153,9 @@ watch(filtered, () => nextTick(refresh));
 <template>
   <div class="container">
     <header class="page-hero">
-      <div class="eyebrow">Work</div>
-      <h1>Every repository, <span>one contract.</span></h1>
-      <p class="hero-lede">
+      <p class="crumbs">Work</p>
+      <h1>Every repository, one contract.</h1>
+      <p class="lede">
         {{ totals.shown }} projects across {{ totals.repositories }} repositories. Each one carries the same metadata file; this page is generated from it.
         Private work is listed by name and never linked.
       </p>
@@ -134,17 +164,17 @@ watch(filtered, () => nextTick(refresh));
     <div class="toolbar" role="region" aria-label="Filter projects">
       <div role="group" aria-label="Category">
         <ul class="chips">
-        <li>
-          <button class="chip" type="button" :aria-pressed="category === 'all'" @click="pick('all')" @keydown="onChipKey($event, 0)" :tabindex="category === 'all' ? 0 : -1">
-            All <span class="count">{{ projects.length }}</span>
-          </button>
-        </li>
-        <li v-for="(c, i) in categories" :key="c">
-          <button class="chip" type="button" :aria-pressed="category === c" @click="pick(c)" @keydown="onChipKey($event, i + 1)" :tabindex="category === c ? 0 : -1">
-            {{ CATEGORY_LABEL[c] }} <span class="count">{{ counts[c] }}</span>
-          </button>
-        </li>
-      </ul>
+          <li>
+            <button class="chip" type="button" :aria-pressed="category === 'all'" @click="pick('all')" @keydown="onChipKey($event, 0)" :tabindex="category === 'all' ? 0 : -1">
+              All <span class="count">{{ projects.length }}</span>
+            </button>
+          </li>
+          <li v-for="(c, i) in categories" :key="c">
+            <button class="chip" type="button" :aria-pressed="category === c" @click="pick(c)" @keydown="onChipKey($event, i + 1)" :tabindex="category === c ? 0 : -1">
+              {{ CATEGORY_LABEL[c] }} <span class="count">{{ counts[c] }}</span>
+            </button>
+          </li>
+        </ul>
       </div>
       <label class="search">
         <span class="sr-only">Search projects</span>
@@ -163,30 +193,43 @@ watch(filtered, () => nextTick(refresh));
     </div>
 
     <template v-else>
-      <h2 class="sr-only">Projects</h2>
-      <div v-if="cards.length" class="grid" :key="`${category}-${query}`">
-        <ProjectCard v-for="(p, i) in cards" :key="p.slug" :project="p" :index="i" />
-      </div>
-
-      <section v-if="archive.length" class="section" aria-labelledby="archive-title">
-        <div class="section-heading">
-          <div class="eyebrow">Archive</div>
-          <h2 id="archive-title">Early work, 2023–2024</h2>
-          <p>Where it started: console programs, WinForms, first web projects. Kept because the progression is the point.</p>
-        </div>
-        <ul class="archive">
-          <li v-for="p in archive" :key="p.slug">
-            <router-link :to="`/work/${p.slug}`">
-              <span><span class="name">{{ p.name }}</span><span class="what">{{ p.tagline }}</span></span>
-              <span class="tag" v-if="p.stack[0]">{{ p.stack[0] }}</span>
-              <span class="year">{{ p.year }}</span>
-            </router-link>
-          </li>
-        </ul>
-      </section>
+      <template v-for="g in groups" :key="g.id">
+        <section v-if="g.items.length" class="work-group" :class="`work-${g.id}`" :aria-labelledby="`group-${g.id}`">
+          <header class="work-group-head">
+            <h2 :id="`group-${g.id}`">{{ g.title }}</h2>
+            <p class="mono faint">{{ g.items.length }} · {{ g.note }}</p>
+          </header>
+          <div v-if="g.id === 'flagships'" class="cases">
+            <CaseStudyRow v-for="p in g.items" :key="p.slug" :project="p" compact />
+          </div>
+          <details v-else-if="g.id === 'archive'" class="archive-fold" :open="archiveOpen">
+            <summary>{{ archiveOpen ? "Archive" : `Show ${g.items.length} archived projects` }}</summary>
+            <ul class="work-list">
+              <li v-for="p in g.items" :key="p.slug" class="work-row work-item">
+                <router-link class="work-main" :to="`/work/${p.slug}`">
+                  <span class="work-name">{{ p.name }}</span>
+                  <span class="work-what">{{ p.tagline }}</span>
+                  <span class="work-meta">{{ meta(p) }}</span>
+                </router-link>
+                <a v-if="p.links.site" class="work-site" :href="p.links.site" target="_blank" rel="noopener noreferrer" :aria-label="`${p.name} website`">site ↗</a>
+              </li>
+            </ul>
+          </details>
+          <ul v-else class="work-list">
+            <li v-for="p in g.items" :key="p.slug" class="work-row work-item">
+              <router-link class="work-main" :to="`/work/${p.slug}`">
+                <span class="work-name">{{ p.name }}</span>
+                <span class="work-what">{{ p.tagline }}</span>
+                <span class="work-meta">{{ p.role ?? p.stack.slice(0, 2).join(" · ") }} · {{ meta(p) }}</span>
+              </router-link>
+              <a v-if="p.links.site" class="work-site" :href="p.links.site" target="_blank" rel="noopener noreferrer" :aria-label="`${p.name} website`">site ↗</a>
+            </li>
+          </ul>
+        </section>
+      </template>
     </template>
 
-    <p v-if="privateCount" class="results-line" style="margin-top: 24px">
+    <p v-if="privateCount" class="results-line private-note">
       {{ privateCount }} of these are private repositories: shown by name and description only, with no links. Source and detail on request.
     </p>
   </div>

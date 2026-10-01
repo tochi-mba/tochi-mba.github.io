@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
-import { activity, fetchLatestPush, timeAgo } from "../activity";
+import { computed } from "vue";
+import { activity } from "../activity";
+import CaseStudyRow from "../components/CaseStudyRow.vue";
 import ContributionGraph from "../components/ContributionGraph.vue";
+import CopyButton from "../components/CopyButton.vue";
 import LanguageMix from "../components/LanguageMix.vue";
-import ProjectCard from "../components/ProjectCard.vue";
-import StatCount from "../components/StatCount.vue";
+import LiveLine from "../components/LiveLine.vue";
+import ShippingRibbon from "../components/ShippingRibbon.vue";
 import SystemMap from "../components/SystemMap.vue";
 import { useReveal } from "../composables/useReveal";
-import { bySlug, featured, profile, totals } from "../data";
+import { featured, lanes, lucyFamily, profile, shipping, shortDate, site, totals } from "../data";
 
 useHead({
   title: null,
@@ -37,121 +39,125 @@ useHead({
 
 useReveal();
 
-const now = profile.now.map((n) => ({ ...n, project: bySlug.get(n.slug)! }));
-
-// The hero's "last push" line: build-time data first, then the browser asks GitHub for anything
-// newer. Shown only when one of the two produced something; never a made-up value.
-const latest = ref<{ repo: string; at: string } | null>(
-  activity.recent?.[0] ? { repo: activity.recent[0].name, at: activity.recent[0].pushedAt } : null,
-);
-const controller = new AbortController();
-onMounted(async () => {
-  const live = await fetchLatestPush(profile.handle, controller.signal);
-  if (live && (!latest.value || live.at > latest.value.at)) latest.value = live;
+// The headline on two lines, broken at the word nearest its middle.
+const headline = computed(() => {
+  const words = profile.headline.split(" ");
+  let best = 1;
+  for (let i = 1; i < words.length; i += 1) {
+    const left = words.slice(0, i).join(" ").length;
+    const bestLeft = words.slice(0, best).join(" ").length;
+    if (Math.abs(left * 2 - profile.headline.length) < Math.abs(bestLeft * 2 - profile.headline.length)) best = i;
+  }
+  return [words.slice(0, best).join(" "), words.slice(best).join(" ")];
 });
-onBeforeUnmount(() => controller.abort());
-const latestLine = computed(() =>
-  latest.value ? `last push · ${latest.value.repo} · ${timeAgo(latest.value.at)}` : "github.com/tochi-mba",
-);
+
+const releases = shipping.filter((e) => e.kind === "release").length;
+const merged = shipping.filter((e) => e.kind === "pr").length;
+const logSummary = [
+  releases && `${releases} release${releases === 1 ? "" : "s"}`,
+  merged && `${merged} merged pull request${merged === 1 ? "" : "s"}`,
+]
+  .filter(Boolean)
+  .join(" and ");
+
+const services = lucyFamily.filter((p) => p.role !== "hub").length;
+
+const days = activity.calendar?.days ?? [];
+const recentDays = days.slice(-91);
+const activeDays = days.filter((d) => d[1] > 0).length;
+const busiest = days.reduce<[string, number] | null>((a, d) => (!a || d[1] > a[1] ? d : a), null);
+
+const rigour = [
+  "Lint, types, imports and tests at 100% branch coverage in every LUCY repository",
+  "axe and Playwright on desktop, Pixel 7 and reduced motion",
+  "A dead or private link fails the build",
+  "Rebuilt from GitHub, npm and PyPI every day",
+];
 </script>
 
 <template>
   <div>
-    <section class="hero container" id="top">
-      <div class="hero-copy">
-        <div class="eyebrow signal"><span class="pulse-dot"></span> {{ profile.name }} · call me Rex · {{ profile.company }}</div>
-        <h1>
-          <span class="headline-line">Agent systems</span>
-          <span class="headline-line"><span>that ship.</span></span>
-        </h1>
+    <section class="hero container" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="hero-title">
+        <span class="line">{{ headline[0] }}</span>
+        <span class="line">{{ headline[1] }}</span>
+      </h1>
+      <div class="hero-body">
         <p class="hero-lede">{{ profile.lede }}</p>
-        <div class="hero-actions">
-          <router-link class="button button-primary" to="/work">See the work <span class="arrow" aria-hidden="true">→</span></router-link>
-          <router-link class="button button-secondary" to="/about">About Rex</router-link>
-        </div>
-        <div class="hero-meta">
-          <span>{{ profile.availability }}</span>
-          <span>{{ profile.location }}</span>
-        </div>
-      </div>
-      <div class="hero-panel">
-        <div class="now-panel" aria-labelledby="now-title">
-          <div class="now-top">
-            <span class="pulse-dot" aria-hidden="true"></span>
-            <span id="now-title">Working on now</span>
-            <span class="mono">{{ now.length }} threads</span>
-          </div>
-          <ul class="now-list">
-            <li v-for="n in now" :key="n.slug">
-              <router-link class="now-item" :to="`/work/${n.slug}`">
-                <span class="pulse-dot" aria-hidden="true"></span>
-                <span><strong>{{ n.label }}</strong><span>{{ n.detail }}</span></span>
-                <span class="arrow" aria-hidden="true">→</span>
-              </router-link>
-            </li>
-          </ul>
-          <div class="now-foot">
-            <span>{{ latestLine }}</span>
-            <span>{{ totals.repositories }} repos</span>
+        <div class="hero-side">
+          <dl class="hero-facts mono">
+            <div><dt>Who</dt><dd>{{ profile.name }}, call me Rex</dd></div>
+            <div><dt>Based in</dt><dd>{{ profile.location }}</dd></div>
+            <div><dt>Looking for</dt><dd>{{ profile.availability.replace(/^Open to /, "") }}</dd></div>
+          </dl>
+          <div class="hero-actions">
+            <router-link class="button button-primary" to="/work">See the work <span class="arrow" aria-hidden="true">→</span></router-link>
+            <a class="button button-secondary" :href="`mailto:${profile.email}`">Email Rex</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="trust-strip" aria-label="At a glance">
-      <div class="container trust-grid">
-        <div><StatCount :value="totals.repositories" /><span>repositories, one metadata contract</span></div>
-        <div><StatCount :value="totals.products" /><span>shipped desktop and mobile products</span></div>
-        <div><StatCount :value="totals.services" /><span>services in the LUCY assistant family</span></div>
-        <div><strong>First Class</strong><span>BSc Computer Science with Cybersecurity</span></div>
+    <section v-if="shipping.length" class="log container" aria-labelledby="log-title">
+      <div class="log-head">
+        <div>
+          <h2 id="log-title" class="log-title">Build log</h2>
+          <span class="log-sub mono faint">the latest {{ logSummary }}, fetched {{ shortDate(site.generatedAt) }}</span>
+        </div>
+        <LiveLine />
       </div>
+      <ShippingRibbon class="reveal" :events="shipping" :lanes="lanes" />
     </section>
 
-    <section class="section" id="featured" aria-labelledby="featured-title">
+    <section class="section" id="work" aria-labelledby="work-title">
       <div class="container">
-        <div class="section-heading-row">
-          <div class="section-heading reveal">
-            <div class="eyebrow">Selected work</div>
-            <h2 id="featured-title">Built to be <span>used</span>, not demoed.</h2>
-            <p>Products people install, services other services depend on, and a runtime published to npm and PyPI. Every one of them has a site, a changelog and a test gate.</p>
+        <header class="section-head">
+          <p class="section-label">Selected work · {{ featured.length }} of {{ totals.shown }}</p>
+          <div class="section-title">
+            <h2 id="work-title">Built to be used, not demoed.</h2>
+            <p>Products people install, services other services depend on, and a runtime published to npm and PyPI. Every one has a site, a changelog and a test gate.</p>
           </div>
-          <router-link class="link-arrow reveal" to="/work">All {{ totals.shown }} projects <span class="arrow" aria-hidden="true">→</span></router-link>
+        </header>
+        <div class="cases">
+          <CaseStudyRow v-for="p in featured" :key="p.slug" :project="p" />
         </div>
-        <div class="grid">
-          <ProjectCard v-for="(p, i) in featured" :key="p.slug" :project="p" :featured="i === 0" :index="i" />
-        </div>
+        <p class="section-more section-body"><router-link class="link-arrow" to="/work">All {{ totals.shown }} projects <span aria-hidden="true">→</span></router-link></p>
       </div>
     </section>
 
     <section class="section" id="system" aria-labelledby="system-title">
       <div class="container">
-        <div class="section-heading reveal">
-          <div class="eyebrow">The LUCY family</div>
-          <h2 id="system-title">One hub, <span>{{ totals.services - 1 }} services</span>, one rule.</h2>
-          <p>Every service authenticates against keyring and hands the model data with provenance, never instructions. Hover or tab through the map.</p>
-        </div>
+        <header class="section-head">
+          <p class="section-label">The LUCY system · {{ services }} services</p>
+          <div class="section-title">
+            <h2 id="system-title">One hub, {{ services }} services, one rule.</h2>
+            <p>Every service authenticates against keyring and hands the model data with provenance, never instructions. Hover, click or arrow through the map.</p>
+          </div>
+        </header>
         <SystemMap class="reveal" />
       </div>
     </section>
 
-    <section v-if="activity.available && activity.calendar && activity.languages" class="section" id="activity" aria-labelledby="activity-title">
+    <section v-if="activity.available && activity.calendar" class="section" id="activity" aria-labelledby="activity-title">
       <div class="container">
-        <div class="section-heading reveal">
-          <div class="eyebrow">GitHub, last 365 days</div>
-          <h2 id="activity-title"><span>{{ activity.calendar.total.toLocaleString("en-GB") }}</span> contributions.</h2>
-          <p>
-            Pulled from GitHub when this site was built, {{ timeAgo(activity.fetchedAt) }}.
-            {{ activity.counts?.commits.toLocaleString("en-GB") }} commits, {{ activity.counts?.pullRequests }} pull requests,
-            {{ activity.counts?.repositoriesCreated }} repositories created.
-          </p>
-        </div>
-        <div class="activity-grid">
-          <div class="reveal activity-card">
-            <h3>Contributions</h3>
-            <ContributionGraph :days="activity.calendar.days" :total="activity.calendar.total" />
+        <header class="section-head">
+          <p class="section-label">GitHub · last 12 months</p>
+          <div class="section-title">
+            <h2 id="activity-title">Where the work went.</h2>
+            <p>
+              {{ activity.calendar.total.toLocaleString("en-GB") }} contributions on {{ activeDays }} days:
+              {{ activity.counts?.commits.toLocaleString("en-GB") }} commits and {{ activity.counts?.pullRequests }} pull requests<template v-if="busiest && busiest[1] > 0">, the busiest day {{ busiest[1] }} on {{ shortDate(busiest[0]) }}</template>.
+              The build log above is the record of what shipped.
+            </p>
           </div>
-          <div class="reveal activity-card" style="--delay: 120ms">
-            <h3>Languages, by bytes of code</h3>
+        </header>
+        <div class="work-went section-body">
+          <div class="strip reveal">
+            <p class="figure-label">Last 13 weeks</p>
+            <ContributionGraph :days="recentDays" :total="recentDays.reduce((a, d) => a + d[1], 0)" period="in the last 13 weeks" />
+          </div>
+          <div v-if="activity.languages?.length" class="langs-wrap reveal" style="--delay: 120ms">
+            <p class="figure-label">Languages, by bytes of current code</p>
             <LanguageMix :languages="activity.languages" />
           </div>
         </div>
@@ -160,63 +166,43 @@ const latestLine = computed(() =>
 
     <section class="section" id="principles" aria-labelledby="principles-title">
       <div class="container">
-        <div class="section-heading reveal">
-          <div class="eyebrow">How I work</div>
-          <h2 id="principles-title">Three rules I don't bend.</h2>
-        </div>
-        <div class="grid">
-          <article v-for="(p, i) in profile.principles" :key="p.title" class="principle reveal" :style="{ '--delay': `${i * 70}ms` }">
-            <span class="principle-number">0{{ i + 1 }}</span>
-            <h3>{{ p.title }}</h3>
-            <p>{{ p.body }}</p>
-          </article>
+        <header class="section-head">
+          <p class="section-label">How I work</p>
+          <div class="section-title">
+            <h2 id="principles-title">Three rules I don't bend.</h2>
+          </div>
+        </header>
+        <div class="section-body">
+          <div class="principles">
+            <article v-for="p in profile.principles" :key="p.title" class="principle">
+              <h3>{{ p.title }}</h3>
+              <p>{{ p.body }}</p>
+            </article>
+          </div>
+          <ul class="rigour mono" aria-label="Engineering practice">
+            <li v-for="r in rigour" :key="r">{{ r }}</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="cta-title">
+    <section class="section" id="contact" aria-labelledby="contact-title">
       <div class="container">
-        <div class="cta reveal">
-          <div>
-            <h2 id="cta-title">Hiring for AI or full-stack? <span>Let's talk.</span></h2>
-            <p>{{ profile.availability }}. Email is fastest; every repository above is open for a look first.</p>
+        <header class="section-head">
+          <p class="section-label">Contact</p>
+          <div class="section-title">
+            <h2 id="contact-title">Hiring for AI or full-stack? Let's talk.</h2>
+            <p>{{ profile.availability }}. Email is fastest; every public repository above is open for a look first.</p>
           </div>
-          <div class="hero-actions">
-            <a class="button button-primary" :href="`mailto:${profile.email}`">Email Rex <span class="arrow" aria-hidden="true">→</span></a>
-            <a class="button button-secondary" :href="profile.github" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        </header>
+        <div class="contact section-body">
+          <a class="contact-mail" :href="`mailto:${profile.email}`">{{ profile.email }}</a>
+          <div class="contact-row">
+            <CopyButton :text="profile.email" label="Copy email" />
+            <a :href="profile.github" target="_blank" rel="noopener noreferrer">github.com/{{ profile.handle }} ↗</a>
           </div>
         </div>
       </div>
     </section>
   </div>
 </template>
-
-<style>
-.activity-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 16px;
-}
-.activity-card {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-l);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  min-width: 0;
-}
-.activity-card h3 {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-@media (max-width: 1000px) {
-  .activity-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>

@@ -1,0 +1,86 @@
+/* Tochi Mba, portfolio. The "build log" system: two typefaces, hairlines, and one colour that means
+   evidence. Rules live in docs/design.md; every value the components use is a token here. */
+
+@font-face {
+  font-family: "Bricolage";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/bricolage-grotesque-latin.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2190-2199, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Martian Mono";
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("/fonts/martian-mono-latin.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2190-2199, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Fallbacks shaped to the web fonts' metrics (measured with fontTools against Liberation Sans/Mono,
+   which share Arial's and Courier New's metrics), so the swap moves nothing. */
+@font-face {
+  font-family: "Bricolage Fallback";
+  src: local("Arial"), local("Liberation Sans"), local("Helvetica Neue"), local("Helvetica");
+  size-adjust: 97%;
+  ascent-override: 95.9%;
+  descent-override: 27.8%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Martian Mono Fallback";
+  src: local("Courier New"), local("Liberation Mono"), local("Menlo"), local("Consolas");
+  size-adjust: 116.6%;
+  ascent-override: 85.7%;
+  descent-override: 17.2%;
+  line-gap-override: 0%;
+}
+
+:root {
+  /* Colour, from OKLCH (comments) to hex so every contrast checker reads the same values. */
+  --bg: #080b07; /* oklch(14.5% 0.012 135) */
+  --bg-2: #10140e; /* oklch(18.5% 0.013 135) */
+  --rule: #2b2f29; /* oklch(30% 0.012 135) */
+  --rule-2: #4a4f48; /* oklch(42% 0.013 135) */
+  --text: #f4f4eb; /* oklch(96.5% 0.012 110): 17.9:1 on --bg */
+  --text-2: #b0b2a9; /* oklch(76% 0.014 120): 9.2:1 */
+  --text-3: #8b8d85; /* oklch(64% 0.012 120): 5.9:1 */
+  /* Lime marks evidence and nothing else: a shipped release, a live signal, a fetched number. */
+  --signal: #d7ff3f;
+  --on-signal: #080b07;
+  --heat-1: rgb(215 255 63 / 0.28);
+  --heat-2: rgb(215 255 63 / 0.5);
+  --heat-3: rgb(215 255 63 / 0.75);
+  --heat-4: #d7ff3f;
+
+  /* Type */
+  --font: "Bricolage", "Bricolage Fallback", system-ui, sans-serif;
+  --mono: "Martian Mono", "Martian Mono Fallback", ui-monospace, monospace;
+  --fs-hero: clamp(3.5rem, 1.6rem + 7.6vw, 8.5rem);
+  --fs-1: clamp(2.25rem, 1.55rem + 2.8vw, 3.5rem);
+  --fs-2: clamp(1.75rem, 1.35rem + 1.6vw, 2.5rem);
+  --fs-3: clamp(1.15rem, 1.05rem + 0.45vw, 1.375rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.9375rem;
+  --fs-mono: 0.78rem;
+  --fs-mono-s: 0.7rem;
+
+  /* Space and layout */
+  --gutter: clamp(16px, 4vw, 40px);
+  --page: 1280px;
+  --section: clamp(72px, 10vw, 136px);
+  --col-gap: clamp(16px, 2.4vw, 32px);
+  --header-h: 64px;
+  --radius: 4px;
+
+  /* Motion: short, ease-out, transform and opacity only. Nothing moves without .motion. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-fast: 160ms;
+  --t-base: 240ms;
+  --t-slow: 700ms;
+  --stagger: 40ms;
+
+  color-scheme: dark;
+}
