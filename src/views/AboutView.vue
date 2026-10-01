@@ -42,7 +42,7 @@ useReveal();
               <span class="period">{{ e.period }}</span>
               <h3>{{ e.title }}</h3>
               <span class="org">{{ e.org }}</span>
-              <p>{{ e.summary }}</p>
+              <p v-if="e.summary">{{ e.summary }}</p>
             </li>
           </ol>
         </section>
@@ -57,7 +57,7 @@ useReveal();
               <span class="period">{{ e.period }}</span>
               <h3>{{ e.title }}</h3>
               <span class="org">{{ e.org }}</span>
-              <p>{{ e.summary }}</p>
+              <p v-if="e.summary">{{ e.summary }}</p>
             </li>
           </ol>
         </section>

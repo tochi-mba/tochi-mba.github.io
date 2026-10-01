@@ -12,8 +12,16 @@
   "site": "https://tochi-mba.github.io/",
   "availability": "Open to AI engineering and full-stack roles",
   "now": [
-    { "label": "Flint", "detail": "PC-to-Fire TV casting, hardware encode end to end", "slug": "flint" },
-    { "label": "LUCY", "detail": "assistant hub and its eight-service family", "slug": "lucy-assistant" },
+    {
+      "label": "Flint",
+      "detail": "PC-to-Fire TV casting, hardware encode end to end",
+      "slug": "flint"
+    },
+    {
+      "label": "LUCY",
+      "detail": "assistant hub and its eight-service family",
+      "slug": "lucy-assistant"
+    },
     {
       "label": "Android Headless Mirror",
       "detail": "2.3.1 shipped, seven features planned",
@@ -94,16 +102,9 @@
     {
       "title": "Founder and engineer",
       "org": "REX Technologies",
-      "period": "2025 – present",
+      "period": "2025 \u2013 present",
       "summary": "Design, build and ship the REX product line: the LUCY assistant hub and its service family, the weftai workflow runtime (npm and PyPI), Android Headless Mirror, Flint, textwire, chika and clyde. Every repository carries the same gates and the same visual system.",
       "source": "github"
-    },
-    {
-      "title": "Teaching",
-      "org": "Computer science",
-      "period": "Earlier",
-      "summary": "Taught programming and computing concepts. Details from the CV to be confirmed.",
-      "source": "cv"
     }
   ],
   "education": [
@@ -111,7 +112,7 @@
       "title": "BSc (Hons) Computer Science with Cybersecurity",
       "org": "First Class Honours",
       "period": "Completed",
-      "summary": "Degree institution and dates to be confirmed from the CV.",
+      "summary": "",
       "source": "cv"
     }
   ]

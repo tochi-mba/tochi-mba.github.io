@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T16:49:08.064Z",
+  "generatedAt": "2026-10-01T16:53:42.997Z",
   "profile": {
     "$schema": "./profile.schema.json",
     "name": "Tochi Mba",
@@ -107,13 +107,6 @@
         "period": "2025 – present",
         "summary": "Design, build and ship the REX product line: the LUCY assistant hub and its service family, the weftai workflow runtime (npm and PyPI), Android Headless Mirror, Flint, textwire, chika and clyde. Every repository carries the same gates and the same visual system.",
         "source": "github"
-      },
-      {
-        "title": "Teaching",
-        "org": "Computer science",
-        "period": "Earlier",
-        "summary": "Taught programming and computing concepts. Details from the CV to be confirmed.",
-        "source": "cv"
       }
     ],
     "education": [
@@ -121,7 +114,7 @@
         "title": "BSc (Hons) Computer Science with Cybersecurity",
         "org": "First Class Honours",
         "period": "Completed",
-        "summary": "Degree institution and dates to be confirmed from the CV.",
+        "summary": "",
         "source": "cv"
       }
     ]
