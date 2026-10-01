@@ -12,7 +12,13 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = resolve(root, "src/generated/activity.json");
 mkdirSync(dirname(out), { recursive: true });
 
-const { owner } = JSON.parse(await readFile(resolve(root, "data/projects.json"), "utf8"));
+const projectsFile = JSON.parse(await readFile(resolve(root, "data/projects.json"), "utf8"));
+const { owner } = projectsFile;
+// Archived and early repositories carry vendored libraries from 2024; they would swamp the mix
+// with JavaScript that was never written here. The language mix is about current work.
+const currentRepos = new Set(
+  projectsFile.projects.filter((p) => p.status !== "archived" && p.category !== "early").map((p) => p.repo),
+);
 const token = process.env.GITHUB_TOKEN;
 
 function write(data) {
@@ -70,7 +76,7 @@ if (errors || !data?.user) {
 const cc = data.user.contributionsCollection;
 const days = cc.contributionCalendar.weeks.flatMap((w) => w.contributionDays.map((d) => [d.date, d.contributionCount]));
 
-// Language bytes summed across public repositories, excluding markup/config so the mix says what
+// Language bytes summed across current public repositories, excluding markup/config so the mix says what
 // the code is written in rather than how many HTML sites there are.
 const skip = new Set([
   "HTML",
@@ -86,6 +92,7 @@ const skip = new Set([
 const bytes = new Map();
 const colors = new Map();
 for (const r of data.user.repositories.nodes) {
+  if (!currentRepos.has(r.name)) continue;
   for (const e of r.languages.edges) {
     if (skip.has(e.node.name)) continue;
     bytes.set(e.node.name, (bytes.get(e.node.name) ?? 0) + e.size);
