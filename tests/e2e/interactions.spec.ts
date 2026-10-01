@@ -107,9 +107,14 @@ test("the skip link is the first tab stop and lands on main", async ({ page, isM
 test("a case study row underlines its name in lime on hover", async ({ page, isMobile }) => {
   test.skip(isMobile, "no hover on touch");
   await open(page, "/");
-  const name = page.locator(".case-name a").first();
-  await name.scrollIntoViewIfNeeded();
+  const row = page.locator(".case").first();
+  await row.scrollIntoViewIfNeeded();
+  // The row rises into place as it reveals; hovering before it has finished would lose the pointer.
+  await expect(row).toHaveClass(/visible/);
   await settle(page);
+  await expect(row).toHaveCSS("opacity", "1");
+  await expect(row).toHaveCSS("translate", "none");
+  const name = row.locator(".case-name a");
   await name.hover();
   await expect(name).toHaveCSS("text-decoration-color", "rgb(215, 255, 63)");
 });
