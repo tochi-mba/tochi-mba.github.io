@@ -58,7 +58,7 @@ test("the LUCY map responds to hover, click and arrow keys", async ({ page, isMo
   await open(page, "/");
   const detail = page.locator(".map-detail h3");
   await expect(detail).toHaveText("LUCY");
-  await page.locator(".map-node", { hasText: "keyring" }).click();
+  await page.locator(isMobile ? ".map-chip" : ".map-node", { hasText: "keyring" }).click();
   await expect(detail).toHaveText("keyring");
   // A vertical <line> has no width, so "visible" means present and lit, not a bounding box.
   expect(await page.locator(".map-edge.is-active").count()).toBeGreaterThan(0);
@@ -104,7 +104,7 @@ test("the skip link is the first tab stop and lands on main", async ({ page, isM
   await expect(page).toHaveURL(/#main$/);
 });
 
-test("a case study row underlines its name in lime on hover", async ({ page, isMobile }) => {
+test("a case study row underlines its name in the theme signal on hover", async ({ page, isMobile }) => {
   test.skip(isMobile, "no hover on touch");
   await open(page, "/");
   const row = page.locator(".case").first();
@@ -116,5 +116,13 @@ test("a case study row underlines its name in lime on hover", async ({ page, isM
   await expect(row).toHaveCSS("translate", "none");
   const name = row.locator(".case-name a");
   await name.hover();
-  await expect(name).toHaveCSS("text-decoration-color", "rgb(215, 255, 63)");
+  const signal = await name.evaluate((el) => {
+    const probe = document.createElement("span");
+    probe.style.color = "var(--signal)";
+    el.append(probe);
+    const color = getComputedStyle(probe).color;
+    probe.remove();
+    return color;
+  });
+  await expect(name).toHaveCSS("text-decoration-color", signal);
 });

@@ -45,11 +45,25 @@ test("every interactive element has a visible focus ring", async ({ page, isMobi
   }
 });
 
-test("touch targets are at least 44px tall on the phone", async ({ page, isMobile }) => {
+test("touch targets are at least 44px on the phone", async ({ page, isMobile }) => {
   test.skip(!isMobile, "phone only");
   await open(page, "/");
-  for (const sel of ["header .brand", ".button", ".case-actions a"]) {
+  for (const sel of ["header .brand", ".palette-button", ".theme-toggle", ".menu-button", ".button", ".case-actions a", ".map-chip"]) {
     const box = await page.locator(sel).first().boundingBox();
     expect(box?.height ?? 0, sel).toBeGreaterThanOrEqual(44);
+    if (sel !== "header .brand" && sel !== ".case-actions a") expect(box?.width ?? 0, sel).toBeGreaterThanOrEqual(44);
   }
+});
+
+test("the command palette has no axe violations while it is open", async ({ page, isMobile }) => {
+  test.skip(isMobile, "the palette is opened the same way everywhere; one pass is enough");
+  await open(page, "/work");
+  await page.getByRole("button", { name: "Search the site" }).click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.getByRole("combobox").fill("lucy");
+  const results = await new AxeBuilder({ page })
+    .include(".palette")
+    .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"])
+    .analyze();
+  expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(", ")}`)).toEqual([]);
 });
