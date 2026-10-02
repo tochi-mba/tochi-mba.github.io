@@ -89,6 +89,11 @@ function onKey(event: KeyboardEvent) {
 
 <template>
   <figure class="ribbon" :style="{ '--n': ordered.length }">
+    <!-- When the log is wider than the screen it opens on today, with the lane names scrolled away;
+         these stay pinned to the visible edge instead. Hidden wherever the drawing's own names show. -->
+    <ol class="lane-labels" aria-hidden="true">
+      <li v-for="(lane, li) in lanes" :key="lane.id" :style="{ '--lane': li }">{{ lane.name }}</li>
+    </ol>
     <div class="ribbon-scroll">
       <svg
         ref="svg"
@@ -155,6 +160,40 @@ function onKey(event: KeyboardEvent) {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  position: relative;
+  container-type: inline-size;
+}
+.lane-labels {
+  display: none;
+}
+/* Below 900px the drawing keeps its minimum width and scrolls, so it is always drawn at 0.75:1 and
+   a lane is 31.5px tall: the pinned names can be placed from that alone. */
+@container (max-width: 899px) {
+  .lane-name {
+    display: none;
+  }
+  .lane-labels {
+    display: block;
+    position: absolute;
+    inset: 0 auto auto 0;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    pointer-events: none;
+  }
+  .lane-labels li {
+    position: absolute;
+    left: 0;
+    top: calc(7px + var(--lane) * 31.5px);
+    padding-right: 8px;
+    background: var(--bg);
+    color: var(--text-3);
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 14px;
+    white-space: nowrap;
+  }
 }
 /* row-reverse puts the scroll origin at the newest end, so a phone opens on today without any JS. */
 .ribbon-scroll {
@@ -164,7 +203,7 @@ function onKey(event: KeyboardEvent) {
   overscroll-behavior-x: contain;
   scrollbar-width: thin;
   scrollbar-color: var(--rule) transparent;
-  background-image: radial-gradient(circle at 1px 1px, rgb(244 244 235 / 0.07) 1px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, var(--grid-dot) 1px, transparent 0);
   background-size: 24px 24px;
   padding: 6px 0 2px;
 }

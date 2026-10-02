@@ -1,0 +1,66 @@
+// The arithmetic behind the LUCY map's movement: a spring that brings a node back to where it
+// belongs, a slow drift so the picture is never quite still, and a point travelling between two
+// nodes. No DOM and no clock in here, so every number is unit-tested.
+
+export interface Vec {
+  x: number;
+  y: number;
+}
+
+/**
+ * One step of a damped spring pulling `pos` towards `target`. Semi-implicit Euler: velocity first,
+ * then position, which stays stable at the frame times a browser gives. Slightly underdamped, so a
+ * node that is let go overshoots once and settles.
+ */
+export function springStep(
+  pos: Vec,
+  vel: Vec,
+  target: Vec,
+  dt: number,
+  stiffness = 150,
+  damping = 14,
+): { pos: Vec; vel: Vec } {
+  const ax = stiffness * (target.x - pos.x) - damping * vel.x;
+  const ay = stiffness * (target.y - pos.y) - damping * vel.y;
+  const next = { x: vel.x + ax * dt, y: vel.y + ay * dt };
+  return { pos: { x: pos.x + next.x * dt, y: pos.y + next.y * dt }, vel: next };
+}
+
+/** True when a node is close enough to its target, and slow enough, to stop being moved. */
+export function settled(pos: Vec, vel: Vec, target: Vec): boolean {
+  return Math.hypot(target.x - pos.x, target.y - pos.y) < 0.05 && Math.hypot(vel.x, vel.y) < 0.05;
+}
+
+/**
+ * Where node `index` has drifted to after `seconds`: a slow loop a few units wide, with a period
+ * and a phase of its own so no two nodes move together.
+ */
+export function drift(index: number, seconds: number, amplitude = 3): Vec {
+  const phase = index * 2.399963; // the golden angle, so neighbours are never in step
+  const rate = 0.45 + (index % 5) * 0.06;
+  return {
+    x: amplitude * Math.sin(seconds * rate + phase),
+    y: amplitude * Math.cos(seconds * rate * 0.8 + phase * 1.7),
+  };
+}
+
+/** Slow at both ends, so a travelling mark leaves and arrives rather than teleporting. */
+export function easeInOut(t: number): number {
+  const c = Math.min(1, Math.max(0, t));
+  return c < 0.5 ? 2 * c * c : 1 - (-2 * c + 2) ** 2 / 2;
+}
+
+/** The point a fraction `t` of the way from one node to another. */
+export function along(from: Vec, to: Vec, t: number): Vec {
+  const e = easeInOut(t);
+  return { x: from.x + (to.x - from.x) * e, y: from.y + (to.y - from.y) * e };
+}
+
+/** How far a drag may pull a node from home, so it cannot be lost off the edge of the picture. */
+export function clampPull(home: Vec, pointer: Vec, limit: number): Vec {
+  const dx = pointer.x - home.x;
+  const dy = pointer.y - home.y;
+  const distance = Math.hypot(dx, dy);
+  if (distance <= limit) return pointer;
+  return { x: home.x + (dx / distance) * limit, y: home.y + (dy / distance) * limit };
+}
