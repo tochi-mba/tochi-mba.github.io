@@ -82,11 +82,13 @@ test("a project page links out safely and offers next and previous", async ({ pa
   await expect(page.locator("h1")).toBeFocused();
 });
 
-test("a private project shows no links at all", async ({ page }) => {
+test("a private project only offers its declared public links", async ({ page }) => {
   const p = site.projects.find((x) => x.visibility === "private")!;
   await open(page, `/work/${p.slug}`);
   await expect(page.locator("h1")).toHaveText(p.name);
-  await expect(page.locator("aside a")).toHaveCount(0);
+  for (const a of await page.locator("aside a").all()) {
+    expect(Object.values(p.links)).toContain(await a.getAttribute("href"));
+  }
   await expect(page.getByText("Private repository")).toBeVisible();
 });
 
@@ -94,6 +96,10 @@ test("the metadata schema is published for other repositories", async ({ request
   const res = await request.get("/schema/project.schema.json");
   expect(res.ok()).toBe(true);
   const schema = await res.json();
+  expect(schema.$id).toBe("https://tochi-mba.github.io/schema/project.schema.json");
   expect(schema.properties.display).toBeDefined();
   expect(schema.properties.publicSafe).toBeDefined();
+  // A repository's file never states GitHub's facts; the sync does.
+  expect(schema.properties.repo).toBeUndefined();
+  expect(schema.properties.visibility).toBeUndefined();
 });

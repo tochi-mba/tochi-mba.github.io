@@ -1,0 +1,19 @@
+{
+  "$schema": "https://tochi-mba.github.io/schema/project.schema.json",
+  "slug": "portfolio",
+  "name": "This portfolio",
+  "tagline": "The site you are on: every repository describes itself in one file, and the site is rebuilt from them.",
+  "description": "Each of my repositories carries .portfolio/project.json. Every build reads them all from GitHub, applies one publication policy, checks every link, and prerenders a page per project with Vue and vite-ssg. A private repository appears only by its own consent and in its own words; its name and its source never leave GitHub.\n\nLight and dark themes, a command palette, an interactive map of the LUCY family, and tests in three browser engines.",
+  "highlights": [
+    "Generated from a metadata file in every repository: adding a project is adding a file",
+    "Private repositories publish in their own words; their names never reach the site",
+    "Every link checked at build time: a dead one is dropped, a private one never published",
+    "Prerendered, so every page works before JavaScript runs",
+    "Unit and end-to-end tests in Chromium, Firefox and WebKit, with axe on every page"
+  ],
+  "stack": ["Vue 3", "TypeScript", "Vite", "vite-ssg", "Zod", "Playwright", "Vitest"],
+  "category": "web",
+  "status": "active",
+  "order": 230,
+  "display": true
+}

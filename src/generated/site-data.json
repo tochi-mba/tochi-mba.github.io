@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T19:17:21.783Z",
+  "generatedAt": "2026-10-02T02:19:17.674Z",
   "profile": {
     "name": "Tochi Mba",
     "handle": "tochi-mba",
@@ -8,8 +8,9 @@
     "headline": "Agent systems that ship.",
     "lede": "I build production AI systems and the software around them: assistant hubs, workflow runtimes, the services that keep a person's data and secrets where they belong, and the desktop and mobile apps that make it all usable. First Class BSc Computer Science with Cybersecurity.",
     "location": "United Kingdom",
-    "email": "tochimba26@gmail.com",
+    "email": "tochimba27@gmail.com",
     "github": "https://github.com/tochi-mba",
+    "linkedin": "https://www.linkedin.com/in/tochi-mba/",
     "site": "https://tochi-mba.github.io/",
     "availability": "Open to AI engineering and full-stack roles",
     "now": [
@@ -20,12 +21,12 @@
       },
       {
         "label": "LUCY",
-        "detail": "assistant hub and its eight-service family",
+        "detail": "assistant hub and its family of services",
         "slug": "lucy-assistant"
       },
       {
         "label": "Android Headless Mirror",
-        "detail": "seven features planned across twelve PRs",
+        "detail": "file transfers between the phone and the PC",
         "slug": "android-headless-mirror"
       }
     ],
@@ -101,47 +102,82 @@
     ],
     "experience": [
       {
+        "title": "AI Engineer",
+        "org": "Jigsaw Create · London",
+        "period": "2024 – present",
+        "summary": "Architected and delivered Jigsaw Intelligence: a production multi-agent system on Azure that lets people query and change complex business diagrams in plain language.",
+        "points": [
+          "A worklist orchestrator that coordinates more than 30 tools within WebRTC packet-size limits",
+          "A structured variable and template pipeline that keeps the model's context small",
+          "Deterministic search tools that hand the model structured data to reason over",
+          "A workflow engine with parallel, sequential and conditional steps, streaming results as they arrive",
+          "Fixed a live WebRTC connectivity issue that was blocking the AI in a client's enterprise environment",
+          "Delivered in seven months and shown as the Hero product at the British Legal Technology Forum"
+        ],
+        "source": "cv"
+      },
+      {
         "title": "Founder and sole engineer",
         "org": "REX Technologies",
         "period": "2025 – present",
         "summary": "Design, build and ship the REX product line: the LUCY assistant hub and its service family, the weftai workflow runtime (npm and PyPI), Android Headless Mirror, Flint, textwire, chika and clyde. Every repository carries the same gates and the same visual system.",
         "source": "github"
+      },
+      {
+        "title": "Software Developer, internship",
+        "org": "Snave · Huddersfield",
+        "period": "Earlier",
+        "summary": "Built Maia, an office automation chatbot in React on AWS for task management and team communication: responsive interfaces, secure and scalable storage, and features scoped directly with the people who would use them.",
+        "source": "cv"
+      },
+      {
+        "title": "Coding instructor and tutor",
+        "org": "Code Ninjas, Manchester · Software Academy, London",
+        "period": "Earlier",
+        "summary": "Taught Python and web development to young learners with a hands-on curriculum I wrote, and tutored GCSE students in Python, JavaScript and web development.",
+        "source": "cv"
       }
     ],
     "education": [
       {
         "title": "BSc (Hons) Computer Science with Cybersecurity",
-        "org": "First Class Honours",
-        "period": "Completed",
-        "summary": "",
+        "org": "University of Huddersfield · First Class Honours",
+        "period": "2020 – 2023",
+        "summary": "Artificial Intelligence (A), Cybersecurity (A), Final Year Project (A).",
+        "source": "cv"
+      },
+      {
+        "title": "Foundation Year",
+        "org": "University of Huddersfield · Letter of Commendation",
+        "period": "2019 – 2020",
+        "summary": "Mathematics (A), Computer Science (A*), English (A). Class representative.",
         "source": "cv"
       }
     ]
   },
   "totals": {
-    "repositories": 44,
-    "public": 26,
-    "private": 18,
-    "shown": 40,
-    "privateCounted": 0,
-    "hidden": 4,
+    "repositories": 46,
+    "shown": 42,
+    "public": 27,
+    "private": 15,
     "products": 4,
-    "services": 13,
-    "languages": 40
+    "services": 9,
+    "languages": 70
   },
   "projects": [
     {
       "repo": "LUCY-assistant",
+      "visibility": "public",
       "slug": "lucy-assistant",
       "name": "LUCY",
-      "tagline": "An assistant hub with a family of eight services behind it.",
+      "tagline": "An assistant hub with a family of small services behind it.",
       "description": "Lucy is the hub: health, readiness, identity, sessions, a durable conversation runner, resumable event streaming, capability packs, child helpers, watches, MCP in both directions and a command-line client. It turns a request into a plan of named operations and feeds earlier results into later steps by reference, so the model never copies an identifier. Memory, persona and pinned account facts reach the model as separate sections whose retrieval scores are never merged.",
       "highlights": [
         "Durable conversation runner with resumable event streaming",
         "Declarative plans: steps reference earlier results as $hits, not copied text",
         "MCP server and client in the same hub",
         "Any catalogued provider or a local runtime; lucy talk from a terminal",
-        "make check runs the same four gates in all nine family repositories"
+        "make check runs the same four gates in every family repository"
       ],
       "stack": [
         "Python 3.12",
@@ -156,7 +192,6 @@
       "status": "active",
       "featured": true,
       "order": 10,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
@@ -165,11 +200,14 @@
       },
       "year": 2026,
       "proof": {
-        "services": 12
+        "commits": 270,
+        "pushedAt": "2026-10-02T02:11:39Z",
+        "services": 9
       }
     },
     {
       "repo": "weftai",
+      "visibility": "public",
       "slug": "weftai",
       "name": "weftai",
       "tagline": "Composable AI workflows: the model plans, your code executes, results never travel through the model.",
@@ -178,7 +216,7 @@
         "One tool call, three dependent lookups, zero identifiers copied by the model",
         "Operations defined once: name, description, Zod input schema, output type, handler",
         "Previews for the model, full sets for the code; positions index the full set",
-        "npm (weftai, @weftai/*) and PyPI releases from one versioned monorepo",
+        "Released on npm (weftai, @weftai/*) and PyPI together, at one version",
         "Property-based tests with fast-check, Biome, changesets"
       ],
       "stack": [
@@ -194,7 +232,6 @@
       "status": "active",
       "featured": true,
       "order": 20,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
@@ -220,17 +257,25 @@
         ]
       },
       "proof": {
+        "release": {
+          "tag": "@weftai/cli@0.6.0",
+          "words": null,
+          "at": "2026-10-01T18:31:18Z",
+          "url": "https://github.com/tochi-mba/weftai/releases/tag/%40weftai/cli%400.6.0",
+          "count": 35,
+          "prerelease": false,
+          "assets": 0,
+          "downloads": 0
+        },
+        "commits": 53,
+        "pushedAt": "2026-10-01T19:51:37Z",
         "npm": {
           "name": "weftai",
           "version": "0.6.0",
           "at": "2026-10-01T18:34:05.139Z",
           "versions": 11,
-          "downloadsMonth": 1356,
+          "downloadsMonth": 1810,
           "daily": [
-            [
-              "2026-08-31",
-              0
-            ],
             [
               "2026-09-01",
               0
@@ -346,6 +391,10 @@
             [
               "2026-09-29",
               16
+            ],
+            [
+              "2026-09-30",
+              454
             ]
           ],
           "url": "https://www.npmjs.com/package/weftai",
@@ -364,16 +413,17 @@
     },
     {
       "repo": "Android_Headless_Mirror",
+      "visibility": "public",
       "slug": "android-headless-mirror",
       "name": "Android Headless Mirror",
       "tagline": "Your Android phone, in one window on your Windows PC, with its own screen off.",
-      "description": "Plug the phone in and it appears on screen. The app waits in the tray, opens when an authorised phone connects and restarts the mirror if it crashes. Two fingers on a Windows Precision Touchpad become two fingers on the phone. A GPU-rendered soft background, a live navigator, phone controls and phone settings all live in a single window, with a first-run tour and a CLI. Every release ships with a signed-off website, 26 Playwright site tests and UI Automation tests against the real window.",
+      "description": "Plug the phone in and it appears on screen. The app waits in the tray, opens when an authorised phone connects and restarts the mirror if it crashes. Two fingers on a Windows Precision Touchpad become two fingers on the phone. A GPU-rendered soft background, a live navigator, phone controls and phone settings all live in a single window, with a first-run tour and a command-line interface. Every release ships with its website, Playwright tests for the site and UI Automation tests against the real window.",
       "highlights": [
         "Real touchpad gestures mapped to the phone: pinch, rotate, pan",
         "Blurred live background rendered on the graphics card at 60 fps",
         "Per-user installer, no admin rights, scrcpy bundled, auto-update",
         "Repository rules that keep the site, the app and the CLI in agreement",
-        "Seven more features planned across twelve PRs, ~150 settings"
+        "A first-run tour, one-time hints and a command-line interface"
       ],
       "stack": [
         "C#",
@@ -387,7 +437,6 @@
       "status": "active",
       "featured": true,
       "order": 30,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
@@ -395,10 +444,25 @@
         "source": "https://github.com/tochi-mba/Android_Headless_Mirror",
         "download": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/latest"
       },
-      "year": 2026
+      "year": 2026,
+      "proof": {
+        "release": {
+          "tag": "v2.6.0",
+          "words": null,
+          "at": "2026-10-01T23:04:31Z",
+          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.6.0",
+          "count": 19,
+          "prerelease": false,
+          "assets": 2,
+          "downloads": 2
+        },
+        "commits": 209,
+        "pushedAt": "2026-10-02T02:14:36Z"
+      }
     },
     {
       "repo": "flint-app-firestick-cast",
+      "visibility": "public",
       "slug": "flint",
       "name": "Flint",
       "tagline": "Cast a PC screen to a Fire TV at the lowest latency the hardware allows.",
@@ -422,17 +486,31 @@
       "status": "active",
       "featured": true,
       "order": 40,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
         "site": "https://tochi-mba.github.io/flint-app-firestick-cast/",
         "source": "https://github.com/tochi-mba/flint-app-firestick-cast"
       },
-      "year": 2026
+      "year": 2026,
+      "proof": {
+        "release": {
+          "tag": "latest-mobile",
+          "words": "Flint Mobile (rolling)",
+          "at": "2026-09-16T12:55:52Z",
+          "url": "https://github.com/tochi-mba/flint-app-firestick-cast/releases/tag/latest-mobile",
+          "count": 2,
+          "prerelease": true,
+          "assets": 2,
+          "downloads": 0
+        },
+        "commits": 147,
+        "pushedAt": "2026-10-02T00:07:09Z"
+      }
     },
     {
       "repo": "textwire",
+      "visibility": "public",
       "slug": "textwire",
       "name": "textwire",
       "tagline": "Browse the web and search from a phone with no data connection, over plain SMS.",
@@ -455,17 +533,21 @@
       "status": "active",
       "featured": true,
       "order": 50,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
         "site": "https://tochi-mba.github.io/textwire/",
         "source": "https://github.com/tochi-mba/textwire"
       },
-      "year": 2026
+      "year": 2026,
+      "proof": {
+        "commits": 18,
+        "pushedAt": "2026-10-01T15:13:27Z"
+      }
     },
     {
       "repo": "chika",
+      "visibility": "public",
       "slug": "chika",
       "name": "Chika",
       "tagline": "An agentic assistant with full browser control, installed like a real app on Windows, macOS and Linux.",
@@ -486,17 +568,31 @@
       "status": "active",
       "featured": true,
       "order": 60,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
         "site": "https://tochi-mba.github.io/chika/",
         "source": "https://github.com/tochi-mba/chika"
       },
-      "year": 2026
+      "year": 2026,
+      "proof": {
+        "release": {
+          "tag": "v2.0.0",
+          "words": "Chika v2.0.0",
+          "at": "2026-05-06T18:44:15Z",
+          "url": "https://github.com/tochi-mba/chika/releases/tag/v2.0.0",
+          "count": 1,
+          "prerelease": false,
+          "assets": 4,
+          "downloads": 3
+        },
+        "commits": 98,
+        "pushedAt": "2026-05-07T13:02:36Z"
+      }
     },
     {
       "repo": "clyde",
+      "visibility": "public",
       "slug": "clyde",
       "name": "clyde",
       "tagline": "The Claude Code CLI as an OpenAI-compatible model provider on localhost.",
@@ -519,17 +615,50 @@
       "status": "active",
       "featured": false,
       "order": 70,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
         "site": "https://tochi-mba.github.io/clyde/",
         "source": "https://github.com/tochi-mba/clyde"
       },
+      "year": 2026,
+      "proof": {
+        "commits": 21,
+        "pushedAt": "2026-10-01T19:51:04Z"
+      }
+    },
+    {
+      "visibility": "private",
+      "slug": "weftai-for-python",
+      "name": "weftai for Python",
+      "tagline": "The same composable workflow runtime for Python, released in lockstep with the npm packages.",
+      "description": "The Python line of weftai. Model-facing strings, error sentences, catalogue rows, CLI usage and exit codes match the TypeScript line, and the two are released together at the same version. Five packages on PyPI: weftai, weftai-providers, weftai-mcp, weftai-cli and weftai-testing.",
+      "highlights": [
+        "Behavioural parity with the TypeScript packages, checked in CI",
+        "Five PyPI packages, lockstep versions",
+        "Hypothesis property tests"
+      ],
+      "stack": [
+        "Python 3.12",
+        "Hypothesis",
+        "uv"
+      ],
+      "category": "ai",
+      "family": "lucy",
+      "role": "runtime",
+      "status": "active",
+      "featured": false,
+      "order": 72,
+      "display": true,
+      "publicSafe": true,
+      "links": {
+        "package": "https://pypi.org/project/weftai/"
+      },
       "year": 2026
     },
     {
       "repo": "Keyring-api",
+      "visibility": "public",
       "slug": "keyring",
       "name": "keyring",
       "tagline": "Accounts, profiles and credentials: the vault the rest of the family authenticates against.",
@@ -550,17 +679,21 @@
       "status": "active",
       "featured": false,
       "order": 100,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
         "site": "https://tochi-mba.github.io/Keyring-api/",
         "source": "https://github.com/tochi-mba/Keyring-api"
       },
-      "year": 2026
+      "year": 2026,
+      "proof": {
+        "commits": 50,
+        "pushedAt": "2026-10-01T19:51:00Z"
+      }
     },
     {
       "repo": "Memory-api",
+      "visibility": "public",
       "slug": "memory",
       "name": "memory",
       "tagline": "Where what an assistant learns about a person goes, with provenance, confidence and corrections.",
@@ -580,17 +713,21 @@
       "status": "active",
       "featured": false,
       "order": 110,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
         "site": "https://tochi-mba.github.io/Memory-api/",
         "source": "https://github.com/tochi-mba/Memory-api"
       },
-      "year": 2026
+      "year": 2026,
+      "proof": {
+        "commits": 40,
+        "pushedAt": "2026-10-02T00:15:21Z"
+      }
     },
     {
       "repo": "Persona-api",
+      "visibility": "public",
       "slug": "persona",
       "name": "persona",
       "tagline": "Somewhere for an assistant to keep a model of itself and get it back later.",
@@ -610,17 +747,21 @@
       "status": "active",
       "featured": false,
       "order": 120,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
         "site": "https://tochi-mba.github.io/Persona-api/",
         "source": "https://github.com/tochi-mba/Persona-api"
       },
-      "year": 2026
+      "year": 2026,
+      "proof": {
+        "commits": 34,
+        "pushedAt": "2026-10-01T14:15:42Z"
+      }
     },
     {
       "repo": "User-api",
+      "visibility": "public",
       "slug": "user",
       "name": "user",
       "tagline": "Structured data about the person an assistant is talking to, returned as claims with provenance.",
@@ -640,17 +781,21 @@
       "status": "active",
       "featured": false,
       "order": 130,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
         "site": "https://tochi-mba.github.io/User-api/",
         "source": "https://github.com/tochi-mba/User-api"
       },
-      "year": 2026
+      "year": 2026,
+      "proof": {
+        "commits": 55,
+        "pushedAt": "2026-10-01T23:54:02Z"
+      }
     },
     {
       "repo": "Settings-api",
+      "visibility": "public",
       "slug": "settings",
       "name": "settings",
       "tagline": "One place a person decides how every service in the family behaves for them.",
@@ -669,17 +814,21 @@
       "status": "active",
       "featured": false,
       "order": 140,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
         "site": "https://tochi-mba.github.io/Settings-api/",
         "source": "https://github.com/tochi-mba/Settings-api"
       },
-      "year": 2026
+      "year": 2026,
+      "proof": {
+        "commits": 50,
+        "pushedAt": "2026-10-02T02:18:34Z"
+      }
     },
     {
       "repo": "Environments-api",
+      "visibility": "public",
       "slug": "environments",
       "name": "environments",
       "tagline": "Sandboxed environments and shells, as an API. Remote code execution as a product.",
@@ -700,17 +849,21 @@
       "status": "active",
       "featured": false,
       "order": 150,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
         "site": "https://tochi-mba.github.io/Environments-api/",
         "source": "https://github.com/tochi-mba/Environments-api"
       },
-      "year": 2026
+      "year": 2026,
+      "proof": {
+        "commits": 47,
+        "pushedAt": "2026-10-02T00:06:51Z"
+      }
     },
     {
       "repo": "Spotify-api",
+      "visibility": "public",
       "slug": "spotify-lookup",
       "name": "spotify lookup",
       "tagline": "Resolve batches of loosely specified tracks against Spotify, and control playback with every command confirmed on the device.",
@@ -731,17 +884,21 @@
       "status": "active",
       "featured": false,
       "order": 160,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
         "site": "https://tochi-mba.github.io/Spotify-api/",
         "source": "https://github.com/tochi-mba/Spotify-api"
       },
-      "year": 2026
+      "year": 2026,
+      "proof": {
+        "commits": 50,
+        "pushedAt": "2026-10-01T21:55:51Z"
+      }
     },
     {
       "repo": "Web-search-api",
+      "visibility": "public",
       "slug": "web-search",
       "name": "web search",
       "tagline": "Scrape search results and pages, then synthesise an executive summary with any of 54 LLM providers.",
@@ -762,17 +919,56 @@
       "status": "active",
       "featured": false,
       "order": 170,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
         "site": "https://tochi-mba.github.io/Web-search-api/",
         "source": "https://github.com/tochi-mba/Web-search-api"
       },
-      "year": 2026
+      "year": 2026,
+      "proof": {
+        "commits": 46,
+        "pushedAt": "2026-10-02T00:07:16Z"
+      }
+    },
+    {
+      "repo": "Github-api",
+      "visibility": "public",
+      "slug": "repos",
+      "name": "repos",
+      "tagline": "GitHub, reduced to what a person would say about it: repositories, pull requests, issues, CI, files and commits.",
+      "description": "The family's repos service. The hub calls it for repositories, pull requests, issues, CI, files and commits, and for subscriptions that end with a signed signal when CI settles, a pull request merges, a review lands or a job finishes. It holds no GitHub credential of its own: each request carries a keyring token and names a profile, and the service resolves that person's credential from keyring for the call. Everything it answers is a fixed, narrow projection; no raw GitHub payload ever leaves it.",
+      "highlights": [
+        "No credential of its own: resolved per request from keyring",
+        "Fixed, narrow projections instead of raw GitHub payloads",
+        "Subscriptions that end with a signed signal when CI settles or a pull request merges"
+      ],
+      "stack": [
+        "Python 3.12",
+        "FastAPI",
+        "GitHub Apps"
+      ],
+      "category": "service",
+      "family": "lucy",
+      "role": "repos",
+      "status": "active",
+      "featured": false,
+      "order": 180,
+      "display": true,
+      "publicSafe": false,
+      "links": {
+        "site": "https://tochi-mba.github.io/Github-api/",
+        "source": "https://github.com/tochi-mba/Github-api"
+      },
+      "year": 2026,
+      "proof": {
+        "commits": 4,
+        "pushedAt": "2026-10-01T20:14:21Z"
+      }
     },
     {
       "repo": "ai-context-bridge",
+      "visibility": "public",
       "slug": "ai-context-bridge",
       "name": "AI Context Bridge",
       "tagline": "Carry a conversation from ChatGPT to Claude to Gemini and back, in seconds.",
@@ -792,16 +988,115 @@
       "status": "stable",
       "featured": false,
       "order": 200,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
         "source": "https://github.com/tochi-mba/ai-context-bridge"
       },
+      "year": 2026,
+      "proof": {
+        "commits": 4,
+        "pushedAt": "2026-04-29T19:19:59Z"
+      }
+    },
+    {
+      "visibility": "private",
+      "slug": "agentic",
+      "name": "Agentic",
+      "tagline": "A self-rewriting application: say what the page should be and it becomes it.",
+      "description": "Type \"make this a calculator\" into a single chat input and the page becomes a working calculator; ask for a music player and it changes again, keeping its state. Most app generators emit code. Here the agent's tools change a typed JSON page schema and a Vue renderer walks that schema in real time, so there is no eval, no sandbox and no compile step.\n\nThe schema is the contract: backend records, generated TypeScript types and runtime validation. Every change is event-sourced, so the timeline can be scrubbed and forked from any version.",
+      "highlights": [
+        "The agent edits a typed page schema, never code",
+        "Vision self-correction: it screenshots its own work and patches what a vision model flags",
+        "Reverse mode: drop a screenshot of any interface and it is rebuilt as schema",
+        "Event-sourced patches with time travel and forking",
+        "An MCP server exposes the page tools to other agents"
+      ],
+      "stack": [
+        "ASP.NET Core",
+        "C#",
+        "Vue 3",
+        "TypeScript",
+        "SignalR",
+        "PostgreSQL"
+      ],
+      "category": "ai",
+      "status": "wip",
+      "featured": false,
+      "order": 210,
+      "display": true,
+      "publicSafe": true,
+      "links": {},
       "year": 2026
     },
     {
+      "visibility": "private",
+      "slug": "outmogged",
+      "name": "Outmogged",
+      "tagline": "A realtime, browser-based face-off game: matchmaking, WebRTC and live rounds.",
+      "description": "A monorepo with the whole game standing end to end: a web shell, a Go API gateway, anonymous sessions behind an age and privacy gate, a camera preview that never leaves the device, WebSocket connections, matchmaking, WebRTC signalling, rated rounds with leaderboards, moderation controls and a migration runner, with decision records and automated checks.",
+      "highlights": [
+        "Matchmaking and WebRTC signalling over WebSocket",
+        "Anonymous sessions behind an age and privacy gate",
+        "Moderation controls and a migration runner"
+      ],
+      "stack": [
+        "TypeScript",
+        "Go",
+        "WebRTC",
+        "WebSocket"
+      ],
+      "category": "web",
+      "status": "wip",
+      "featured": false,
+      "order": 220,
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2026
+    },
+    {
+      "repo": "tochi-mba.github.io",
+      "visibility": "public",
+      "slug": "portfolio",
+      "name": "This portfolio",
+      "tagline": "The site you are on: every repository describes itself in one file, and the site is rebuilt from them.",
+      "description": "Each of my repositories carries .portfolio/project.json. Every build reads them all from GitHub, applies one publication policy, checks every link, and prerenders a page per project with Vue and vite-ssg. A private repository appears only by its own consent and in its own words; its name and its source never leave GitHub.\n\nLight and dark themes, a command palette, an interactive map of the LUCY family, and tests in three browser engines.",
+      "highlights": [
+        "Generated from a metadata file in every repository: adding a project is adding a file",
+        "Private repositories publish in their own words; their names never reach the site",
+        "Every link checked at build time: a dead one is dropped, a private one never published",
+        "Prerendered, so every page works before JavaScript runs",
+        "Unit and end-to-end tests in Chromium, Firefox and WebKit, with axe on every page"
+      ],
+      "stack": [
+        "Vue 3",
+        "TypeScript",
+        "Vite",
+        "vite-ssg",
+        "Zod",
+        "Playwright",
+        "Vitest"
+      ],
+      "category": "web",
+      "status": "active",
+      "featured": false,
+      "order": 230,
+      "display": true,
+      "publicSafe": false,
+      "links": {
+        "site": "https://tochi-mba.github.io",
+        "source": "https://github.com/tochi-mba/tochi-mba.github.io"
+      },
+      "year": 2026,
+      "proof": {
+        "commits": 12,
+        "pushedAt": "2026-10-01T19:24:29Z"
+      }
+    },
+    {
       "repo": "maryjo-events",
+      "visibility": "public",
       "slug": "maryjo-events",
       "name": "Mary-Jo Corporate Events",
       "tagline": "A static client site with a branded contact form that posts to Google Apps Script.",
@@ -821,16 +1116,338 @@
       "status": "stable",
       "featured": false,
       "order": 300,
-      "visibility": "public",
       "display": true,
       "publicSafe": false,
       "links": {
         "source": "https://github.com/tochi-mba/maryjo-events"
       },
-      "year": 2026
+      "year": 2026,
+      "proof": {
+        "commits": 21,
+        "pushedAt": "2026-06-25T14:08:47Z"
+      }
+    },
+    {
+      "repo": "Playground",
+      "visibility": "public",
+      "slug": "playground",
+      "name": "Playground",
+      "tagline": "Spikes, and an Android harness that tests an app on a real device from CI.",
+      "description": "A scratch repository for experiments before they earn a repository of their own. The mobile harness is a small Compose app with unit and instrumented tests, built and run on a device by its own workflows.",
+      "highlights": [],
+      "stack": [
+        "Kotlin",
+        "Shell",
+        "Python"
+      ],
+      "category": "tool",
+      "status": "wip",
+      "featured": false,
+      "order": 320,
+      "display": true,
+      "publicSafe": false,
+      "links": {
+        "source": "https://github.com/tochi-mba/Playground"
+      },
+      "year": 2026,
+      "proof": {
+        "release": {
+          "tag": "mobile-harness-v0.1.4",
+          "words": "mobile-harness 0.1.4",
+          "at": "2026-09-13T00:22:58Z",
+          "url": "https://github.com/tochi-mba/Playground/releases/tag/mobile-harness-v0.1.4",
+          "count": 4,
+          "prerelease": false,
+          "assets": 4,
+          "downloads": 2
+        },
+        "commits": 4,
+        "pushedAt": "2026-09-13T00:22:58Z"
+      }
+    },
+    {
+      "visibility": "private",
+      "slug": "jarvis-v00",
+      "name": "JARVIS-V00",
+      "tagline": "A server that lets Alexa answer with a language model, through a provider adapter.",
+      "description": "A modular server that connects Alexa to language model providers behind one adapter interface, so the provider is a setting rather than a rewrite. Prompt components live in separate files, conversation history carries across Alexa sessions, and the prompting is tuned for answers that are spoken rather than read.",
+      "highlights": [
+        "One adapter interface for OpenAI, Ollama and other providers",
+        "Conversation history across Alexa sessions",
+        "Prompting tuned for spoken answers"
+      ],
+      "stack": [
+        "Python",
+        "TypeScript",
+        "Alexa Skills",
+        "Ollama"
+      ],
+      "category": "ai",
+      "status": "archived",
+      "featured": false,
+      "order": 600,
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2025
+    },
+    {
+      "visibility": "private",
+      "slug": "document-assistant",
+      "name": "Document assistant dashboard",
+      "tagline": "Chat over a library of documents, with upload, versions, conflict checks and search.",
+      "description": "A Next.js workspace for a document assistant: upload and organise files, keep their versions, check new ones for conflicts with what is already there, search them, and ask questions with answers grounded in the library, on Azure OpenAI and Azure AI Search.",
+      "highlights": [],
+      "stack": [
+        "Next.js",
+        "TypeScript",
+        "Azure OpenAI",
+        "Azure AI Search",
+        "Tailwind CSS"
+      ],
+      "category": "ai",
+      "status": "archived",
+      "featured": false,
+      "order": 610,
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2025
+    },
+    {
+      "visibility": "private",
+      "slug": "manual-generator",
+      "name": "Manual generator",
+      "tagline": "Builds a manual from uploaded documents and a prompt, section by section, with SharePoint sync.",
+      "description": "",
+      "highlights": [],
+      "stack": [
+        "Vue 3",
+        "TypeScript",
+        "Express",
+        "Tailwind CSS",
+        "Azure"
+      ],
+      "category": "ai",
+      "status": "archived",
+      "featured": false,
+      "order": 620,
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "visibility": "private",
+      "slug": "chatbot-training",
+      "name": "Chatbot training editor",
+      "tagline": "An editor for a chatbot's training data: projects, intents, entities and templates.",
+      "description": "",
+      "highlights": [],
+      "stack": [
+        "JavaScript",
+        "Express",
+        "MongoDB"
+      ],
+      "category": "ai",
+      "status": "archived",
+      "featured": false,
+      "order": 630,
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "visibility": "private",
+      "slug": "ai-project-generator",
+      "name": "AI Project Generator",
+      "tagline": "Describe a project and get its structure and files generated, with accounts and a paid tier.",
+      "description": "A web application that generates a software project's structure and file contents from a description, using GPT, Claude or Azure OpenAI. Accounts, free and paid tiers with a token allowance that resets on a schedule, Stripe for upgrades and GitHub integration to create the repository.",
+      "highlights": [
+        "Generation with GPT, Claude or Azure OpenAI",
+        "Free and paid tiers on a token allowance, with Stripe",
+        "Creates the GitHub repository for the generated project"
+      ],
+      "stack": [
+        "Vue 3",
+        "Express",
+        "MongoDB",
+        "Stripe",
+        "Pinia"
+      ],
+      "category": "tool",
+      "status": "archived",
+      "featured": false,
+      "order": 640,
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "visibility": "private",
+      "slug": "ecommerce-app",
+      "name": "E-commerce web app",
+      "tagline": "A store with products, a cart, Stripe checkout, promotion codes and sales analytics.",
+      "description": "An Express and MongoDB back end for a full store: product management, carts and orders, Stripe payments, accounts with JSON Web Tokens, promotion codes, and analytics on sales and on what each promotion did.",
+      "highlights": [],
+      "stack": [
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "Stripe",
+        "React"
+      ],
+      "category": "web",
+      "status": "archived",
+      "featured": false,
+      "order": 650,
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "visibility": "private",
+      "slug": "room-dashboard",
+      "name": "Room dashboard",
+      "tagline": "A dashboard that drives an LED matrix and strip in a room, with animations, a 3D preview and voice.",
+      "description": "A Vue app that composes animations and text for an LED matrix and an LED strip, previews them in three.js, and takes spoken requests through speech recognition and OpenAI; small Python handlers drive the hardware.",
+      "highlights": [],
+      "stack": [
+        "Vue 3",
+        "TypeScript",
+        "three.js",
+        "OpenAI",
+        "Python"
+      ],
+      "category": "web",
+      "status": "archived",
+      "featured": false,
+      "order": 660,
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "visibility": "private",
+      "slug": "first-jarvis",
+      "name": "Jarvis",
+      "tagline": "The first Jarvis: an assistant designed on paper, before any of the code.",
+      "description": "",
+      "highlights": [],
+      "stack": [
+        "draw.io"
+      ],
+      "category": "ai",
+      "status": "archived",
+      "featured": false,
+      "order": 670,
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "visibility": "private",
+      "slug": "frame-dashboard",
+      "name": "GHub",
+      "tagline": "A browser dashboard of frames you can drag, resize and arrange, with memory use on screen.",
+      "description": "",
+      "highlights": [],
+      "stack": [
+        "Vue 3",
+        "TypeScript",
+        "Vite"
+      ],
+      "category": "web",
+      "status": "archived",
+      "featured": false,
+      "order": 680,
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "visibility": "private",
+      "slug": "team-chat-bot",
+      "name": "Team chat bot",
+      "tagline": "A chat bot for Slack and Microsoft Teams, with commands and scheduled jobs.",
+      "description": "",
+      "highlights": [],
+      "stack": [
+        "Python",
+        "Slack",
+        "Microsoft Teams"
+      ],
+      "category": "ai",
+      "status": "archived",
+      "featured": false,
+      "order": 690,
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "visibility": "private",
+      "slug": "text-to-graph",
+      "name": "Text to graph",
+      "tagline": "The graph explorer with a code editor beside it: write the structure, see the diagram.",
+      "description": "",
+      "highlights": [],
+      "stack": [
+        "C#",
+        "ASP.NET Core",
+        "JavaScript",
+        "CodeMirror",
+        "yFiles"
+      ],
+      "category": "tool",
+      "status": "archived",
+      "featured": false,
+      "order": 700,
+      "display": true,
+      "publicSafe": true,
+      "links": {},
+      "year": 2024
+    },
+    {
+      "repo": "JigsawProject",
+      "visibility": "public",
+      "slug": "jigsaw-project",
+      "name": "Graph explorer",
+      "tagline": "An early full-stack graph app: an ASP.NET Core API over a node hierarchy, drawn as an interactive diagram.",
+      "description": "A hierarchy of nodes stored with Entity Framework Core and served by an ASP.NET Core API, drawn and edited in the browser as an interactive diagram with yFiles for HTML.",
+      "highlights": [],
+      "stack": [
+        "C#",
+        "ASP.NET Core",
+        "Entity Framework Core",
+        "JavaScript",
+        "yFiles"
+      ],
+      "category": "web",
+      "status": "archived",
+      "featured": false,
+      "order": 710,
+      "display": true,
+      "publicSafe": false,
+      "links": {
+        "source": "https://github.com/tochi-mba/JigsawProject"
+      },
+      "year": 2024,
+      "proof": {
+        "commits": 2,
+        "pushedAt": "2024-02-16T12:19:18Z"
+      }
     },
     {
       "repo": "webtools",
+      "visibility": "public",
       "slug": "codeconnect",
       "name": "CodeConnect",
       "tagline": "A platform for creating, hosting and sharing JavaScript libraries.",
@@ -846,65 +1463,22 @@
       "category": "web",
       "status": "archived",
       "featured": false,
-      "order": 310,
-      "visibility": "public",
+      "order": 720,
       "display": true,
       "publicSafe": false,
       "links": {
         "site": "https://webtools-iota.vercel.app",
         "source": "https://github.com/tochi-mba/webtools"
       },
-      "year": 2024
-    },
-    {
-      "repo": "Playground",
-      "slug": "playground",
-      "name": "Playground",
-      "tagline": "Playground for Rex: spikes and a mobile test harness.",
-      "description": "A scratch repository for experiments before they earn a repository of their own.",
-      "highlights": [],
-      "stack": [
-        "Kotlin",
-        "Shell",
-        "Python"
-      ],
-      "category": "tool",
-      "status": "wip",
-      "featured": false,
-      "order": 320,
-      "visibility": "public",
-      "display": true,
-      "publicSafe": false,
-      "links": {
-        "source": "https://github.com/tochi-mba/Playground"
-      },
-      "year": 2026
-    },
-    {
-      "repo": "JigsawProject",
-      "slug": "jigsaw-project",
-      "name": "Jigsaw",
-      "tagline": "A full-stack Jigsaw client and server.",
-      "description": "",
-      "highlights": [],
-      "stack": [
-        "TypeScript",
-        "C#"
-      ],
-      "category": "early",
-      "status": "archived",
-      "featured": false,
-      "order": 400,
-      "visibility": "public",
-      "display": true,
-      "publicSafe": false,
-      "links": {
-        "source": "https://github.com/tochi-mba/JigsawProject"
-      },
-      "year": 2024
+      "year": 2024,
+      "proof": {
+        "commits": 79,
+        "pushedAt": "2024-02-15T10:39:08Z"
+      }
     },
     {
       "repo": "ToDoList",
+      "visibility": "public",
       "slug": "todo-list",
       "name": "To-do list CLI",
       "tagline": "A CLI to-do list with commands and arguments, built on string manipulation.",
@@ -916,40 +1490,60 @@
       "category": "early",
       "status": "archived",
       "featured": false,
-      "order": 410,
-      "visibility": "public",
+      "order": 730,
       "display": true,
       "publicSafe": false,
       "links": {
         "source": "https://github.com/tochi-mba/ToDoList"
       },
-      "year": 2024
+      "year": 2024,
+      "proof": {
+        "release": {
+          "tag": "todo_v2",
+          "words": "ToDo List V2",
+          "at": "2024-02-14T21:52:10Z",
+          "url": "https://github.com/tochi-mba/ToDoList/releases/tag/todo_v2",
+          "count": 2,
+          "prerelease": false,
+          "assets": 1,
+          "downloads": 8
+        },
+        "commits": 13,
+        "pushedAt": "2024-02-14T21:52:10Z"
+      }
     },
     {
       "repo": "valentine-s",
+      "visibility": "public",
       "slug": "valentines",
       "name": "Valentine's",
-      "tagline": "A small front-end piece.",
+      "tagline": "A playful Valentine's page, with sound, a custom font and a celebration video.",
       "description": "",
       "highlights": [],
       "stack": [
+        "HTML",
+        "CSS",
         "JavaScript"
       ],
       "category": "early",
       "status": "archived",
       "featured": false,
-      "order": 420,
-      "visibility": "public",
+      "order": 740,
       "display": true,
       "publicSafe": false,
       "links": {
         "site": "https://tochi-mba.github.io/valentine-s/",
         "source": "https://github.com/tochi-mba/valentine-s"
       },
-      "year": 2024
+      "year": 2024,
+      "proof": {
+        "commits": 6,
+        "pushedAt": "2024-02-05T06:46:08Z"
+      }
     },
     {
       "repo": "NoughtsAndCrosses",
+      "visibility": "public",
       "slug": "noughts-and-crosses",
       "name": "Noughts and Crosses",
       "tagline": "A WinForms noughts and crosses game, written with matrices.",
@@ -961,17 +1555,31 @@
       "category": "early",
       "status": "archived",
       "featured": false,
-      "order": 430,
-      "visibility": "public",
+      "order": 750,
       "display": true,
       "publicSafe": false,
       "links": {
         "source": "https://github.com/tochi-mba/NoughtsAndCrosses"
       },
-      "year": 2024
+      "year": 2024,
+      "proof": {
+        "release": {
+          "tag": "noughtsncrossesv1",
+          "words": null,
+          "at": "2024-02-03T18:53:27Z",
+          "url": "https://github.com/tochi-mba/NoughtsAndCrosses/releases/tag/noughtsncrossesv1",
+          "count": 1,
+          "prerelease": true,
+          "assets": 1,
+          "downloads": 9
+        },
+        "commits": 3,
+        "pushedAt": "2024-02-03T18:53:27Z"
+      }
     },
     {
       "repo": "Simple-Calculator-IMPOSSIBLE-TO-BREAK",
+      "visibility": "public",
       "slug": "simple-calculator",
       "name": "Simple Calculator",
       "tagline": "The most robust simple console calculator possible.",
@@ -983,17 +1591,21 @@
       "category": "early",
       "status": "archived",
       "featured": false,
-      "order": 440,
-      "visibility": "public",
+      "order": 760,
       "display": true,
       "publicSafe": false,
       "links": {
         "source": "https://github.com/tochi-mba/Simple-Calculator-IMPOSSIBLE-TO-BREAK"
       },
-      "year": 2024
+      "year": 2024,
+      "proof": {
+        "commits": 3,
+        "pushedAt": "2024-01-30T13:38:01Z"
+      }
     },
     {
       "repo": "csharp-workspace",
+      "visibility": "public",
       "slug": "csharp-workspace",
       "name": "C# workspace",
       "tagline": "C# exercises and first programs.",
@@ -1005,316 +1617,30 @@
       "category": "early",
       "status": "archived",
       "featured": false,
-      "order": 450,
-      "visibility": "public",
+      "order": 770,
       "display": true,
       "publicSafe": false,
       "links": {
         "source": "https://github.com/tochi-mba/csharp-workspace"
       },
-      "year": 2024
+      "year": 2024,
+      "proof": {
+        "commits": 5,
+        "pushedAt": "2024-01-26T07:13:58Z"
+      }
     },
     {
-      "repo": "YTMusic-api",
-      "slug": "ytmusic-api",
-      "name": "YTMusic-api",
-      "tagline": "YouTube Music lookup and playback for the LUCY assistant family.",
-      "description": "",
-      "highlights": [],
-      "stack": [
-        "Python"
-      ],
-      "category": "service",
-      "family": "lucy",
-      "role": "music",
-      "status": "active",
-      "featured": false,
-      "order": 901,
       "visibility": "private",
-      "display": true,
-      "publicSafe": true,
-      "links": {},
-      "year": 2026
-    },
-    {
-      "repo": "weftai-python",
-      "slug": "weftai-python",
-      "name": "weftai-python",
-      "tagline": "weftai for Python: the same composable workflow runtime, released in lockstep with the npm packages.",
-      "description": "The Python line of weftai. Model-facing strings, error sentences, catalog rows, CLI usage and exit codes match the TypeScript line, and the two are released together at the same version. Five packages on PyPI: weftai, weftai-providers, weftai-mcp, weftai-cli and weftai-testing.",
-      "highlights": [
-        "Behavioural parity with the TypeScript packages, checked in CI",
-        "Five PyPI packages, lockstep versions",
-        "Hypothesis property tests"
-      ],
-      "stack": [
-        "Python 3.12",
-        "Hypothesis",
-        "uv"
-      ],
-      "category": "ai",
-      "family": "lucy",
-      "role": "runtime",
-      "status": "active",
-      "featured": false,
-      "order": 902,
-      "visibility": "private",
-      "display": true,
-      "publicSafe": true,
-      "links": {},
-      "year": 2026
-    },
-    {
-      "repo": "agentic",
-      "slug": "agentic",
-      "name": "agentic",
-      "tagline": "Agent experiments in C#.",
-      "description": "",
-      "highlights": [],
-      "stack": [
-        "C#"
-      ],
-      "category": "ai",
-      "status": "wip",
-      "featured": false,
-      "order": 903,
-      "visibility": "private",
-      "display": true,
-      "publicSafe": true,
-      "links": {},
-      "year": 2026
-    },
-    {
-      "repo": "outmogged",
-      "slug": "outmogged",
-      "name": "outmogged",
-      "tagline": "A TypeScript web project.",
-      "description": "",
-      "highlights": [],
-      "stack": [
-        "TypeScript"
-      ],
-      "category": "web",
-      "status": "wip",
-      "featured": false,
-      "order": 904,
-      "visibility": "private",
-      "display": true,
-      "publicSafe": true,
-      "links": {},
-      "year": 2026
-    },
-    {
-      "repo": "JARVIS-V00",
-      "slug": "jarvis-v00",
-      "name": "JARVIS-V00",
-      "tagline": "An early personal assistant prototype.",
-      "description": "",
-      "highlights": [],
-      "stack": [
-        "TypeScript"
-      ],
-      "category": "ai",
-      "status": "archived",
-      "featured": false,
-      "order": 905,
-      "visibility": "private",
-      "display": true,
-      "publicSafe": true,
-      "links": {},
-      "year": 2025
-    },
-    {
-      "repo": "jigbot-dash",
-      "slug": "jigbot-dash",
-      "name": "jigbot-dash",
-      "tagline": "Dashboard for the Jigsaw bot.",
-      "description": "",
-      "highlights": [],
-      "stack": [
-        "TypeScript"
-      ],
-      "category": "web",
-      "status": "archived",
-      "featured": false,
-      "order": 906,
-      "visibility": "private",
-      "display": true,
-      "publicSafe": true,
-      "links": {},
-      "year": 2025
-    },
-    {
-      "repo": "jigsawManual",
-      "slug": "jigsaw-manual",
-      "name": "jigsawManual",
-      "tagline": "The Jigsaw manual, as a Vue site.",
-      "description": "",
-      "highlights": [],
-      "stack": [
-        "Vue"
-      ],
-      "category": "tool",
-      "status": "archived",
-      "featured": false,
-      "order": 907,
-      "visibility": "private",
-      "display": true,
-      "publicSafe": true,
-      "links": {},
-      "year": 2024
-    },
-    {
-      "repo": "jigbot-training",
-      "slug": "jigbot-training",
-      "name": "jigbot-training",
-      "tagline": "Training pipeline for the Jigsaw bot.",
-      "description": "",
-      "highlights": [],
-      "stack": [
-        "JavaScript"
-      ],
-      "category": "ai",
-      "status": "archived",
-      "featured": false,
-      "order": 908,
-      "visibility": "private",
-      "display": true,
-      "publicSafe": true,
-      "links": {},
-      "year": 2024
-    },
-    {
-      "repo": "projectGenMain",
-      "slug": "project-gen",
-      "name": "projectGenMain",
-      "tagline": "A project generator.",
-      "description": "",
-      "highlights": [],
-      "stack": [
-        "Vue"
-      ],
-      "category": "tool",
-      "status": "archived",
-      "featured": false,
-      "order": 909,
-      "visibility": "private",
-      "display": true,
-      "publicSafe": true,
-      "links": {},
-      "year": 2024
-    },
-    {
-      "repo": "room-dashboard",
-      "slug": "room-dashboard",
-      "name": "room-dashboard",
-      "tagline": "A room dashboard.",
-      "description": "",
-      "highlights": [],
-      "stack": [
-        "Vue"
-      ],
-      "category": "web",
-      "status": "archived",
-      "featured": false,
-      "order": 912,
-      "visibility": "private",
-      "display": true,
-      "publicSafe": true,
-      "links": {},
-      "year": 2024
-    },
-    {
-      "repo": "Jarvis",
-      "slug": "jarvis",
-      "name": "Jarvis",
-      "tagline": "The first Jarvis.",
-      "description": "",
-      "highlights": [],
-      "stack": [],
-      "category": "ai",
-      "status": "archived",
-      "featured": false,
-      "order": 913,
-      "visibility": "private",
-      "display": true,
-      "publicSafe": true,
-      "links": {},
-      "year": 2024
-    },
-    {
-      "repo": "GHub",
-      "slug": "ghub",
-      "name": "GHub",
-      "tagline": "A GitHub client experiment in Vue.",
-      "description": "",
-      "highlights": [],
-      "stack": [
-        "Vue"
-      ],
-      "category": "tool",
-      "status": "archived",
-      "featured": false,
-      "order": 914,
-      "visibility": "private",
-      "display": true,
-      "publicSafe": true,
-      "links": {},
-      "year": 2024
-    },
-    {
-      "repo": "jigChat",
-      "slug": "jigchat",
-      "name": "jigChat",
-      "tagline": "Chat for the Jigsaw project.",
-      "description": "",
-      "highlights": [],
-      "stack": [
-        "Python"
-      ],
-      "category": "ai",
-      "status": "archived",
-      "featured": false,
-      "order": 915,
-      "visibility": "private",
-      "display": true,
-      "publicSafe": true,
-      "links": {},
-      "year": 2024
-    },
-    {
-      "repo": "jigsawtxt2diagram",
-      "slug": "jigsaw-txt2diagram",
-      "name": "jigsawtxt2diagram",
-      "tagline": "Text to diagram.",
-      "description": "",
-      "highlights": [],
-      "stack": [
-        "JavaScript"
-      ],
-      "category": "ai",
-      "status": "archived",
-      "featured": false,
-      "order": 916,
-      "visibility": "private",
-      "display": true,
-      "publicSafe": true,
-      "links": {},
-      "year": 2024
-    },
-    {
-      "repo": "tochis-world",
-      "slug": "tochis-world",
+      "slug": "first-repository",
       "name": "tochis-world",
-      "tagline": "The beginning of my legacy written in code.",
+      "tagline": "The first repository, from December 2023: the beginning of my legacy written in code.",
       "description": "",
       "highlights": [],
       "stack": [],
       "category": "web",
       "status": "archived",
       "featured": false,
-      "order": 917,
-      "visibility": "private",
+      "order": 780,
       "display": true,
       "publicSafe": true,
       "links": {},
@@ -1323,6 +1649,408 @@
   ],
   "shipping": [
     {
+      "id": "lucy-assistant#48",
+      "lane": "lucy-assistant",
+      "project": "lucy-assistant",
+      "kind": "pr",
+      "label": "#48",
+      "title": "LUCY #48",
+      "words": "docs(changelog): one Fixed section",
+      "at": "2026-10-02T00:09:37Z",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/48",
+      "channels": []
+    },
+    {
+      "id": "flint#40",
+      "lane": "flint",
+      "project": "flint",
+      "kind": "pr",
+      "label": "#40",
+      "title": "Flint #40",
+      "words": "Make this PC's ADB key before the handshake clock starts",
+      "at": "2026-10-01T23:53:32Z",
+      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/40",
+      "channels": []
+    },
+    {
+      "id": "android-headless-mirror@2.6.0",
+      "lane": "android-headless-mirror",
+      "project": "android-headless-mirror",
+      "kind": "release",
+      "label": "v2.6.0",
+      "title": "Android Headless Mirror v2.6.0",
+      "words": null,
+      "at": "2026-10-01T23:04:31Z",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.6.0",
+      "channels": [
+        "GitHub"
+      ]
+    },
+    {
+      "id": "android-headless-mirror#47",
+      "lane": "android-headless-mirror",
+      "project": "android-headless-mirror",
+      "kind": "pr",
+      "label": "#47",
+      "title": "Android Headless Mirror #47",
+      "words": "An Apps tab: every app on the phone by name, favourites as tiles and keys (2.6.0)",
+      "at": "2026-10-01T22:54:33Z",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/47",
+      "channels": []
+    },
+    {
+      "id": "lucy-assistant#47",
+      "lane": "lucy-assistant",
+      "project": "lucy-assistant",
+      "kind": "pr",
+      "label": "#47",
+      "title": "LUCY #47",
+      "words": "docs: preserve evaluation scenarios and lock customization revisions",
+      "at": "2026-10-01T22:43:06Z",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/47",
+      "channels": []
+    },
+    {
+      "id": "lucy-assistant#46",
+      "lane": "lucy-assistant",
+      "project": "lucy-assistant",
+      "kind": "pr",
+      "label": "#46",
+      "title": "LUCY #46",
+      "words": "fix: start GitHub with the generated family configuration",
+      "at": "2026-10-01T22:37:50Z",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/46",
+      "channels": []
+    },
+    {
+      "id": "settings#11",
+      "lane": "lucy-assistant",
+      "project": "settings",
+      "kind": "pr",
+      "label": "#11",
+      "title": "settings #11",
+      "words": "docs: mark explicit-content filtering as implemented",
+      "at": "2026-10-01T22:36:15Z",
+      "url": "https://github.com/tochi-mba/Settings-api/pull/11",
+      "channels": []
+    },
+    {
+      "id": "lucy-assistant#45",
+      "lane": "lucy-assistant",
+      "project": "lucy-assistant",
+      "kind": "pr",
+      "label": "#45",
+      "title": "LUCY #45",
+      "words": "fix: apply personal command and memory defaults",
+      "at": "2026-10-01T22:34:30Z",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/45",
+      "channels": []
+    },
+    {
+      "id": "settings#10",
+      "lane": "lucy-assistant",
+      "project": "settings",
+      "kind": "pr",
+      "label": "#10",
+      "title": "settings #10",
+      "words": "feat(catalogue): six entries a service now reads say so, and two defaults match it",
+      "at": "2026-10-01T22:19:23Z",
+      "url": "https://github.com/tochi-mba/Settings-api/pull/10",
+      "channels": []
+    },
+    {
+      "id": "spotify-lookup#11",
+      "lane": "lucy-assistant",
+      "project": "spotify-lookup",
+      "kind": "pr",
+      "label": "#11",
+      "title": "spotify lookup #11",
+      "words": "fix: apply explicit-content preferences to lookup and named tracks",
+      "at": "2026-10-01T21:55:25Z",
+      "url": "https://github.com/tochi-mba/Spotify-api/pull/11",
+      "channels": []
+    },
+    {
+      "id": "web-search#8",
+      "lane": "lucy-assistant",
+      "project": "web-search",
+      "kind": "pr",
+      "label": "#8",
+      "title": "web search #8",
+      "words": "feat(search): a person's safe-search level and recency reach the search backend",
+      "at": "2026-10-01T21:30:12Z",
+      "url": "https://github.com/tochi-mba/Web-search-api/pull/8",
+      "channels": []
+    },
+    {
+      "id": "lucy-assistant#44",
+      "lane": "lucy-assistant",
+      "project": "lucy-assistant",
+      "kind": "pr",
+      "label": "#44",
+      "title": "LUCY #44",
+      "words": "test: the watch and MCP pack tests answer DNS themselves",
+      "at": "2026-10-01T21:30:06Z",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/44",
+      "channels": []
+    },
+    {
+      "id": "lucy-assistant#43",
+      "lane": "lucy-assistant",
+      "project": "lucy-assistant",
+      "kind": "pr",
+      "label": "#43",
+      "title": "LUCY #43",
+      "words": "Two settings for how a reply is laid out: formatting and emoji",
+      "at": "2026-10-01T21:13:05Z",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/43",
+      "channels": []
+    },
+    {
+      "id": "settings#9",
+      "lane": "lucy-assistant",
+      "project": "settings",
+      "kind": "pr",
+      "label": "#9",
+      "title": "settings #9",
+      "words": "feat(catalogue): formatting and emoji, and three entries that now match what is built",
+      "at": "2026-10-01T20:50:24Z",
+      "url": "https://github.com/tochi-mba/Settings-api/pull/9",
+      "channels": []
+    },
+    {
+      "id": "flint#39",
+      "lane": "flint",
+      "project": "flint",
+      "kind": "pr",
+      "label": "#39",
+      "title": "Flint #39",
+      "words": "Add playback controls to the Media page",
+      "at": "2026-10-01T20:50:24Z",
+      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/39",
+      "channels": []
+    },
+    {
+      "id": "lucy-assistant#42",
+      "lane": "lucy-assistant",
+      "project": "lucy-assistant",
+      "kind": "pr",
+      "label": "#42",
+      "title": "LUCY #42",
+      "words": "A person's time zone, language, units, clock and currency reach the model",
+      "at": "2026-10-01T20:30:36Z",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/42",
+      "channels": []
+    },
+    {
+      "id": "lucy-assistant#41",
+      "lane": "lucy-assistant",
+      "project": "lucy-assistant",
+      "kind": "pr",
+      "label": "#41",
+      "title": "LUCY #41",
+      "words": "test: the sweep-interval test waits for two sweeps, not for twenty milliseconds",
+      "at": "2026-10-01T20:30:24Z",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/41",
+      "channels": []
+    },
+    {
+      "id": "android-headless-mirror@2.5.0",
+      "lane": "android-headless-mirror",
+      "project": "android-headless-mirror",
+      "kind": "release",
+      "label": "v2.5.0",
+      "title": "Android Headless Mirror v2.5.0",
+      "words": null,
+      "at": "2026-10-01T20:28:44Z",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.5.0",
+      "channels": [
+        "GitHub"
+      ]
+    },
+    {
+      "id": "spotify-lookup#10",
+      "lane": "lucy-assistant",
+      "project": "spotify-lookup",
+      "kind": "pr",
+      "label": "#10",
+      "title": "spotify lookup #10",
+      "words": "feat(player): a new play takes the person's shuffle and repeat",
+      "at": "2026-10-01T20:28:23Z",
+      "url": "https://github.com/tochi-mba/Spotify-api/pull/10",
+      "channels": []
+    },
+    {
+      "id": "settings#8",
+      "lane": "lucy-assistant",
+      "project": "settings",
+      "kind": "pr",
+      "label": "#8",
+      "title": "settings #8",
+      "words": "feat(common): the five conventions are read by the hub, and locale defaults to none",
+      "at": "2026-10-01T20:23:23Z",
+      "url": "https://github.com/tochi-mba/Settings-api/pull/8",
+      "channels": []
+    },
+    {
+      "id": "lucy-assistant#40",
+      "lane": "lucy-assistant",
+      "project": "lucy-assistant",
+      "kind": "pr",
+      "label": "#40",
+      "title": "LUCY #40",
+      "words": "repos.lock at every sibling's head, the Github-api checkout ignored, and nine services counted",
+      "at": "2026-10-01T20:23:17Z",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/40",
+      "channels": []
+    },
+    {
+      "id": "android-headless-mirror#46",
+      "lane": "android-headless-mirror",
+      "project": "android-headless-mirror",
+      "kind": "pr",
+      "label": "#46",
+      "title": "Android Headless Mirror #46",
+      "words": "The phone's sound on this PC (2.5.0)",
+      "at": "2026-10-01T20:20:28Z",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/46",
+      "channels": []
+    },
+    {
+      "id": "repos#2",
+      "lane": "lucy-assistant",
+      "project": "repos",
+      "kind": "pr",
+      "label": "#2",
+      "title": "repos #2",
+      "words": "docs(site): a GitHub Pages site for Github-api, and the repository names REX Technologies",
+      "at": "2026-10-01T20:14:20Z",
+      "url": "https://github.com/tochi-mba/Github-api/pull/2",
+      "channels": []
+    },
+    {
+      "id": "repos#1",
+      "lane": "lucy-assistant",
+      "project": "repos",
+      "kind": "pr",
+      "label": "#1",
+      "title": "repos #1",
+      "words": "fix: lucy-signals comes from its tag, not from a merged branch",
+      "at": "2026-10-01T20:03:26Z",
+      "url": "https://github.com/tochi-mba/Github-api/pull/1",
+      "channels": []
+    },
+    {
+      "id": "lucy-assistant#39",
+      "lane": "lucy-assistant",
+      "project": "lucy-assistant",
+      "kind": "pr",
+      "label": "#39",
+      "title": "LUCY #39",
+      "words": "Repositories: a GitHub connector, scoped grants, and jobs that wake a session",
+      "at": "2026-10-01T19:48:41Z",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/39",
+      "channels": []
+    },
+    {
+      "id": "weftai#15",
+      "lane": "weftai",
+      "project": "weftai",
+      "kind": "pr",
+      "label": "#15",
+      "title": "weftai #15",
+      "words": "Remove dead code found by the family sweep",
+      "at": "2026-10-01T19:48:16Z",
+      "url": "https://github.com/tochi-mba/weftai/pull/15",
+      "channels": []
+    },
+    {
+      "id": "spotify-lookup#9",
+      "lane": "lucy-assistant",
+      "project": "spotify-lookup",
+      "kind": "pr",
+      "label": "#9",
+      "title": "spotify lookup #9",
+      "words": "Remove dead code found by the family sweep",
+      "at": "2026-10-01T19:48:10Z",
+      "url": "https://github.com/tochi-mba/Spotify-api/pull/9",
+      "channels": []
+    },
+    {
+      "id": "web-search#7",
+      "lane": "lucy-assistant",
+      "project": "web-search",
+      "kind": "pr",
+      "label": "#7",
+      "title": "web search #7",
+      "words": "Remove dead code found by the family sweep",
+      "at": "2026-10-01T19:48:04Z",
+      "url": "https://github.com/tochi-mba/Web-search-api/pull/7",
+      "channels": []
+    },
+    {
+      "id": "portfolio#3",
+      "lane": "other",
+      "project": "portfolio",
+      "kind": "pr",
+      "label": "#3",
+      "title": "This portfolio #3",
+      "words": "Redesign the portfolio as a build log of what shipped",
+      "at": "2026-10-01T19:24:29Z",
+      "url": "https://github.com/tochi-mba/tochi-mba.github.io/pull/3",
+      "channels": []
+    },
+    {
+      "id": "flint#38",
+      "lane": "flint",
+      "project": "flint",
+      "kind": "pr",
+      "label": "#38",
+      "title": "Flint #38",
+      "words": "Notice when the TV goes away, and offer Disconnect",
+      "at": "2026-10-01T19:23:39Z",
+      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/38",
+      "channels": []
+    },
+    {
+      "id": "android-headless-mirror@2.4.0",
+      "lane": "android-headless-mirror",
+      "project": "android-headless-mirror",
+      "kind": "release",
+      "label": "v2.4.0",
+      "title": "Android Headless Mirror v2.4.0",
+      "words": null,
+      "at": "2026-10-01T19:18:46Z",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.4.0",
+      "channels": [
+        "GitHub"
+      ]
+    },
+    {
+      "id": "android-headless-mirror#45",
+      "lane": "android-headless-mirror",
+      "project": "android-headless-mirror",
+      "kind": "pr",
+      "label": "#45",
+      "title": "Android Headless Mirror #45",
+      "words": "Shortcuts from anywhere (2.4.0)",
+      "at": "2026-10-01T19:11:48Z",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/45",
+      "channels": []
+    },
+    {
+      "id": "settings#7",
+      "lane": "lucy-assistant",
+      "project": "settings",
+      "kind": "pr",
+      "label": "#7",
+      "title": "settings #7",
+      "words": "Add the github namespace: where new repositories go and who can see them",
+      "at": "2026-10-01T18:58:05Z",
+      "url": "https://github.com/tochi-mba/Settings-api/pull/7",
+      "channels": []
+    },
+    {
       "id": "weftai@0.6.0",
       "lane": "weftai",
       "project": "weftai",
@@ -1330,220 +2058,115 @@
       "label": "v0.6.0",
       "title": "weftai v0.6.0",
       "words": null,
-      "at": "2026-10-01T18:32:14.788Z",
-      "url": "https://www.npmjs.com/package/weftai",
+      "at": "2026-10-01T18:31:06Z",
+      "url": "https://github.com/tochi-mba/weftai/releases/tag/%40weftai/cli%400.6.0",
       "channels": [
+        "GitHub",
         "npm"
       ]
     },
     {
-      "id": "weftai@0.5.2",
+      "id": "keyring#6",
+      "lane": "lucy-assistant",
+      "project": "keyring",
+      "kind": "pr",
+      "label": "#6",
+      "title": "keyring #6",
+      "words": "Let a service record standing consent for itself while the person is present",
+      "at": "2026-10-01T18:28:22Z",
+      "url": "https://github.com/tochi-mba/Keyring-api/pull/6",
+      "channels": []
+    },
+    {
+      "id": "weftai#13",
       "lane": "weftai",
       "project": "weftai",
+      "kind": "pr",
+      "label": "#13",
+      "title": "weftai #13",
+      "words": "Operation annotations and an optional step note (0.6.0)",
+      "at": "2026-10-01T18:28:16Z",
+      "url": "https://github.com/tochi-mba/weftai/pull/13",
+      "channels": []
+    },
+    {
+      "id": "android-headless-mirror@2.3.4",
+      "lane": "android-headless-mirror",
+      "project": "android-headless-mirror",
       "kind": "release",
-      "label": "v0.5.2",
-      "title": "weftai v0.5.2",
+      "label": "v2.3.4",
+      "title": "Android Headless Mirror v2.3.4",
       "words": null,
-      "at": "2026-09-30T21:17:01.559Z",
-      "url": "https://www.npmjs.com/package/weftai",
+      "at": "2026-10-01T18:20:16Z",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.3.4",
       "channels": [
-        "npm",
-        "PyPI"
+        "GitHub"
       ]
     },
     {
-      "id": "weftai@0.5.1",
-      "lane": "weftai",
-      "project": "weftai",
-      "kind": "release",
-      "label": "v0.5.1",
-      "title": "weftai v0.5.1",
-      "words": null,
-      "at": "2026-09-30T20:56:29.294Z",
-      "url": "https://www.npmjs.com/package/weftai",
-      "channels": [
-        "npm"
-      ]
+      "id": "android-headless-mirror#44",
+      "lane": "android-headless-mirror",
+      "project": "android-headless-mirror",
+      "kind": "pr",
+      "label": "#44",
+      "title": "Android Headless Mirror #44",
+      "words": "Fix three crashes and a stuck touch found by CI (2.3.4)",
+      "at": "2026-10-01T18:13:04Z",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/44",
+      "channels": []
     },
     {
-      "id": "weftai@0.5.0",
-      "lane": "weftai",
-      "project": "weftai",
-      "kind": "release",
-      "label": "v0.5.0",
-      "title": "weftai v0.5.0",
-      "words": null,
-      "at": "2026-09-30T18:33:22.907Z",
-      "url": "https://www.npmjs.com/package/weftai",
-      "channels": [
-        "npm",
-        "PyPI"
-      ]
+      "id": "flint#37",
+      "lane": "flint",
+      "project": "flint",
+      "kind": "pr",
+      "label": "#37",
+      "title": "Flint #37",
+      "words": "Build the settings foundation",
+      "at": "2026-10-01T18:04:14Z",
+      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/37",
+      "channels": []
     },
     {
-      "id": "weftai@0.4.0",
-      "lane": "weftai",
-      "project": "weftai",
+      "id": "android-headless-mirror@2.3.3",
+      "lane": "android-headless-mirror",
+      "project": "android-headless-mirror",
       "kind": "release",
-      "label": "v0.4.0",
-      "title": "weftai v0.4.0",
+      "label": "v2.3.3",
+      "title": "Android Headless Mirror v2.3.3",
       "words": null,
-      "at": "2026-09-24T16:21:14.800Z",
-      "url": "https://www.npmjs.com/package/weftai",
+      "at": "2026-10-01T17:37:38Z",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.3.3",
       "channels": [
-        "npm",
-        "PyPI"
-      ]
-    },
-    {
-      "id": "weftai@0.3.0",
-      "lane": "weftai",
-      "project": "weftai",
-      "kind": "release",
-      "label": "v0.3.0",
-      "title": "weftai v0.3.0",
-      "words": null,
-      "at": "2026-09-23T15:34:52.150027Z",
-      "url": "https://www.npmjs.com/package/weftai",
-      "channels": [
-        "npm",
-        "PyPI"
-      ]
-    },
-    {
-      "id": "weftai@0.2.5",
-      "lane": "weftai",
-      "project": "weftai",
-      "kind": "release",
-      "label": "v0.2.5",
-      "title": "weftai v0.2.5",
-      "words": null,
-      "at": "2026-09-23T14:44:36.341960Z",
-      "url": "https://www.npmjs.com/package/weftai",
-      "channels": [
-        "npm",
-        "PyPI"
-      ]
-    },
-    {
-      "id": "weftai@0.2.4",
-      "lane": "weftai",
-      "project": "weftai",
-      "kind": "release",
-      "label": "v0.2.4",
-      "title": "weftai v0.2.4",
-      "words": null,
-      "at": "2026-09-16T23:58:15.445417Z",
-      "url": "https://pypi.org/project/weftai/",
-      "channels": [
-        "PyPI"
-      ]
-    },
-    {
-      "id": "weftai@0.2.3",
-      "lane": "weftai",
-      "project": "weftai",
-      "kind": "release",
-      "label": "v0.2.3",
-      "title": "weftai v0.2.3",
-      "words": null,
-      "at": "2026-09-16T23:47:07.529533Z",
-      "url": "https://pypi.org/project/weftai/",
-      "channels": [
-        "PyPI"
-      ]
-    },
-    {
-      "id": "weftai@0.2.2",
-      "lane": "weftai",
-      "project": "weftai",
-      "kind": "release",
-      "label": "v0.2.2",
-      "title": "weftai v0.2.2",
-      "words": null,
-      "at": "2026-09-16T21:12:44.242153Z",
-      "url": "https://pypi.org/project/weftai/",
-      "channels": [
-        "PyPI"
-      ]
-    },
-    {
-      "id": "weftai@0.2.1",
-      "lane": "weftai",
-      "project": "weftai",
-      "kind": "release",
-      "label": "v0.2.1",
-      "title": "weftai v0.2.1",
-      "words": null,
-      "at": "2026-09-16T20:49:04.669866Z",
-      "url": "https://www.npmjs.com/package/weftai",
-      "channels": [
-        "npm",
-        "PyPI"
-      ]
-    },
-    {
-      "id": "weftai@0.1.0a1",
-      "lane": "weftai",
-      "project": "weftai",
-      "kind": "release",
-      "label": "v0.1.0a1",
-      "title": "weftai v0.1.0a1",
-      "words": null,
-      "at": "2026-09-16T13:07:01.283257Z",
-      "url": "https://pypi.org/project/weftai/",
-      "channels": [
-        "PyPI"
-      ]
-    },
-    {
-      "id": "weftai@0.2.0",
-      "lane": "weftai",
-      "project": "weftai",
-      "kind": "release",
-      "label": "v0.2.0",
-      "title": "weftai v0.2.0",
-      "words": null,
-      "at": "2026-09-16T11:38:13.094Z",
-      "url": "https://www.npmjs.com/package/weftai",
-      "channels": [
-        "npm"
-      ]
-    },
-    {
-      "id": "weftai@0.1.1",
-      "lane": "weftai",
-      "project": "weftai",
-      "kind": "release",
-      "label": "v0.1.1",
-      "title": "weftai v0.1.1",
-      "words": null,
-      "at": "2026-09-16T10:32:55.958Z",
-      "url": "https://www.npmjs.com/package/weftai",
-      "channels": [
-        "npm"
-      ]
-    },
-    {
-      "id": "weftai@0.1.0",
-      "lane": "weftai",
-      "project": "weftai",
-      "kind": "release",
-      "label": "v0.1.0",
-      "title": "weftai v0.1.0",
-      "words": null,
-      "at": "2026-09-16T09:34:47.298Z",
-      "url": "https://www.npmjs.com/package/weftai",
-      "channels": [
-        "npm"
+        "GitHub"
       ]
     }
   ],
   "lanes": [
     {
+      "id": "lucy-assistant",
+      "name": "LUCY",
+      "slug": "lucy-assistant"
+    },
+    {
       "id": "weftai",
       "name": "weftai",
       "slug": "weftai"
+    },
+    {
+      "id": "android-headless-mirror",
+      "name": "Android Headless Mirror",
+      "slug": "android-headless-mirror"
+    },
+    {
+      "id": "flint",
+      "name": "Flint",
+      "slug": "flint"
+    },
+    {
+      "id": "other",
+      "name": "Everything else",
+      "slug": null
     }
   ]
 }

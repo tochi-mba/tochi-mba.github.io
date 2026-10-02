@@ -5,31 +5,37 @@ import { describe, expect, it } from "vitest";
 import { versionsInProse } from "../../scripts/build-data.mjs";
 // @ts-expect-error plain ESM script without types
 import { findSite } from "../../scripts/fetch-sites.mjs";
+// @ts-expect-error plain ESM script without types
+import { pointsAtPrivate, repoSets } from "../../scripts/links.mjs";
+// @ts-expect-error plain ESM script without types
+import { ProjectsFile } from "../../scripts/schema.mjs";
 import { bySlug, compact, featured, lanes, lucyFamily, profile, projects, shipping, totals } from "../../src/data";
 
 const raw = JSON.parse(readFileSync(resolve(__dirname, "../../data/projects.json"), "utf8"));
 
-describe("generated site data", () => {
-  it("never carries a link for a private project", () => {
-    for (const p of projects.filter((p) => p.visibility === "private")) {
-      expect(Object.keys(p.links), p.slug).toHaveLength(0);
+describe("the snapshot and the generated site data", () => {
+  it("is a valid snapshot: only what may be published, and a count of every repository", () => {
+    const parsed = ProjectsFile.safeParse(raw);
+    expect(parsed.success, JSON.stringify(parsed.error?.issues)).toBe(true);
+  });
+  it("never carries a link a visitor could not open", () => {
+    for (const p of projects) {
+      for (const url of Object.values(p.links)) {
+        expect(pointsAtPrivate(url, raw.owner, repoSets(raw)), `${p.slug}: ${url}`).toBe(false);
+      }
     }
   });
-  it("never includes a project with display false", () => {
-    const hidden = raw.projects.filter((p: { display: boolean }) => !p.display).map((p: { slug: string }) => p.slug);
-    expect(hidden.length).toBeGreaterThan(0);
-    for (const slug of hidden) expect(bySlug.has(slug), slug).toBe(false);
+  it("never names a private project's repository", () => {
+    for (const p of [...raw.projects, ...projects].filter((x: { visibility: string }) => x.visibility === "private")) {
+      expect(p.repo, p.slug).toBeUndefined();
+    }
   });
-  it("leaves Media-tool out, by its own metadata, not by omission", () => {
-    const media = raw.projects.find((p: { repo: string }) => p.repo === "Media-tool");
-    expect(media).toBeDefined();
-    expect(media.display).toBe(false);
-    expect(media.reason).toMatch(/opted out/i);
-    expect(bySlug.has("media-tool")).toBe(false);
-  });
-  it("keeps every repository accounted for in the totals", () => {
-    expect(totals.repositories).toBe(raw.projects.length);
-    expect(totals.shown + totals.privateCounted + totals.hidden).toBe(totals.repositories);
+  it("shows exactly what the snapshot publishes, and counts every repository", () => {
+    expect(projects.map((p) => p.slug).sort()).toEqual(raw.projects.map((p: { slug: string }) => p.slug).sort());
+    expect(totals.repositories).toBe(raw.repositories);
+    expect(totals.shown).toBe(projects.length);
+    expect(totals.public + totals.private).toBe(totals.shown);
+    expect(totals.repositories).toBeGreaterThanOrEqual(totals.shown);
   });
   it("has unique slugs and is sorted by order", () => {
     expect(new Set(projects.map((p) => p.slug)).size).toBe(projects.length);

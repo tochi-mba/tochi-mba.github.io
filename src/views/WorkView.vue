@@ -67,7 +67,7 @@ const filtered = computed(() => {
   return projects.filter((p) => {
     if (category.value !== "all" && p.category !== category.value) return false;
     if (!q) return true;
-    return normalised(`${p.name} ${p.tagline} ${p.stack.join(" ")} ${p.repo} ${p.family ?? ""}`).includes(q);
+    return normalised(`${p.name} ${p.tagline} ${p.stack.join(" ")} ${p.repo ?? ""} ${p.family ?? ""}`).includes(q);
   });
 });
 // Four tiers, so six flagships are never one card among forty: what to look at first, the system
@@ -157,7 +157,7 @@ watch(filtered, () => nextTick(refresh));
       <h1>Every repository, one contract.</h1>
       <p class="lede">
         {{ totals.shown }} projects across {{ totals.repositories }} repositories. Each one carries the same metadata file; this page is generated from it.
-        Private work is listed by name and never linked.
+        Private work appears in its own words, with only the links anyone can open.
       </p>
     </header>
 
@@ -230,7 +230,7 @@ watch(filtered, () => nextTick(refresh));
     </template>
 
     <p v-if="privateCount" class="results-line private-note">
-      {{ privateCount }} of these are private repositories: shown by name and description only, with no links. Source and detail on request.
+      {{ privateCount }} of these {{ privateCount === 1 ? "is a private repository" : "are private repositories" }}: shown in their own words, with only the links anyone can open. Source and detail on request.
     </p>
   </div>
 </template>

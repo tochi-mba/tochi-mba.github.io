@@ -81,25 +81,40 @@ test("keyboard: / focuses search, Escape clears it, arrows move between chips", 
   );
 });
 
-test("private projects are listed by name but never linked", async ({ page }) => {
+test("links only into repositories the portfolio publishes, and says which projects are private", async ({ page }) => {
   await open(page, "/work");
-  const privateRepos = site.projects.filter((p) => p.visibility === "private").map((p) => p.repo);
-  expect(privateRepos.length).toBeGreaterThan(0);
+  await page.locator(".archive-fold summary").click();
+  const published = new Set([
+    ...site.projects.filter((p) => p.visibility === "public").map((p) => (p as { repo: string }).repo.toLowerCase()),
+    "tochi-mba.github.io",
+  ]);
   const hrefs = await page.locator("a[href]").evaluateAll((as) => as.map((a) => (a as HTMLAnchorElement).href));
-  for (const repo of privateRepos) {
-    expect(
-      hrefs.some((h) => h.toLowerCase().includes(`github.com/tochi-mba/${repo.toLowerCase()}`)),
-      repo,
-    ).toBe(false);
+  for (const href of hrefs) {
+    const match = /^https:\/\/github\.com\/tochi-mba\/([^/?#]+)/i.exec(href);
+    if (match) expect(published.has(match[1]!.toLowerCase()), href).toBe(true);
   }
-  await expect(page.getByText(/private repositories: shown by name/)).toBeVisible();
+  expect(site.projects.some((p) => p.visibility === "private")).toBe(true);
+  await expect(page.getByText(/private repositor(y|ies): shown in their own words/)).toBeVisible();
 });
 
-test("the opted-out repository appears nowhere", async ({ page }) => {
-  await open(page, "/work");
-  await expect(page.getByText("Media-tool")).toHaveCount(0);
-  const res = await page.goto("/work/media-tool");
-  // GitHub Pages would serve 404.html; the preview server serves the SPA shell, which routes to the 404 view.
+test("every published project has its own prerendered page, and nothing else does", async ({ request, page }) => {
+  const decode = (html: string) =>
+    html
+      .replace(/<[^>]+>/g, "")
+      .replace(/&#39;/g, "'")
+      .replace(/&quot;/g, '"')
+      .replace(/&amp;/g, "&")
+      .trim();
+  for (const p of site.projects) {
+    const res = await request.get(`/work/${p.slug}`);
+    expect(res.status(), p.slug).toBe(200);
+    // The heading is in the HTML itself: the page exists before any JavaScript runs.
+    const h1 = /<h1[^>]*>([\s\S]*?)<\/h1>/.exec(await res.text())?.[1] ?? "";
+    expect(decode(h1), p.slug).toBe(p.name);
+  }
+  const res = await page.goto("/work/not-a-published-project");
+  // GitHub Pages would serve 404.html; the preview server serves the app, which routes to the 404 view.
   expect([200, 404]).toContain(res?.status());
+  await page.waitForSelector("html[data-hydrated]", { state: "attached" });
   await expect(page.locator("h1")).toContainText("Nothing lives");
 });

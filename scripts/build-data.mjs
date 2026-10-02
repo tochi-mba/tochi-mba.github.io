@@ -1,12 +1,13 @@
 // Validates data/*.json, applies the publication policy and writes what the site renders.
-// The generated file is the only thing the Vue app reads, so nothing private can leak
-// by accident: private repositories without `publicSafe` reach it as a count, not a name.
+// The generated file is the only thing the Vue app reads. The snapshot it starts from holds only what
+// may be published (see scripts/schema.mjs), and the policy is applied again here all the same: a
+// hand edit to the snapshot must not be able to publish what the sync would not.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { z } from "zod";
-import { Profile, Project, ProjectsFile, publication } from "./schema.mjs";
+import { publicLinks, repoSets } from "./links.mjs";
+import { Profile, ProjectsFile, projectFileJsonSchema, publication } from "./schema.mjs";
 import { buildLanes, buildProof, buildShipping, VERSION_IN_PROSE } from "./shipping.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -39,18 +40,15 @@ export async function buildData() {
   const projectsFile = ProjectsFile.parse(JSON.parse(await readFile(resolve(root, "data/projects.json"), "utf8")));
   const profile = Profile.parse(JSON.parse(await readFile(resolve(root, "data/profile.json"), "utf8")));
 
-  const shown = [];
-  let counted = 0;
-  let hidden = 0;
-  for (const p of projectsFile.projects) {
-    const how = publication(p);
-    if (how === "hidden") hidden += 1;
-    else if (how === "counted") counted += 1;
-    else if (how === "full") shown.push(p);
-    // Name-only: everything the owner wrote may show, but no link can point at a private page.
-    else shown.push({ ...p, links: {} });
-  }
-  shown.sort((a, b) => a.order - b.order || a.name.localeCompare(b.name));
+  // A link is published only if a visitor can open it: never one into a private repository, and never
+  // one the last link check found gone. That holds for every project; for a private one it is what is
+  // left of its links, so its page can still point at a package or a live site, never at its source.
+  const repos = repoSets(projectsFile);
+  const dead = new Set(readGenerated("links.json").dead ?? []);
+  const shown = projectsFile.projects
+    .filter((p) => ["full", "name-only"].includes(publication(p)))
+    .map((p) => ({ ...p, links: publicLinks(p.links, projectsFile.owner, repos, dead) }))
+    .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name));
 
   for (const n of profile.now) {
     if (!shown.some((p) => p.slug === n.slug))
@@ -81,14 +79,12 @@ export async function buildData() {
   const lanes = buildLanes({ projects: shown, events: shipping });
 
   const totals = {
-    repositories: projectsFile.projects.length,
-    public: projectsFile.projects.filter((p) => p.visibility === "public").length,
-    private: projectsFile.projects.filter((p) => p.visibility === "private").length,
+    repositories: projectsFile.repositories,
     shown: shown.length,
-    privateCounted: counted,
-    hidden,
+    public: shown.filter((p) => p.visibility === "public").length,
+    private: shown.filter((p) => p.visibility === "private").length,
     products: shown.filter((p) => p.category === "product").length,
-    services: shown.filter((p) => p.family === "lucy").length,
+    services: shown.filter((p) => p.family === "lucy" && p.category === "service").length,
     languages: [...new Set(shown.flatMap((p) => p.stack))].length,
   };
 
@@ -98,16 +94,16 @@ export async function buildData() {
 
   // The contract other repositories validate `.portfolio/project.json` against.
   mkdirSync(resolve(root, "public/schema"), { recursive: true });
-  const schema = z.toJSONSchema(Project, { target: "draft-07", io: "input" });
-  schema.$id = "https://tochi-mba.github.io/schema/project.schema.json";
-  schema.title = "Portfolio project metadata";
-  writeFileSync(resolve(root, "public/schema/project.schema.json"), `${JSON.stringify(schema, null, 2)}\n`);
+  writeFileSync(
+    resolve(root, "public/schema/project.schema.json"),
+    `${JSON.stringify(projectFileJsonSchema(), null, 2)}\n`,
+  );
   return generated;
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const g = await buildData();
   console.log(
-    `site data: ${g.totals.shown} shown, ${g.totals.privateCounted} private counted, ${g.totals.hidden} hidden, of ${g.totals.repositories}; ${g.shipping.length} shipping events in ${g.lanes.length} lanes`,
+    `site data: ${g.totals.shown} of ${g.totals.repositories} repositories shown (${g.totals.private} private); ${g.shipping.length} shipping events in ${g.lanes.length} lanes`,
   );
 }

@@ -4,7 +4,8 @@ export type Category = "product" | "ai" | "service" | "tool" | "web" | "early";
 export type Status = "active" | "wip" | "stable" | "archived";
 
 export interface Project {
-  repo: string;
+  /** The repository's name on GitHub. Only a public project has one: a private one is shown by its own words. */
+  repo?: string;
   slug: string;
   name: string;
   tagline: string;
@@ -80,6 +81,8 @@ export interface Dated {
   org: string;
   period: string;
   summary: string;
+  /** What the role produced, a line each. */
+  points?: string[];
   source: "github" | "cv";
 }
 
@@ -93,6 +96,7 @@ export interface Profile {
   location: string;
   email: string;
   github: string;
+  linkedin?: string;
   site: string;
   availability: string;
   now: { label: string; detail: string; slug: string }[];
@@ -103,12 +107,12 @@ export interface Profile {
 }
 
 interface Totals {
+  /** Every repository the owner has, shown or not. */
   repositories: number;
+  shown: number;
+  /** Of the shown projects, how many are public and how many private. */
   public: number;
   private: number;
-  shown: number;
-  privateCounted: number;
-  hidden: number;
   products: number;
   services: number;
   languages: number;
@@ -150,6 +154,8 @@ export const STATUS_LABEL: Record<Status, string> = {
 export const featured = projects.filter((p) => p.featured);
 export const bySlug = new Map(projects.map((p) => [p.slug, p]));
 export const lucyFamily = projects.filter((p) => p.family === "lucy");
+/** The services behind the hub: the family members that are services, not the hub, a runtime or a provider. */
+export const lucyServices = lucyFamily.filter((p) => p.category === "service");
 
 /** "1 Oct", or "1 Oct 2025" when the year is not the build's year. Always UTC, so SSG and the browser agree. */
 export function shortDate(iso: string): string {
