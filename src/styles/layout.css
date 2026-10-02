@@ -43,7 +43,7 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgb(8 11 7 / 0.86);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid transparent;
@@ -105,8 +105,49 @@
   text-decoration-color: var(--text-3);
   text-underline-offset: 0.4em;
 }
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 8px;
+}
+.palette-button {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: color var(--t-fast) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.palette-button:hover {
+  color: var(--text);
+}
+.palette-button svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+}
+.palette-button kbd {
+  font-family: var(--mono);
+  font-size: var(--fs-mono-s);
+  color: var(--text-3);
+  border: 1px solid var(--rule-2);
+  border-radius: 3px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
 .menu-button {
-  margin-left: auto;
   display: none;
   min-width: 44px;
   min-height: 44px;
@@ -211,6 +252,12 @@
 @media (max-width: 760px) {
   .menu-button {
     display: block;
+  }
+  .header-tools {
+    margin-left: auto;
+  }
+  .palette-button kbd {
+    display: none;
   }
   .site-nav {
     display: none;
