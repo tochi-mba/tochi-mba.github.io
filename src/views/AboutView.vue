@@ -44,6 +44,9 @@ const now = profile.now.map((n) => ({ ...n, project: bySlug.get(n.slug)! }));
                 <h3>{{ e.title }}</h3>
                 <span class="org">{{ e.org }}</span>
                 <p v-if="e.summary">{{ e.summary }}</p>
+                <ul v-if="e.points?.length" class="points">
+                  <li v-for="point in e.points" :key="point">{{ point }}</li>
+                </ul>
               </div>
             </li>
           </ol>
@@ -100,6 +103,10 @@ const now = profile.now.map((n) => ({ ...n, project: bySlug.get(n.slug)! }));
               <code>github.com/{{ profile.handle }}</code>
               <a :href="profile.github" target="_blank" rel="noopener noreferrer">Open ↗</a>
             </div>
+            <div v-if="profile.linkedin" class="contact-line">
+              <code>linkedin.com/in/{{ profile.handle }}</code>
+              <a :href="profile.linkedin" target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn">Open ↗</a>
+            </div>
             <a class="button button-primary" :href="`mailto:${profile.email}?subject=Hello%20Rex`">Email Rex <span class="arrow" aria-hidden="true">→</span></a>
           </div>
         </div>
@@ -118,7 +125,7 @@ const now = profile.now.map((n) => ({ ...n, project: bySlug.get(n.slug)! }));
           <dt>Status</dt>
           <dd>{{ profile.availability }}</dd>
           <dt>Repositories</dt>
-          <dd>{{ totals.repositories }} ({{ totals.public }} public)</dd>
+          <dd>{{ totals.repositories }} on GitHub, {{ totals.shown }} shown here</dd>
         </dl>
       </aside>
     </div>

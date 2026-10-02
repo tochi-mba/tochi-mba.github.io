@@ -10,7 +10,7 @@ import LiveLine from "../components/LiveLine.vue";
 import ShippingRibbon from "../components/ShippingRibbon.vue";
 import SystemMap from "../components/SystemMap.vue";
 import { useReveal } from "../composables/useReveal";
-import { featured, lanes, lucyFamily, profile, shipping, shortDate, site, totals } from "../data";
+import { featured, lanes, lucyServices, profile, shipping, shortDate, site, totals } from "../data";
 
 useHead({
   title: null,
@@ -30,7 +30,7 @@ useHead({
         alternateName: "Rex",
         jobTitle: profile.role,
         url: profile.site,
-        sameAs: [profile.github],
+        sameAs: [profile.github, profile.linkedin].filter(Boolean),
         worksFor: { "@type": "Organization", name: profile.company },
       }),
     },
@@ -60,7 +60,11 @@ const logSummary = [
   .filter(Boolean)
   .join(" and ");
 
-const services = lucyFamily.filter((p) => p.role !== "hub").length;
+const services = lucyServices.length;
+
+// The current role, from the CV: the first experience entry that is not the portfolio's own work.
+const job = profile.experience.find((e) => e.source === "cv");
+const employer = job?.org.split(" · ")[0] ?? "";
 
 const days = activity.calendar?.days ?? [];
 const recentDays = days.slice(-91);
@@ -69,8 +73,8 @@ const busiest = days.reduce<[string, number] | null>((a, d) => (!a || d[1] > a[1
 
 const rigour = [
   "Lint, types, imports and tests at 100% branch coverage in every LUCY repository",
-  "axe and Playwright on desktop, Pixel 7 and reduced motion",
-  "A dead or private link fails the build",
+  "This site: Playwright and axe in Chromium, Firefox and WebKit, phone to desktop, both themes",
+  "A dead or private link never reaches a page",
   "Rebuilt from GitHub, npm and PyPI every day",
 ];
 </script>
@@ -125,13 +129,31 @@ const rigour = [
       </div>
     </section>
 
+    <section v-if="job" class="section" id="experience" aria-labelledby="experience-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-label">Day job · {{ job.period }}</p>
+          <div class="section-title">
+            <h2 id="experience-title">{{ job.title }} at {{ employer }}.</h2>
+            <p>{{ job.summary }}</p>
+          </div>
+        </header>
+        <div class="section-body">
+          <ul v-if="job.points?.length" class="points reveal">
+            <li v-for="point in job.points" :key="point">{{ point }}</li>
+          </ul>
+          <p class="section-more"><router-link class="link-arrow" to="/about">Experience and education <span aria-hidden="true">→</span></router-link></p>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="system" aria-labelledby="system-title">
       <div class="container">
         <header class="section-head">
           <p class="section-label">The LUCY system · {{ services }} services</p>
           <div class="section-title">
             <h2 id="system-title">One hub, {{ services }} services, one rule.</h2>
-            <p>Every service authenticates against keyring and hands the model data with provenance, never instructions. Hover, click or arrow through the map.</p>
+            <p>Every service authenticates against keyring and hands the model data with provenance, never instructions. Pick one to see what it does.</p>
           </div>
         </header>
         <SystemMap class="reveal" />
@@ -200,6 +222,7 @@ const rigour = [
           <div class="contact-row">
             <CopyButton :text="profile.email" label="Copy email" />
             <a :href="profile.github" target="_blank" rel="noopener noreferrer">github.com/{{ profile.handle }} ↗</a>
+            <a v-if="profile.linkedin" :href="profile.linkedin" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
           </div>
         </div>
       </div>
