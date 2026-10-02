@@ -6,8 +6,9 @@
   "headline": "Agent systems that ship.",
   "lede": "I build production AI systems and the software around them: assistant hubs, workflow runtimes, the services that keep a person's data and secrets where they belong, and the desktop and mobile apps that make it all usable. First Class BSc Computer Science with Cybersecurity.",
   "location": "United Kingdom",
-  "email": "tochimba26@gmail.com",
+  "email": "tochimba27@gmail.com",
   "github": "https://github.com/tochi-mba",
+  "linkedin": "https://www.linkedin.com/in/tochi-mba/",
   "site": "https://tochi-mba.github.io/",
   "availability": "Open to AI engineering and full-stack roles",
   "now": [
@@ -18,12 +19,12 @@
     },
     {
       "label": "LUCY",
-      "detail": "assistant hub and its eight-service family",
+      "detail": "assistant hub and its family of services",
       "slug": "lucy-assistant"
     },
     {
       "label": "Android Headless Mirror",
-      "detail": "seven features planned across twelve PRs",
+      "detail": "file transfers between the phone and the PC",
       "slug": "android-headless-mirror"
     }
   ],
@@ -99,19 +100,55 @@
   ],
   "experience": [
     {
+      "title": "AI Engineer",
+      "org": "Jigsaw Create · London",
+      "period": "2024 – present",
+      "summary": "Architected and delivered Jigsaw Intelligence: a production multi-agent system on Azure that lets people query and change complex business diagrams in plain language.",
+      "points": [
+        "A worklist orchestrator that coordinates more than 30 tools within WebRTC packet-size limits",
+        "A structured variable and template pipeline that keeps the model's context small",
+        "Deterministic search tools that hand the model structured data to reason over",
+        "A workflow engine with parallel, sequential and conditional steps, streaming results as they arrive",
+        "Fixed a live WebRTC connectivity issue that was blocking the AI in a client's enterprise environment",
+        "Delivered in seven months and shown as the Hero product at the British Legal Technology Forum"
+      ],
+      "source": "cv"
+    },
+    {
       "title": "Founder and sole engineer",
       "org": "REX Technologies",
-      "period": "2025 \u2013 present",
+      "period": "2025 – present",
       "summary": "Design, build and ship the REX product line: the LUCY assistant hub and its service family, the weftai workflow runtime (npm and PyPI), Android Headless Mirror, Flint, textwire, chika and clyde. Every repository carries the same gates and the same visual system.",
       "source": "github"
+    },
+    {
+      "title": "Software Developer, internship",
+      "org": "Snave · Huddersfield",
+      "period": "Earlier",
+      "summary": "Built Maia, an office automation chatbot in React on AWS for task management and team communication: responsive interfaces, secure and scalable storage, and features scoped directly with the people who would use them.",
+      "source": "cv"
+    },
+    {
+      "title": "Coding instructor and tutor",
+      "org": "Code Ninjas, Manchester · Software Academy, London",
+      "period": "Earlier",
+      "summary": "Taught Python and web development to young learners with a hands-on curriculum I wrote, and tutored GCSE students in Python, JavaScript and web development.",
+      "source": "cv"
     }
   ],
   "education": [
     {
       "title": "BSc (Hons) Computer Science with Cybersecurity",
-      "org": "First Class Honours",
-      "period": "Completed",
-      "summary": "",
+      "org": "University of Huddersfield · First Class Honours",
+      "period": "2020 – 2023",
+      "summary": "Artificial Intelligence (A), Cybersecurity (A), Final Year Project (A).",
+      "source": "cv"
+    },
+    {
+      "title": "Foundation Year",
+      "org": "University of Huddersfield · Letter of Commendation",
+      "period": "2019 – 2020",
+      "summary": "Mathematics (A), Computer Science (A*), English (A). Class representative.",
       "source": "cv"
     }
   ]
