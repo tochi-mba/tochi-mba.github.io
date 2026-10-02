@@ -10,7 +10,8 @@ test("the header earns its border on scroll", async ({ page }) => {
   await open(page, "/");
   const header = page.locator("header.site-header");
   await expect(header).not.toHaveClass(/scrolled/);
-  await page.mouse.wheel(0, 600);
+  // Scroll the page itself: a phone has no mouse wheel, and WebKit on a phone refuses to fake one.
+  await page.evaluate(() => window.scrollTo(0, 600));
   await expect(header).toHaveClass(/scrolled/);
 });
 
