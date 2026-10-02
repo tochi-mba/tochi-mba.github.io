@@ -10,9 +10,10 @@ test.describe("themes", () => {
   test("follow the device on a first visit", async ({ page }) => {
     await page.emulateMedia({ colorScheme: "light" });
     await open(page, "/");
-    expect(await background(page)).toBe(LIGHT_BG);
+    await expect.poll(() => background(page)).toBe(LIGHT_BG);
+    // The device changing its mind mid-visit is followed too, once the browser has restyled.
     await page.emulateMedia({ colorScheme: "dark" });
-    expect(await background(page)).toBe(DARK_BG);
+    await expect.poll(() => background(page)).toBe(DARK_BG);
   });
 
   test("switch from the header, stay switched after a reload, and repaint the browser's chrome", async ({ page }) => {
