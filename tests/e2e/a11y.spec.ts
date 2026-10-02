@@ -48,7 +48,15 @@ test("every interactive element has a visible focus ring", async ({ page, isMobi
 test("touch targets are at least 44px on the phone", async ({ page, isMobile }) => {
   test.skip(!isMobile, "phone only");
   await open(page, "/");
-  for (const sel of ["header .brand", ".palette-button", ".theme-toggle", ".menu-button", ".button", ".case-actions a", ".map-chip"]) {
+  for (const sel of [
+    "header .brand",
+    ".palette-button",
+    ".theme-toggle",
+    ".menu-button",
+    ".button",
+    ".case-actions a",
+    ".map-chip",
+  ]) {
     const box = await page.locator(sel).first().boundingBox();
     expect(box?.height ?? 0, sel).toBeGreaterThanOrEqual(44);
     if (sel !== "header .brand" && sel !== ".case-actions a") expect(box?.width ?? 0, sel).toBeGreaterThanOrEqual(44);
