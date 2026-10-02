@@ -1,91 +1,46 @@
-// Pulls `.portfolio/project.json` from every repository the token can see and merges it into
-// data/projects.json. A repository's own file wins over the curated entry; a repository with no
-// file keeps its curated entry; a new repository is added hidden (display: false) so nothing
-// appears on the site before somebody has looked at it. Needs GITHUB_TOKEN with repo read.
+// Refreshes data/projects.json from every repository's own `.portfolio/project.json`.
+//
+//   npm run sync               read GitHub, write the snapshot, say what needs looking at
+//   npm run sync -- --strict   and fail when anything does
+//
+// The token is PORTFOLIO_TOKEN, else GITHUB_TOKEN, else the GitHub CLI's sign-in. A token that sees
+// private repositories (the owner's) refreshes everything; one that sees public repositories only
+// (a workflow's default) refreshes those and carries private projects over unchanged. When GitHub
+// cannot be read at all, the snapshot is left as it was, so a build still has the last good one.
+import { existsSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { Project, ProjectsFile } from "./schema.mjs";
+import { GitHubError, listRepositories } from "./github.mjs";
+import { ProjectsFile } from "./schema.mjs";
+import { report, summary, syncProjects } from "./sync.mjs";
+import { findToken } from "./token.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const token = process.env.GITHUB_TOKEN;
-if (!token) {
-  console.error("GITHUB_TOKEN is not set; nothing synced.");
-  process.exit(2);
-}
-const headers = { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" };
+const path = resolve(root, "data/projects.json");
+const OWNER = "tochi-mba";
+const strict = process.argv.includes("--strict");
 
-async function gh(path) {
-  const res = await fetch(`https://api.github.com${path}`, { headers });
-  if (res.status === 404) return null;
-  if (!res.ok) throw new Error(`${path}: ${res.status}`);
-  return res.json();
+function stop(message) {
+  console.error(`sync: ${message}; data/projects.json left as it was.`);
+  process.exit(strict ? 1 : 0);
 }
 
-const file = ProjectsFile.parse(JSON.parse(await readFile(resolve(root, "data/projects.json"), "utf8")));
-const byRepo = new Map(file.projects.map((p) => [p.repo, p]));
-const seen = new Set();
+const found = findToken(["PORTFOLIO_TOKEN", "GITHUB_TOKEN"]);
+if (!found) stop("no token (set PORTFOLIO_TOKEN or GITHUB_TOKEN, or sign in with gh auth login)");
+const previous = existsSync(path) ? ProjectsFile.parse(JSON.parse(await readFile(path, "utf8"))) : null;
 
-for (let page = 1; ; page += 1) {
-  const repos = await gh(`/user/repos?affiliation=owner&per_page=100&page=${page}`);
-  if (!repos?.length) break;
-  for (const r of repos) {
-    if (r.owner.login !== file.owner || r.name === "tochi-mba.github.io") continue;
-    seen.add(r.name);
-    const visibility = r.private ? "private" : "public";
-    const meta = await gh(`/repos/${file.owner}/${r.name}/contents/.portfolio/project.json`);
-    const existing = byRepo.get(r.name);
-    if (meta?.content) {
-      const parsed = Project.safeParse(JSON.parse(Buffer.from(meta.content, "base64").toString("utf8")));
-      if (!parsed.success) {
-        console.error(`${r.name}: .portfolio/project.json invalid, keeping curated entry\n${parsed.error}`);
-      } else {
-        // Visibility is GitHub's fact, never the file's claim.
-        byRepo.set(r.name, { ...parsed.data, repo: r.name, visibility });
-        console.log(`${r.name}: synced from repository`);
-        continue;
-      }
-    }
-    if (existing) {
-      if (existing.visibility !== visibility) {
-        console.log(`${r.name}: visibility changed to ${visibility}`);
-        byRepo.set(r.name, {
-          ...existing,
-          visibility,
-          publicSafe: visibility === "public" ? existing.publicSafe : false,
-        });
-      }
-      continue;
-    }
-    byRepo.set(r.name, {
-      repo: r.name,
-      slug: r.name
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, ""),
-      name: r.name,
-      tagline: r.description ?? "",
-      description: "",
-      highlights: [],
-      stack: r.language ? [r.language] : [],
-      category: "tool",
-      status: r.archived ? "archived" : "wip",
-      order: 999,
-      visibility,
-      display: false,
-      publicSafe: false,
-      reason: "Added by sync; not reviewed yet.",
-      links: r.private ? {} : { source: r.html_url },
-      year: new Date(r.created_at).getUTCFullYear(),
-    });
-    console.log(`${r.name}: new, added hidden`);
-  }
+let repositories;
+try {
+  repositories = await listRepositories({ owner: OWNER, token: found.token });
+} catch (error) {
+  if (!(error instanceof GitHubError) && !(error instanceof TypeError)) throw error;
+  stop(error.message);
 }
 
-for (const name of byRepo.keys()) {
-  if (!seen.has(name)) console.warn(`${name}: in data/projects.json but not on GitHub any more`);
-}
-
-const merged = ProjectsFile.parse({ ...file, projects: [...byRepo.values()] });
-await writeFile(resolve(root, "data/projects.json"), `${JSON.stringify(merged, null, 2)}\n`);
-console.log(`wrote ${merged.projects.length} projects`);
+const result = syncProjects(previous, repositories, { owner: OWNER });
+await writeFile(path, `${JSON.stringify(result.file, null, 2)}\n`);
+console.log(`sync: read with ${found.from}.`);
+for (const line of report(result.notes)) console.log(`  ${line}`);
+console.log(summary(result));
+if (strict && result.counts.invalid > 0) process.exit(1);

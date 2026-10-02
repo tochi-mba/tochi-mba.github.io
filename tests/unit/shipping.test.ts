@@ -42,7 +42,14 @@ const hub = project({
   family: "lucy",
   role: "hub",
 });
-const keyring = project({ repo: "Keyring-api", slug: "keyring", name: "keyring", family: "lucy", role: "vault" });
+const keyring = project({
+  repo: "Keyring-api",
+  slug: "keyring",
+  name: "keyring",
+  category: "service",
+  family: "lucy",
+  role: "vault",
+});
 const bridge = project({ repo: "ai-context-bridge", slug: "bridge", name: "Bridge", category: "tool" });
 const secret = project({ repo: "agentic", slug: "agentic", name: "agentic", visibility: "private", links: {} });
 const projects = [hub, weft, mirror, keyring, bridge, secret];
@@ -202,6 +209,54 @@ describe("buildShipping", () => {
     const fallback = buildShipping({ projects, activity: { available: false }, registry });
     expect(fallback.map((e: { id: string }) => e.id)).toEqual(["weftai@0.5.2", "weftai@0.5.1"]);
   });
+
+  describe("edges", () => {
+    const repoWith = (name: string, releases: object[]) => ({ name, releaseCount: releases.length, releases });
+    it("keeps the words of the first release of a shared version that says something", () => {
+      const monorepo = {
+        repos: [
+          repoWith("weftai", [
+            release("weftai@0.6.0", "2026-10-01T10:00:00Z"),
+            release("@weftai/cli@0.6.0", "2026-10-01T10:00:05Z", { name: "@weftai/cli@0.6.0: A faster CLI" }),
+            release("@weftai/mcp@0.6.0", "2026-10-01T10:00:09Z", { name: "@weftai/mcp@0.6.0: Something else" }),
+          ]),
+        ],
+      };
+      const [event] = buildShipping({ projects, activity: monorepo, registry: { available: false } });
+      expect(event).toMatchObject({ id: "weftai@0.6.0", words: "A faster CLI", at: "2026-10-01T10:00:00Z" });
+      expect(event.channels).toEqual(["GitHub"]);
+    });
+    it("labels a rolling tag as itself, without a v", () => {
+      const rolling = {
+        repos: [repoWith("Android_Headless_Mirror", [release("latest-windows", "2026-10-01T10:00:00Z")])],
+      };
+      const [event] = buildShipping({ projects, activity: rolling, registry: { available: false } });
+      expect(event.label).toBe("latest-windows");
+      expect(event.title).toBe("Mirror latest-windows");
+    });
+    it("ignores a repository the site does not show, a package no registry knows, and a pull request with no title", () => {
+      const other = {
+        repos: [repoWith("Someone-elses", [release("v1.0.0", "2026-10-01T10:00:00Z")])],
+        pullRequests: [
+          { repo: "weftai", number: 4, title: null, url: "u4", merged: true, mergedAt: "2026-10-01T09:00:00Z" },
+        ],
+      };
+      const unknownPackage = { ...weft, packages: { npm: ["not-published"], pypi: [] } };
+      const events = buildShipping({ projects: [unknownPackage], activity: other, registry });
+      expect(events.map((e: { id: string }) => e.id)).toEqual(["weftai#4"]);
+      expect(events[0].words).toBeNull();
+    });
+    it("keeps events of the same moment in the order they were found", () => {
+      const same = {
+        repos: [
+          repoWith("Android_Headless_Mirror", [release("v1.0.0", "2026-10-01T10:00:00Z")]),
+          repoWith("weftai", [release("v2.0.0", "2026-10-01T10:00:00Z")]),
+        ],
+      };
+      const events = buildShipping({ projects, activity: same, registry: { available: false } });
+      expect(events.map((e: { id: string }) => e.id)).toEqual(["ahm@1.0.0", "weftai@2.0.0"]);
+    });
+  });
 });
 
 describe("buildLanes", () => {
@@ -213,6 +268,18 @@ describe("buildLanes", () => {
       "ahm",
       "other",
     ]);
+  });
+  it("draws no 'Everything else' lane when every event belongs to a flagship", () => {
+    const flagshipOnly = buildShipping({
+      projects,
+      activity: {
+        repos: [
+          { name: "Android_Headless_Mirror", releaseCount: 1, releases: [release("v1.0.0", "2026-10-01T10:00:00Z")] },
+        ],
+      },
+      registry: { available: false },
+    });
+    expect(buildLanes({ projects, events: flagshipOnly }).map((l: { id: string }) => l.id)).toEqual(["ahm"]);
   });
 });
 
@@ -234,9 +301,21 @@ describe("buildProof", () => {
     });
     expect(proof.pypi).toMatchObject({ name: "weftai", version: "0.5.2", packages: 1 });
   });
-  it("counts the hub's services and leaves private projects without GitHub proof", () => {
-    expect(buildProof({ project: hub, activity, registry, projects }).services).toBe(2);
+  it("counts the hub's services, not its runtime, and leaves private projects without GitHub proof", () => {
+    expect(buildProof({ project: hub, activity, registry, projects }).services).toBe(1);
     expect(buildProof({ project: secret, activity, registry, projects })).toBeUndefined();
+  });
+  it("vouches for nothing it did not fetch", () => {
+    expect(
+      buildProof({ project: mirror, activity: { available: false }, registry: { available: false }, projects }),
+    ).toBeUndefined();
+    const noReleases = { repos: [{ name: "Android_Headless_Mirror", releaseCount: 0, releases: [], commits: 3 }] };
+    expect(buildProof({ project: mirror, activity: noReleases, registry, projects })).toEqual({ commits: 3 });
+    // An empty repository has no default branch, so GitHub has no commit count to give.
+    const noCount = {
+      repos: [{ name: "Android_Headless_Mirror", releaseCount: 0, releases: [], commits: null, pushedAt: "t" }],
+    };
+    expect(buildProof({ project: mirror, activity: noCount, registry, projects })).toEqual({ pushedAt: "t" });
   });
 });
 
@@ -316,7 +395,7 @@ describe("activity shaping", () => {
           },
         },
         {
-          name: "Flint-mobile",
+          name: "Opted-out-thing",
           pushedAt: "2026-10-01T22:00:00Z",
           languages: { edges: [] },
           defaultBranchRef: null,

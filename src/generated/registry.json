@@ -1,6 +1,6 @@
 {
   "available": true,
-  "fetchedAt": "2026-10-01T19:17:20.964Z",
+  "fetchedAt": "2026-10-02T02:18:59.262Z",
   "npm": {
     "weftai": {
       "name": "weftai",
@@ -52,12 +52,8 @@
           "at": "2026-10-01T18:34:05.139Z"
         }
       ],
-      "downloadsMonth": 1356,
+      "downloadsMonth": 1810,
       "daily": [
-        [
-          "2026-08-31",
-          0
-        ],
         [
           "2026-09-01",
           0
@@ -173,6 +169,10 @@
         [
           "2026-09-29",
           16
+        ],
+        [
+          "2026-09-30",
+          454
         ]
       ],
       "url": "https://www.npmjs.com/package/weftai"
@@ -219,12 +219,8 @@
           "at": "2026-10-01T18:34:05.823Z"
         }
       ],
-      "downloadsMonth": 696,
+      "downloadsMonth": 1120,
       "daily": [
-        [
-          "2026-08-31",
-          0
-        ],
         [
           "2026-09-01",
           0
@@ -340,6 +336,10 @@
         [
           "2026-09-29",
           8
+        ],
+        [
+          "2026-09-30",
+          424
         ]
       ],
       "url": "https://www.npmjs.com/package/@weftai/providers"
@@ -394,12 +394,8 @@
           "at": "2026-10-01T18:33:04.868Z"
         }
       ],
-      "downloadsMonth": 1216,
+      "downloadsMonth": 1661,
       "daily": [
-        [
-          "2026-08-31",
-          0
-        ],
         [
           "2026-09-01",
           0
@@ -515,6 +511,10 @@
         [
           "2026-09-29",
           12
+        ],
+        [
+          "2026-09-30",
+          445
         ]
       ],
       "url": "https://www.npmjs.com/package/@weftai/mcp"
@@ -569,12 +569,8 @@
           "at": "2026-10-01T18:32:14.788Z"
         }
       ],
-      "downloadsMonth": 1079,
+      "downloadsMonth": 1488,
       "daily": [
-        [
-          "2026-08-31",
-          0
-        ],
         [
           "2026-09-01",
           0
@@ -690,6 +686,10 @@
         [
           "2026-09-29",
           12
+        ],
+        [
+          "2026-09-30",
+          409
         ]
       ],
       "url": "https://www.npmjs.com/package/@weftai/cli"
@@ -744,12 +744,8 @@
           "at": "2026-10-01T18:33:04.840Z"
         }
       ],
-      "downloadsMonth": 1093,
+      "downloadsMonth": 1510,
       "daily": [
-        [
-          "2026-08-31",
-          0
-        ],
         [
           "2026-09-01",
           0
@@ -865,6 +861,10 @@
         [
           "2026-09-29",
           13
+        ],
+        [
+          "2026-09-30",
+          417
         ]
       ],
       "url": "https://www.npmjs.com/package/@weftai/testing"
@@ -966,7 +966,7 @@
           "at": "2026-09-30T22:03:54.013529Z"
         }
       ],
-      "downloadsMonth": null,
+      "downloadsMonth": 856,
       "url": "https://pypi.org/project/weftai-providers/"
     },
     "weftai-mcp": {

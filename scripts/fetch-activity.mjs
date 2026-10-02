@@ -11,6 +11,7 @@ import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { publication } from "./schema.mjs";
+import { findToken } from "./token.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = resolve(root, "src/generated/activity.json");
@@ -192,17 +193,18 @@ async function main() {
   const write = (data) => writeFileSync(out, `${JSON.stringify(data, null, 2)}\n`);
   const projectsFile = JSON.parse(await readFile(resolve(root, "data/projects.json"), "utf8"));
   const { owner } = projectsFile;
-  const shown = new Set(
-    projectsFile.projects.filter((p) => publication(p) === "full").map((p) => p.repo.toLowerCase()),
-  );
+  // Public, published repositories only: a private project carries no repository name to ask about.
+  const published = projectsFile.projects.filter((p) => publication(p) === "full");
+  const shown = new Set(published.map((p) => p.repo.toLowerCase()));
   const current = new Set(
-    projectsFile.projects.filter((p) => p.status !== "archived" && p.category !== "early").map((p) => p.repo),
+    published.filter((p) => p.status !== "archived" && p.category !== "early").map((p) => p.repo),
   );
   const fetchedAt = new Date().toISOString();
-  const token = process.env.GITHUB_TOKEN;
+  // Public data only, so any token will do: the workflow's own, or a developer's CLI sign-in.
+  const token = findToken(["GITHUB_TOKEN"])?.token;
   if (!token) {
-    write({ available: false, fetchedAt, reason: "no GITHUB_TOKEN at build time" });
-    console.log("activity: no token, wrote placeholder");
+    write({ available: false, fetchedAt, reason: "no GitHub token at build time" });
+    console.log("activity: no token (set GITHUB_TOKEN or sign in with gh auth login), wrote placeholder");
     return;
   }
 

@@ -145,8 +145,10 @@ const links = computed(() => {
           <p v-else class="stack-line">Not recorded.</p>
         </div>
         <dl class="dl">
-          <dt>Repository</dt>
-          <dd><code>{{ project.repo }}</code></dd>
+          <template v-if="project.repo">
+            <dt>Repository</dt>
+            <dd><code>{{ project.repo }}</code></dd>
+          </template>
           <dt>Category</dt>
           <dd>{{ CATEGORY_LABEL[project.category] }}</dd>
           <dt>Year</dt>

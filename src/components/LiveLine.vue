@@ -3,9 +3,10 @@ import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { activity, fetchLatestPush, timeAgo } from "../activity";
 import { profile, projects, shortDate } from "../data";
 
-// Only repositories the site shows in full (and the site itself) may be named here.
+// Only repositories the site shows in full (and the site itself) may be named here. A private
+// project carries no repository name, so it can never be one of them.
 const allowed = new Set([
-  ...projects.filter((p) => p.visibility === "public").map((p) => p.repo.toLowerCase()),
+  ...projects.flatMap((p) => (p.visibility === "public" && p.repo ? [p.repo.toLowerCase()] : [])),
   `${profile.handle}.github.io`,
 ]);
 

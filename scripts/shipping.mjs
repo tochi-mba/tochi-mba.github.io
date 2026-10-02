@@ -51,36 +51,38 @@ export function buildShipping({ projects, activity, registry, limit = 40 }) {
   const hubSlug = projects.find((p) => p.family === "lucy" && p.role === "hub")?.slug;
   const versions = new Map();
 
+  // Every patch says where the version shipped (`channels`) and where to read about it (`url`).
+  // GitHub is read before the registries, so a version with a GitHub release links to it; one that
+  // was only published to a registry links to its main package.
   const addVersion = (project, version, at, patch) => {
     const key = `${project.slug}@${version}`;
     const existing = versions.get(key);
     if (!existing) {
+      const label = /^\d/.test(version) ? `v${version}` : version;
       versions.set(key, {
         id: key,
         lane: laneFor(project, featuredSlugs, hubSlug),
         project: project.slug,
         kind: "release",
-        label: /^\d/.test(version) ? `v${version}` : version,
-        title: `${project.name} ${/^\d/.test(version) ? `v${version}` : version}`,
-        words: null,
+        label,
+        title: `${project.name} ${label}`,
+        words: patch.words ?? null,
         at,
-        url: project.links.source ?? project.links.site ?? "",
-        ...patch,
-        channels: [...(patch.channels ?? [])],
+        url: patch.url,
+        channels: [...patch.channels],
       });
       return;
     }
     if (at < existing.at) existing.at = at;
+    // Packages released together share a version: the first release that says something keeps its words.
     if (patch.words && !existing.words) existing.words = patch.words;
-    // A GitHub release page is the best link; otherwise the first (main) package keeps it.
-    if (patch.url?.includes("/releases/") && !existing.url.includes("/releases/")) existing.url = patch.url;
-    for (const c of patch.channels ?? []) if (!existing.channels.includes(c)) existing.channels.push(c);
+    for (const c of patch.channels) if (!existing.channels.includes(c)) existing.channels.push(c);
   };
 
   for (const repo of activity?.repos ?? []) {
     const project = publicByRepo.get(repo.name.toLowerCase());
     if (!project) continue;
-    for (const r of repo.releases ?? []) {
+    for (const r of repo.releases) {
       if (r.isDraft || !r.publishedAt) continue;
       const version = normaliseVersion(r.tagName);
       addVersion(project, version, r.publishedAt, {
@@ -126,7 +128,8 @@ export function buildShipping({ projects, activity, registry, limit = 40 }) {
     });
   }
 
-  const events = [...versions.values(), ...prs].sort((a, b) => (a.at < b.at ? 1 : a.at > b.at ? -1 : 0));
+  // ISO timestamps sort as text; newest first.
+  const events = [...versions.values(), ...prs].sort((a, b) => b.at.localeCompare(a.at));
   return events.slice(0, limit);
 }
 
@@ -143,9 +146,12 @@ export function buildLanes({ projects, events }) {
 /** What GitHub and the registries can vouch for about one project. Absent means "not fetched". */
 export function buildProof({ project, activity, registry, projects }) {
   const proof = {};
-  const repo = (activity?.repos ?? []).find((r) => r.name.toLowerCase() === project.repo.toLowerCase());
-  if (project.visibility === "public" && repo) {
-    const published = (repo.releases ?? []).filter((r) => !r.isDraft && r.publishedAt);
+  // Only a public repository has a name to look up; a private project carries none.
+  const name = project.visibility === "public" ? project.repo?.toLowerCase() : undefined;
+  const repo = name ? (activity?.repos ?? []).find((r) => r.name.toLowerCase() === name) : undefined;
+  // `repo` is shaped by fetch-activity's shapeRecord, which fills every field below.
+  if (repo) {
+    const published = repo.releases.filter((r) => !r.isDraft && r.publishedAt);
     const latest = published.find((r) => !r.isPrerelease) ?? published[0];
     if (latest) {
       proof.release = {
@@ -153,10 +159,10 @@ export function buildProof({ project, activity, registry, projects }) {
         words: releaseWords(latest.name, latest.tagName),
         at: latest.publishedAt,
         url: latest.url,
-        count: repo.releaseCount ?? published.length,
+        count: repo.releaseCount,
         prerelease: Boolean(latest.isPrerelease),
-        assets: latest.assetCount ?? 0,
-        downloads: latest.downloads ?? 0,
+        assets: latest.assetCount,
+        downloads: latest.downloads,
       };
     }
     if (typeof repo.commits === "number") proof.commits = repo.commits;
@@ -173,7 +179,7 @@ export function buildProof({ project, activity, registry, projects }) {
       downloadsMonth: npm.downloadsMonth,
       daily: npm.daily,
       url: npm.url,
-      packages: (project.packages?.npm ?? []).filter((n) => registry?.npm?.[n]).length,
+      packages: project.packages.npm.filter((n) => registry.npm[n]).length,
     };
   }
   const pypiName = project.packages?.pypi?.[0];
@@ -186,11 +192,12 @@ export function buildProof({ project, activity, registry, projects }) {
       versions: pypi.versions.length,
       downloadsMonth: pypi.downloadsMonth,
       url: pypi.url,
-      packages: (project.packages?.pypi ?? []).filter((n) => registry?.pypi?.[n]).length,
+      packages: project.packages.pypi.filter((n) => registry.pypi[n]).length,
     };
   }
   if (project.family === "lucy" && project.role === "hub") {
-    proof.services = projects.filter((p) => p.family === "lucy" && p !== project).length;
+    // The services behind the hub; a runtime or a model provider in the family is not one of them.
+    proof.services = projects.filter((p) => p.family === "lucy" && p.category === "service").length;
   }
   return Object.keys(proof).length ? proof : undefined;
 }
