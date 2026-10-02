@@ -9,6 +9,7 @@
       "!public/schema",
       "!test-results",
       "!playwright-report",
+      "!coverage",
       "!scripts/og.html"
     ]
   },
