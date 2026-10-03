@@ -217,9 +217,14 @@ describe("CommandPalette", () => {
     w.unmount();
   });
   it("follows the dialog closing on its own, as it does on Escape", async () => {
+    const trigger = document.createElement("button");
+    document.body.append(trigger);
+    trigger.focus();
     const { w } = await openPalette();
     await w.find("dialog").trigger("close");
+    await nextTick();
     expect(paletteOpen.value).toBe(false);
+    expect(document.activeElement).toBe(trigger);
     w.unmount();
   });
 });
