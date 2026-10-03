@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { nextTick, onBeforeUnmount, ref } from "vue";
 
 const props = defineProps<{ text: string; label?: string }>();
 const state = ref<"idle" | "done" | "failed">("idle");
@@ -7,6 +7,9 @@ const status = ref("");
 let timer = 0;
 
 async function copy() {
+  // Emptied first, so a second copy is a change a screen reader announces again.
+  status.value = "";
+  await nextTick();
   try {
     await navigator.clipboard.writeText(props.text);
     state.value = "done";
@@ -20,6 +23,7 @@ async function copy() {
     state.value = "idle";
   }, 1400);
 }
+onBeforeUnmount(() => clearTimeout(timer));
 </script>
 
 <template>

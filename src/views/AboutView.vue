@@ -19,6 +19,8 @@ useHead({
 useReveal();
 
 const shipped = shipping.slice(0, 10);
+// An address as it reads, taken from the link itself: "linkedin.com/in/someone".
+const bare = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 const now = profile.now.map((n) => ({ ...n, project: bySlug.get(n.slug)! }));
 </script>
 
@@ -100,11 +102,11 @@ const now = profile.now.map((n) => ({ ...n, project: bySlug.get(n.slug)! }));
               <CopyButton :text="profile.email" />
             </div>
             <div class="contact-line">
-              <code>github.com/{{ profile.handle }}</code>
+              <code>{{ bare(profile.github) }}</code>
               <a :href="profile.github" target="_blank" rel="noopener noreferrer">Open ↗</a>
             </div>
             <div v-if="profile.linkedin" class="contact-line">
-              <code>linkedin.com/in/{{ profile.handle }}</code>
+              <code>{{ bare(profile.linkedin) }}</code>
               <a :href="profile.linkedin" target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn">Open ↗</a>
             </div>
             <a class="button button-primary" :href="`mailto:${profile.email}?subject=Hello%20Rex`">Email Rex <span class="arrow" aria-hidden="true">→</span></a>
