@@ -38,6 +38,7 @@ function checkPage(html, rel, { owner, publicRepos }) {
   if (!isNotFound && !/<link rel="canonical" href="https:\/\/tochi-mba\.github\.io\//.test(html)) say("no canonical");
   if (!isNotFound && !/<meta property="og:image" content="https:\/\//.test(html)) say("no og:image");
   if (/\bhttp:\/\//.test(html)) say("http:// link");
+  if (/<link rel="stylesheet"/.test(html)) say("links its stylesheet instead of carrying it inline");
   if (DRAFT_WORDS.test(html.replace(/<script[\s\S]*?<\/script>/g, ""))) say("draft words");
 
   for (const m of html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) {

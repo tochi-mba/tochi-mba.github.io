@@ -4,6 +4,8 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 // @ts-expect-error plain ESM script without types
 import { checkSite } from "../../scripts/check-site.mjs";
+// @ts-expect-error plain ESM script without types
+import { inlineStylesheets } from "../../scripts/inline-css.mjs";
 
 /** The snapshot the checker reads its allow-list from: one public project, one private one. */
 const snapshot = {
@@ -125,5 +127,36 @@ describe("checkSite", () => {
     const found = checkSite(site({ "index.html": good() }, { omit: ["og.png"] }), snapshot).problems.join("\n");
     expect(found).toMatch(/missing og.png/);
     expect(found).toMatch(/only 1 pages built/);
+  });
+  it("flags a page that links its stylesheet instead of carrying it inline", () => {
+    const linked = good("", '<link rel="stylesheet" crossorigin href="/assets/style.css">');
+    expect(problems(five({ "work/b.html": linked }))).toMatch(
+      /work\/b.html: links its stylesheet instead of carrying it inline/,
+    );
+  });
+});
+
+describe("inlining the stylesheet", () => {
+  const css = ":root{--bg:#fff}body{margin:0}";
+  const read = (href: string) => (href === "/assets/style-1.css" ? css : "");
+
+  it("replaces the build's stylesheet link with the styles themselves, where the link was", () => {
+    const html = `<head><script>boot()</script><link rel="stylesheet" crossorigin="" href="/assets/style-1.css"><link rel="canonical" href="/"></head>`;
+    expect(inlineStylesheets(html, read)).toBe(
+      `<head><script>boot()</script><style>${css}</style><link rel="canonical" href="/"></head>`,
+    );
+  });
+  it("keeps a dollar sign in the styles as it is", () => {
+    const html = '<link rel="stylesheet" href="/assets/style-1.css">';
+    expect(inlineStylesheets(html, () => "a::after{content:'$&'}")).toBe("<style>a::after{content:'$&'}</style>");
+  });
+  it("leaves a page without a linked stylesheet alone", () => {
+    const html = '<head><link rel="icon" href="/favicon.svg"></head>';
+    expect(inlineStylesheets(html, read)).toBe(html);
+  });
+  it("refuses styles that would close the style element early", () => {
+    expect(() => inlineStylesheets('<link rel="stylesheet" href="/assets/x.css">', () => "a{}</style><p>")).toThrow(
+      /cannot be inlined/,
+    );
   });
 });
