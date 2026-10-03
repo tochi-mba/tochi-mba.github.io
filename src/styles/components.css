@@ -399,7 +399,7 @@
   stroke-dasharray: 400;
   stroke-dashoffset: 400;
 }
-.motion .visible .map-edge {
+.motion [data-revealed] .map-edge {
   stroke-dashoffset: 0;
 }
 .map-list {
