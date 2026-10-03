@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
-import { activity, fetchLatestPush, timeAgo } from "../activity";
-import { profile, projects, shortDate } from "../data";
+import { fetchLatestPush, timeAgo } from "../activity";
+import { activity, profile, projects, shortDate } from "../data";
 
 // Only repositories the site shows in full (and the site itself) may be named here. A private
 // project carries no repository name, so it can never be one of them.

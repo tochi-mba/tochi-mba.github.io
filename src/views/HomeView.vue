@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
 import { computed } from "vue";
-import { activity } from "../activity";
 import CaseStudyRow from "../components/CaseStudyRow.vue";
 import ContributionGraph from "../components/ContributionGraph.vue";
 import CopyButton from "../components/CopyButton.vue";
@@ -10,7 +9,7 @@ import LiveLine from "../components/LiveLine.vue";
 import ShippingRibbon from "../components/ShippingRibbon.vue";
 import SystemMap from "../components/SystemMap.vue";
 import { useReveal } from "../composables/useReveal";
-import { featured, lanes, lucyServices, profile, shipping, shortDate, site, totals } from "../data";
+import { activity, featured, lanes, lucyServices, profile, shipping, shortDate, site, totals } from "../data";
 
 useHead({
   title: null,

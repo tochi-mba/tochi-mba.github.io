@@ -118,6 +118,21 @@ interface Totals {
   languages: number;
 }
 
+/** What the home page draws from GitHub. Only `available` is set when GitHub was not reached at build time. */
+export interface Activity {
+  available: boolean;
+  calendar?: { total: number; days: [string, number][] };
+  counts?: {
+    commits: number;
+    pullRequests: number;
+    issues: number;
+    repositoriesCreated: number;
+    publicRepositories: number;
+  };
+  languages?: { name: string; share: number }[];
+  recent?: { name: string; pushedAt: string }[];
+}
+
 interface SiteData {
   generatedAt: string;
   profile: Profile;
@@ -125,6 +140,7 @@ interface SiteData {
   projects: Project[];
   shipping: ShipEvent[];
   lanes: Lane[];
+  activity: Activity;
 }
 
 // The JSON's inferred type follows whatever the APIs returned at build time; the declared shape is the contract.
@@ -134,6 +150,7 @@ export const totals = site.totals;
 export const projects = site.projects;
 export const shipping = site.shipping;
 export const lanes = site.lanes;
+export const activity = site.activity;
 
 export const CATEGORY_LABEL: Record<Category, string> = {
   product: "Products",

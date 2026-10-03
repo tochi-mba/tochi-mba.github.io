@@ -1,25 +1,5 @@
-import generated from "./generated/activity.json";
-
-interface Activity {
-  available: boolean;
-  fetchedAt: string;
-  reason?: string;
-  calendar?: { total: number; days: [string, number][] };
-  counts?: {
-    commits: number;
-    pullRequests: number;
-    issues: number;
-    repositoriesCreated: number;
-    publicRepositories: number;
-  };
-  languages?: { name: string; share: number }[];
-  recent?: { name: string; pushedAt: string }[];
-  recordAvailable?: boolean;
-  commitsByRepo?: { repo: string; total: number; days: [string, number][] }[];
-}
-
-// The JSON's inferred type follows whatever GitHub returned at build time; the declared shape is the contract.
-export const activity = generated as unknown as Activity;
+// How the GitHub activity is told: times ago, the strip's shades, and the newest push asked for live.
+// The activity itself is part of the site data (see `activity` in data.ts).
 
 /** A sentence for a time ago, kept short enough for the hero panel. */
 export function timeAgo(iso: string, now = Date.now()): string {

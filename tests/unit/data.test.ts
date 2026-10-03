@@ -2,14 +2,25 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 // @ts-expect-error plain ESM script without types
-import { versionsInProse } from "../../scripts/build-data.mjs";
+import { activityView, versionsInProse } from "../../scripts/build-data.mjs";
 // @ts-expect-error plain ESM script without types
 import { findSite } from "../../scripts/fetch-sites.mjs";
 // @ts-expect-error plain ESM script without types
 import { pointsAtPrivate, repoSets } from "../../scripts/links.mjs";
 // @ts-expect-error plain ESM script without types
 import { ProjectsFile } from "../../scripts/schema.mjs";
-import { bySlug, compact, featured, lanes, lucyFamily, profile, projects, shipping, totals } from "../../src/data";
+import {
+  activity,
+  bySlug,
+  compact,
+  featured,
+  lanes,
+  lucyFamily,
+  profile,
+  projects,
+  shipping,
+  totals,
+} from "../../src/data";
 
 const raw = JSON.parse(readFileSync(resolve(__dirname, "../../data/projects.json"), "utf8"));
 
@@ -91,6 +102,34 @@ describe("shipping log and proof", () => {
     expect(compact(1356)).toBe("1.4k");
     expect(compact(2000)).toBe("2k");
     expect(compact(12400)).toBe("12k");
+  });
+});
+
+describe("the GitHub activity a visitor downloads", () => {
+  const DRAWN = ["available", "calendar", "counts", "languages", "recent"];
+  it("is only what the home page draws, not the record the shipping log is built from", () => {
+    const fetched = {
+      available: true,
+      recordAvailable: true,
+      fetchedAt: "2026-10-02T04:17:00Z",
+      calendar: { total: 3, days: [["2026-10-01", 3]] },
+      counts: { commits: 2, pullRequests: 1, issues: 0, repositoriesCreated: 0, publicRepositories: 1 },
+      languages: [{ name: "TypeScript", share: 1 }],
+      recent: [{ name: "r", pushedAt: "2026-10-01T09:00:00Z" }],
+      repos: [{ name: "r", releases: [] }],
+      pullRequests: [{ repo: "r", number: 1, title: "t" }],
+      commitsByRepo: [{ repo: "r", total: 2, days: [["2026-10-01", 2]] }],
+    };
+    const view = activityView(fetched);
+    expect(Object.keys(view).sort()).toEqual([...DRAWN].sort());
+    expect(view.calendar).toBe(fetched.calendar);
+    expect(view.recent).toBe(fetched.recent);
+  });
+  it("is a bare 'not available' when GitHub was not reached", () => {
+    expect(activityView({ available: false, fetchedAt: "t", reason: "no GitHub token" })).toEqual({ available: false });
+  });
+  it("is all the generated site data carries", () => {
+    expect(Object.keys(activity).filter((key) => !DRAWN.includes(key))).toEqual([]);
   });
 });
 

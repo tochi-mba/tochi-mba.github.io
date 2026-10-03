@@ -1,5 +1,6 @@
 // Validates data/*.json, applies the publication policy and writes what the site renders.
-// The generated file is the only thing the Vue app reads. The snapshot it starts from holds only what
+// The generated file is the only thing the Vue app reads; the other files in src/generated are what
+// it is built from, and never reach a visitor. The snapshot it starts from holds only what
 // may be published (see scripts/schema.mjs), and the policy is applied again here all the same: a
 // hand edit to the snapshot must not be able to publish what the sync would not.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -16,6 +17,17 @@ function readGenerated(name) {
   const file = resolve(root, "src/generated", name);
   if (!existsSync(file)) return { available: false };
   return JSON.parse(readFileSync(file, "utf8"));
+}
+
+/**
+ * The part of the GitHub activity a visitor's browser draws: the calendar, the totals, the language
+ * mix and the last pushes. The rest of activity.json (releases, pull requests, commits per
+ * repository) is what the shipping log and the proof are built from here, so it stays at build time.
+ */
+export function activityView(activity) {
+  if (!activity.available) return { available: false };
+  const { calendar, counts, languages, recent } = activity;
+  return { available: true, calendar, counts, languages, recent };
 }
 
 /** Versions go stale the day after a release, so prose may not carry one; the site fetches them. */
@@ -88,7 +100,15 @@ export async function buildData() {
     languages: [...new Set(shown.flatMap((p) => p.stack))].length,
   };
 
-  const generated = { generatedAt: new Date().toISOString(), profile, totals, projects: shown, shipping, lanes };
+  const generated = {
+    generatedAt: new Date().toISOString(),
+    profile,
+    totals,
+    projects: shown,
+    shipping,
+    lanes,
+    activity: activityView(activity),
+  };
   mkdirSync(resolve(root, "src/generated"), { recursive: true });
   writeFileSync(resolve(root, "src/generated/site-data.json"), `${JSON.stringify(generated, null, 2)}\n`);
 
