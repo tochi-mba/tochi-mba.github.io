@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { activity } from "../activity";
-import { profile, shortDate, site } from "../data";
+import { activity, profile, shortDate, site } from "../data";
 
 const year = new Date(site.generatedAt).getUTCFullYear();
 const built = shortDate(site.generatedAt);
