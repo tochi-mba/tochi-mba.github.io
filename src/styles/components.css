@@ -294,34 +294,93 @@
   margin-bottom: 14px;
 }
 
-/* System map (the LUCY family) */
+/* System map (the LUCY family). Side by side, the entry beside the picture stretches to the
+   picture's height with its text at the top, so the tour can go from a short entry to a long one
+   without moving the picture or anything below it. That holds only while the picture is the taller
+   of the two, which is from about 1180px; below 1200px the entry goes under the picture instead. */
 .system-map {
   display: grid;
   grid-template-columns: 1.3fr 0.7fr;
   gap: clamp(24px, 4vw, 56px);
-  align-items: center;
+  align-items: stretch;
 }
 .map-stage {
   position: relative;
   min-width: 0;
+  align-self: start;
+  /* The picture's own proportions, and a unit (cqi) that scales its members' type with it. */
+  aspect-ratio: 760 / 470;
+  container-type: inline-size;
 }
-.map-svg {
+@media (max-width: 1199px) {
+  .system-map {
+    grid-template-columns: 1fr;
+  }
+}
+.map-lines,
+.map-nodes {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
+}
+.map-lines {
   overflow: visible;
+}
+.map-nodes:focus-visible {
+  outline-offset: 8px;
 }
 /* A travelling request: the one thing on the map in the evidence colour. */
 .map-pulse {
-  fill: var(--signal);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(8 / 760 * 100%);
+  aspect-ratio: 1;
+  background: var(--signal);
   opacity: 0;
   pointer-events: none;
 }
+/* A member: placed at its point of the picture by left and top, centred on it by translate, and
+   moved (drifting, dragged, springing home) by transform, which the compositor applies. */
 .map-node {
+  position: absolute;
+  width: calc(112 / 760 * 100%);
+  height: calc(40 / 470 * 100%);
+  translate: -50% -50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(1.5 / 760 * 100cqi);
+  padding: 0;
+  border: 1px solid var(--rule-2);
+  border-radius: calc(10 / 760 * 100cqi);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: calc(12.5 / 760 * 100cqi);
+  font-weight: 600;
+  line-height: 1.1;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    border-color var(--t-fast),
+    background-color var(--t-fast);
+}
+.map-node-role {
+  color: var(--text-3);
+  font-family: var(--mono);
+  font-size: calc(8.5 / 760 * 100cqi);
+  font-weight: 400;
 }
 .can-move .map-node {
   cursor: grab;
   touch-action: none;
+  will-change: transform;
+}
+.can-move .map-pulse {
+  will-change: transform, opacity;
 }
 .is-dragging .map-node {
   cursor: grabbing;
@@ -349,37 +408,14 @@
   color: var(--text);
   border-color: var(--text-2);
 }
-.map-svg:focus-visible {
-  outline-offset: 8px;
+.map-hub {
+  border-color: var(--text-2);
 }
-.map-node rect {
-  fill: var(--bg);
-  stroke: var(--rule-2);
-  transition:
-    stroke var(--t-fast),
-    fill var(--t-fast);
-}
-.map-node text {
-  fill: var(--text);
-  font-family: var(--font);
-  font-size: 12.5px;
-  font-weight: 600;
-  pointer-events: none;
-}
-.map-node .role {
-  fill: var(--text-3);
-  font-family: var(--mono);
-  font-size: 8.5px;
-  font-weight: 400;
-}
-.map-hub rect {
-  stroke: var(--text-2);
-}
-.map-node:hover rect,
-.map-node:focus-visible rect,
-.map-node.is-active rect {
-  stroke: var(--signal);
-  fill: var(--bg-2);
+.map-node:hover,
+.map-node:focus-visible,
+.map-node.is-active {
+  border-color: var(--signal);
+  background: var(--bg-2);
 }
 .map-node:focus-visible {
   outline: none;
@@ -434,7 +470,8 @@
   gap: 12px;
   padding-top: 20px;
   border-top: 1px solid var(--rule);
-  /* Tall enough for the longest entry, so the tour never moves what is below it. */
+  /* Under the picture, tall enough for the longest entry, so the tour never moves what is below it.
+     Beside the picture it stretches to the picture's height instead (see .system-map). */
   min-height: 340px;
 }
 .map-detail p {
@@ -993,9 +1030,6 @@
   .hero-lede,
   .hero-side {
     grid-column: 1 / -1;
-  }
-  .system-map {
-    grid-template-columns: 1fr;
   }
   .prose,
   .aside,

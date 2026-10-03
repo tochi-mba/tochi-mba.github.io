@@ -2,7 +2,17 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { lucyFamily } from "../../src/data";
 import { fold, rank, score } from "../../src/search";
-import { along, clampPull, drift, easeInOut, settled, springStep } from "../../src/systemMotion";
+import {
+  advance,
+  along,
+  clampPull,
+  drift,
+  easeInOut,
+  SPRING_STEP,
+  settled,
+  springStep,
+  type Vec,
+} from "../../src/systemMotion";
 import { EVERY_SERVICE, journeys, traceFor } from "../../src/systemTrace";
 import { opposite, parseTheme, resolveTheme, THEME_BOOT } from "../../src/theme";
 
@@ -40,6 +50,40 @@ describe("map motion", () => {
     expect(settled({ x: 0.01, y: 0 }, { x: 0, y: 0 }, home)).toBe(true);
     expect(settled({ x: 0.01, y: 0 }, { x: 5, y: 0 }, home)).toBe(false);
     expect(settled({ x: 3, y: 0 }, { x: 0, y: 0 }, home)).toBe(false);
+  });
+});
+
+describe("map motion at any frame rate", () => {
+  const home = { x: 380, y: 205 };
+  const thrown = { pos: { x: 460, y: 255 }, vel: { x: 600, y: -300 } };
+  // Plays the spring for `seconds` at `fps` frames a second, the way the map's frame loop does.
+  const play = (fps: number, seconds: number) => {
+    let state: { pos: Vec; vel: Vec; settled: boolean } = { ...thrown, settled: false };
+    for (let t = 0; t < Math.round(seconds * fps); t++) state = advance(state.pos, state.vel, home, 1 / fps);
+    return state;
+  };
+
+  it("takes one step for a frame no longer than a 60 Hz one", () => {
+    expect(advance(thrown.pos, thrown.vel, home, SPRING_STEP)).toEqual({
+      ...springStep(thrown.pos, thrown.vel, home, SPRING_STEP),
+      settled: false,
+    });
+  });
+  it("splits a long frame into 60 Hz steps rather than one big one", () => {
+    let expected = { pos: thrown.pos, vel: thrown.vel };
+    for (let i = 0; i < 3; i++) expected = springStep(expected.pos, expected.vel, home, 0.05 / 3);
+    expect(advance(thrown.pos, thrown.vel, home, 0.05)).toEqual({ ...expected, settled: false });
+  });
+  it("moves a node the same way at 20 frames a second as at 60", () => {
+    const fast = play(60, 0.3);
+    const slow = play(20, 0.3);
+    expect(Math.hypot(fast.pos.x - slow.pos.x, fast.pos.y - slow.pos.y)).toBeLessThan(0.5);
+  });
+  it("brings a thrown node home exactly within two seconds, even at 20 frames a second", () => {
+    for (const fps of [20, 60, 144]) {
+      const state = play(fps, 2);
+      expect(state, `${fps} fps`).toEqual({ pos: home, vel: { x: 0, y: 0 }, settled: true });
+    }
   });
 });
 describe("request traces", () => {
