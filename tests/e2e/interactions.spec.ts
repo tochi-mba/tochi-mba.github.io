@@ -6,13 +6,16 @@ import { open, settle } from "./helpers";
 // The generated file's inferred type depends on the data fetched at build time; this is its contract.
 const shipping = site.shipping as unknown as ShipEvent[];
 
-test("the header earns its border on scroll", async ({ page }) => {
+test("the header stays at the top of the screen and earns its border on scroll", async ({ page }) => {
   await open(page, "/");
   const header = page.locator("header.site-header");
   await expect(header).not.toHaveClass(/scrolled/);
   // Scroll the page itself: a phone has no mouse wheel, and WebKit on a phone refuses to fake one.
-  await page.evaluate(() => window.scrollTo(0, 600));
+  await page.evaluate(() => window.scrollTo(0, 1500));
   await expect(header).toHaveClass(/scrolled/);
+  await expect.poll(async () => Math.round((await header.boundingBox())!.y)).toBe(0);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expect(header).not.toHaveClass(/scrolled/);
 });
 
 test("rows reveal as they scroll into view, and stay revealed", async ({ page }) => {
@@ -20,9 +23,9 @@ test("rows reveal as they scroll into view, and stay revealed", async ({ page })
   const motion = await page.evaluate(() => document.documentElement.classList.contains("motion"));
   test.skip(!motion, "reduced motion: nothing to reveal");
   const last = page.locator(".case").last();
-  await expect(last).not.toHaveClass(/visible/);
+  await expect(last).not.toHaveAttribute("data-revealed");
   await last.scrollIntoViewIfNeeded();
-  await expect(last).toHaveClass(/visible/);
+  await expect(last).toHaveAttribute("data-revealed");
   await expect(last).toHaveCSS("opacity", "1");
 });
 
@@ -64,7 +67,7 @@ test("the LUCY map responds to hover, click and arrow keys", async ({ page, isMo
   // A vertical <line> has no width, so "visible" means present and lit, not a bounding box.
   expect(await page.locator(".map-edge.is-active").count()).toBeGreaterThan(0);
   if (!isMobile) {
-    await page.locator("svg.map-svg").focus();
+    await page.locator(".map-nodes").focus();
     await page.keyboard.press("ArrowRight");
     await expect(detail).not.toHaveText("keyring");
   }
@@ -96,11 +99,15 @@ test("the copy button copies the email and announces it", async ({ page, context
   expect(text).toContain("@");
 });
 
-test("the skip link is the first tab stop and lands on main", async ({ page, isMobile }) => {
+test("the skip link is the first tab stop and lands on main", async ({ page, isMobile, browserName }) => {
   test.skip(isMobile, "no hardware keyboard");
   await open(page, "/");
-  await page.keyboard.press("Tab");
-  await expect(page.locator(".skip-link")).toBeFocused();
+  const skip = page.locator(".skip-link");
+  // Playwright's WebKit inherits Safari's OS-level "keyboard navigation" preference, which the
+  // test runner cannot enable. Focus directly there; Chromium and Firefox still verify tab order.
+  if (browserName === "webkit") await skip.focus();
+  else await page.keyboard.press("Tab");
+  await expect(skip).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/#main$/);
 });
@@ -111,7 +118,7 @@ test("a case study row underlines its name in the theme signal on hover", async 
   const row = page.locator(".case").first();
   await row.scrollIntoViewIfNeeded();
   // The row rises into place as it reveals; hovering before it has finished would lose the pointer.
-  await expect(row).toHaveClass(/visible/);
+  await expect(row).toHaveAttribute("data-revealed");
   await settle(page);
   await expect(row).toHaveCSS("opacity", "1");
   await expect(row).toHaveCSS("translate", "none");
