@@ -31,6 +31,23 @@ export function settled(pos: Vec, vel: Vec, target: Vec): boolean {
   return Math.hypot(target.x - pos.x, target.y - pos.y) < 0.05 && Math.hypot(vel.x, vel.y) < 0.05;
 }
 
+/** The longest single step the spring takes: one frame at 60 Hz. */
+export const SPRING_STEP = 1 / 60;
+
+/**
+ * Moves a spring on by `seconds`, in steps no longer than SPRING_STEP, so a node travels at the same
+ * speed whatever the frame rate: a browser drawing 20 frames a second takes three steps a frame
+ * rather than playing the motion in slow motion. Once settled it lands exactly on its target.
+ */
+export function advance(pos: Vec, vel: Vec, target: Vec, seconds: number): { pos: Vec; vel: Vec; settled: boolean } {
+  const steps = Math.max(1, Math.ceil(seconds / SPRING_STEP - 1e-9));
+  const dt = seconds / steps;
+  let state = { pos, vel };
+  for (let i = 0; i < steps; i += 1) state = springStep(state.pos, state.vel, target, dt);
+  if (settled(state.pos, state.vel, target)) return { pos: { ...target }, vel: { x: 0, y: 0 }, settled: true };
+  return { ...state, settled: false };
+}
+
 /**
  * Where node `index` has drifted to after `seconds`: a slow loop a few units wide, with a period
  * and a phase of its own so no two nodes move together.

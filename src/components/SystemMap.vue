@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { lucyFamily, type Project } from "../data";
-import { along, clampPull, drift, settled, springStep, type Vec } from "../systemMotion";
+import { advance, along, clampPull, drift, type Vec } from "../systemMotion";
 import { journeys, traceFor } from "../systemTrace";
 
 // The hub in the middle, keyring (the vault everything authenticates against) directly beneath it,
@@ -12,6 +12,11 @@ import { journeys, traceFor } from "../systemTrace";
 // back what the family does: a mark travels from the hub to a service, to keyring and back, while
 // the caption says which step that is; then it moves on to the next member. A person who hovers,
 // focuses or drags takes over, and the tour waits. Nodes can be picked up; they spring home.
+//
+// The lines are an SVG drawn once; the members and the travelling marks are HTML laid over it and
+// moved with transforms, which the compositor applies without repainting anything. Drifting a few
+// pixels never moves a line: its ends sit under the members, out of sight. A line is redrawn only
+// while one of its members has been pulled away.
 const hub = lucyFamily.find((p) => p.role === "hub")!;
 const vault = lucyFamily.find((p) => p.role === "vault")!;
 const ring = lucyFamily.filter((p) => p !== hub && p !== vault);
@@ -22,9 +27,8 @@ const cx = W / 2;
 const cy = 205;
 const rx = 300;
 const ry = 172;
-const NODE_W = 112;
-const NODE_H = 40;
 const PULSE = 8;
+const DRIFT = 3;
 
 interface Node {
   project: Project;
@@ -50,6 +54,8 @@ const edges = nodes.flatMap((n, i) => {
   if (i !== 1) out.push({ from: 1, to: i, key: `vault-${n.project.slug}` });
   return out;
 });
+/** Where a point of the picture sits in its box, as percentages, so it scales with the box. */
+const at = (x: number, y: number) => ({ left: `${(x / W) * 100}%`, top: `${(y / H) * 100}%` });
 
 const activeSlug = ref<string>(hub.slug);
 const active = computed(() => nodes[indexOf.get(activeSlug.value) ?? 0]!);
@@ -66,20 +72,10 @@ const byPerson = ref(true);
 // A role that only repeats the name says nothing, so it is not drawn.
 const roleOf = (p: Project) => (p.role && p.role.toLowerCase() !== p.name.toLowerCase() ? p.role : "");
 
-function isLit(n: Node) {
-  const a = active.value.project;
-  return (
-    n.project.slug === a.slug ||
-    a.role === "hub" ||
-    a.role === "vault" ||
-    n.project.role === "hub" ||
-    n.project.role === "vault"
-  );
-}
 const edgeLit = (e: (typeof edges)[number]) => order[e.from] === activeSlug.value || order[e.to] === activeSlug.value;
 
-// ---- Movement. Plain arrays and direct attribute writes: sixty frames a second is no place for
-// reactivity, and Vue leaves an attribute alone as long as the value it rendered has not changed.
+// ---- Movement. Plain arrays and direct style and attribute writes: sixty frames a second is no
+// place for reactivity, and Vue leaves alone what it did not render (a transform, an edge's ends).
 const STEP_MS = 900;
 const TRAVEL_MS = 720;
 const DWELL_MS = 1500;
@@ -87,27 +83,33 @@ const HOLD_MS = 6000;
 const PULL_LIMIT = 150;
 
 const root = ref<HTMLElement | null>(null);
-const svg = ref<SVGSVGElement | null>(null);
-const nodeEls: (Element | null)[] = [];
+const stage = ref<HTMLElement | null>(null);
+const nodeEls: (HTMLElement | null)[] = [];
 const edgeEls: (Element | null)[] = [];
-const pulseEls: (SVGElement | null)[] = [];
+const pulseEls: (HTMLElement | null)[] = [];
 const home: Vec[] = nodes.map((n) => ({ x: n.x, y: n.y }));
 const pos: Vec[] = home.map((h) => ({ ...h }));
 const vel: Vec[] = home.map(() => ({ x: 0, y: 0 }));
+/** Which lines were last drawn away from home, so each is put back exactly once. */
+const edgeAway: boolean[] = edges.map(() => false);
 
 let raf = 0;
 let last = 0;
+/** Pixels per unit of the picture, kept up to date as the box is resized. */
+let scale = 1;
 let inView = false;
 let hovering = false;
 let focused = false;
 let holdUntil = 0;
 let dragging = -1;
 let grab: Vec = { x: 0, y: 0 };
+let box = { left: 0, top: 0 };
 let lastPull = { at: 0, x: 0, y: 0 };
 let traceStart = 0;
 let traceEnd = 0;
 let pulses: { from: number; to: number; start: number }[] = [];
 
+/** Starts the frame loop if it is idle. The loop keeps itself going for as long as something moves. */
 function wake() {
   if (raf || typeof requestAnimationFrame !== "function") return;
   last = performance.now();
@@ -144,7 +146,7 @@ function advanceTrace(now: number) {
   pulses = [];
 }
 
-const mapShown = () => (svg.value?.getClientRects().length ?? 0) > 0;
+const mapShown = () => (stage.value?.getClientRects().length ?? 0) > 0;
 
 function tour(now: number) {
   const free = playing.value && inView && !hovering && !focused && dragging === -1 && now > holdUntil;
@@ -153,56 +155,79 @@ function tour(now: number) {
   activeSlug.value = order[((indexOf.get(activeSlug.value) ?? 0) + 1) % order.length]!;
 }
 
+const away = (i: number) => Math.hypot(pos[i]!.x - home[i]!.x, pos[i]!.y - home[i]!.y) > DRIFT + 0.5;
+const px = (units: number) => units * scale;
+
+/** What each element was last given, so a member at rest is not restyled sixty times a second. */
+const written = new WeakMap<HTMLElement, string>();
+function setStyle(el: HTMLElement, transform: string, opacity: string) {
+  const value = `${transform}|${opacity}`;
+  if (written.get(el) === value) return;
+  written.set(el, value);
+  el.style.transform = transform;
+  el.style.opacity = opacity;
+}
+
 function draw(now: number) {
   nodes.forEach((_, i) => {
-    nodeEls[i]?.setAttribute("transform", `translate(${pos[i]!.x - NODE_W / 2} ${pos[i]!.y - NODE_H / 2})`);
+    const el = nodeEls[i];
+    if (!el) return;
+    const dx = pos[i]!.x - home[i]!.x;
+    const dy = pos[i]!.y - home[i]!.y;
+    setStyle(el, dx || dy ? `translate3d(${px(dx)}px, ${px(dy)}px, 0)` : "", "");
   });
   edges.forEach((e, i) => {
     const el = edgeEls[i];
-    if (!el) return;
-    el.setAttribute("x1", String(pos[e.from]!.x));
-    el.setAttribute("y1", String(pos[e.from]!.y));
-    el.setAttribute("x2", String(pos[e.to]!.x));
-    el.setAttribute("y2", String(pos[e.to]!.y));
+    const pulled = away(e.from) || away(e.to);
+    if (!el || (!pulled && !edgeAway[i])) return;
+    // A line follows a member that has been pulled away, and goes back home with it.
+    const from = pulled ? pos[e.from]! : home[e.from]!;
+    const to = pulled ? pos[e.to]! : home[e.to]!;
+    el.setAttribute("x1", String(from.x));
+    el.setAttribute("y1", String(from.y));
+    el.setAttribute("x2", String(to.x));
+    el.setAttribute("y2", String(to.y));
+    edgeAway[i] = pulled;
   });
   pulseEls.forEach((el, i) => {
     if (!el) return;
     const pulse = pulses[i];
     const t = pulse ? (now - pulse.start) / TRAVEL_MS : 2;
     if (!pulse || t > 1) {
-      el.style.opacity = "0";
+      setStyle(el, el.style.transform, "0");
       return;
     }
-    const at = along(pos[pulse.from]!, pos[pulse.to]!, t);
-    el.setAttribute("x", String(at.x - PULSE / 2));
-    el.setAttribute("y", String(at.y - PULSE / 2));
-    el.style.opacity = "1";
+    const point = along(pos[pulse.from]!, pos[pulse.to]!, t);
+    setStyle(el, `translate3d(${px(point.x - PULSE / 2)}px, ${px(point.y - PULSE / 2)}px, 0)`, "1");
   });
 }
 
 function frame(now: number) {
   raf = 0;
   if (!canMove.value) return;
-  const dt = Math.min(0.034, Math.max(0.001, (now - last) / 1000));
+  // The time since the last frame, up to a tenth of a second, so a tab that was in the background
+  // does not fling every node on its return. `advance` splits it into 60 Hz steps.
+  const elapsed = Math.min(0.1, Math.max(0.001, (now - last) / 1000));
   last = now;
   const drifting = playing.value && inView && canMove.value;
   let busy = drifting || dragging !== -1 || traceStart !== 0;
   nodes.forEach((_, i) => {
     if (i === dragging) return;
     // The hub and keyring are the fixed points; the ring floats around them.
-    const offset = drifting && i > 1 ? drift(i, now / 1000) : { x: 0, y: 0 };
+    const offset = drifting && i > 1 ? drift(i, now / 1000, DRIFT) : { x: 0, y: 0 };
     const target = { x: home[i]!.x + offset.x, y: home[i]!.y + offset.y };
-    const next = springStep(pos[i]!, vel[i]!, target, dt);
-    // Close enough and slow enough: land exactly, so a node let go comes to rest where it started.
-    const rest = settled(next.pos, next.vel, target);
-    pos[i] = rest ? { ...target } : next.pos;
-    vel[i] = rest ? { x: 0, y: 0 } : next.vel;
-    if (!rest) busy = true;
+    // Once close enough and slow enough it lands exactly, so a node let go rests where it started.
+    const next = advance(pos[i]!, vel[i]!, target, elapsed);
+    pos[i] = next.pos;
+    vel[i] = next.vel;
+    if (!next.settled) busy = true;
   });
   advanceTrace(now);
   tour(now);
   draw(now);
-  if (busy) wake();
+  // Straight on to the next frame, keeping `last` as this frame's time: going through wake() would
+  // restart the clock after this frame's own work and undercount the next frame's time.
+  if (busy) raf = requestAnimationFrame(frame);
 }
 
 function pick(slug: string) {
@@ -224,26 +249,27 @@ function onKey(event: KeyboardEvent) {
   }
 }
 
+/** A pointer's position in the picture's own units. */
 function toLocal(event: PointerEvent): Vec {
-  const matrix = svg.value?.getScreenCTM();
-  if (!matrix) return { x: 0, y: 0 };
-  const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse());
-  return { x: point.x, y: point.y };
+  return { x: (event.clientX - box.left) / scale, y: (event.clientY - box.top) / scale };
 }
 function onDown(event: PointerEvent, i: number) {
-  if (!canMove.value || event.button !== 0) return;
+  if (!canMove.value || event.button !== 0 || !stage.value) return;
   (event.currentTarget as Element).setPointerCapture(event.pointerId);
-  const at = toLocal(event);
+  const rect = stage.value.getBoundingClientRect();
+  box = { left: rect.left, top: rect.top };
+  scale = rect.width / W || scale;
+  const point = toLocal(event);
   dragging = i;
-  grab = { x: at.x - pos[i]!.x, y: at.y - pos[i]!.y };
+  grab = { x: point.x - pos[i]!.x, y: point.y - pos[i]!.y };
   lastPull = { at: event.timeStamp, x: pos[i]!.x, y: pos[i]!.y };
   root.value?.classList.add("is-dragging");
   wake();
 }
 function onMove(event: PointerEvent, i: number) {
   if (dragging !== i) return;
-  const at = toLocal(event);
-  const next = clampPull(home[i]!, { x: at.x - grab.x, y: at.y - grab.y }, PULL_LIMIT);
+  const point = toLocal(event);
+  const next = clampPull(home[i]!, { x: point.x - grab.x, y: point.y - grab.y }, PULL_LIMIT);
   // Remember how fast it was moving, so letting go mid-swing throws it rather than dropping it.
   const dt = Math.max(0.001, (event.timeStamp - lastPull.at) / 1000);
   vel[i] = { x: (next.x - lastPull.x) / dt, y: (next.y - lastPull.y) / dt };
@@ -293,6 +319,7 @@ function stopMotion() {
 }
 
 let observer: IntersectionObserver | null = null;
+let resizer: ResizeObserver | null = null;
 let removeMotionListener = () => {};
 onMounted(() => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -307,7 +334,16 @@ onMounted(() => {
   applyMotion();
   reduce.addEventListener("change", applyMotion);
   removeMotionListener = () => reduce.removeEventListener("change", applyMotion);
-  if (!root.value || !("IntersectionObserver" in window)) return;
+  if (!stage.value) return;
+  if ("ResizeObserver" in window) {
+    resizer = new ResizeObserver(([entry]) => {
+      if (entry && entry.contentRect.width > 0) scale = entry.contentRect.width / W;
+    });
+    resizer.observe(stage.value);
+  }
+  // The picture is what is watched, not the section: on a phone the picture is not drawn, so it is
+  // never in view and nothing runs for it; turned sideways, it is drawn, comes into view and starts.
+  if (!("IntersectionObserver" in window)) return;
   let started = false;
   observer = new IntersectionObserver(
     ([entry]) => {
@@ -323,10 +359,11 @@ onMounted(() => {
     },
     { threshold: 0.35 },
   );
-  observer.observe(root.value);
+  observer.observe(stage.value);
 });
 onBeforeUnmount(() => {
   observer?.disconnect();
+  resizer?.disconnect();
   removeMotionListener();
   if (raf) cancelAnimationFrame(raf);
 });
@@ -334,11 +371,22 @@ onBeforeUnmount(() => {
 
 <template>
   <div ref="root" class="system-map" :class="{ 'can-move': canMove }">
-    <div class="map-stage">
-      <svg
-        ref="svg"
-        class="map-svg"
-        :viewBox="`0 0 ${W} ${H}`"
+    <div ref="stage" class="map-stage">
+      <svg class="map-lines" :viewBox="`0 0 ${W} ${H}`" aria-hidden="true" focusable="false">
+        <line
+          v-for="(e, i) in edges"
+          :key="e.key"
+          :ref="(el) => (edgeEls[i] = el as Element | null)"
+          class="map-edge"
+          :class="{ 'is-active': edgeLit(e) }"
+          :x1="nodes[e.from]!.x"
+          :y1="nodes[e.from]!.y"
+          :x2="nodes[e.to]!.x"
+          :y2="nodes[e.to]!.y"
+        />
+      </svg>
+      <div
+        class="map-nodes"
         role="group"
         aria-label="Map of the LUCY service family. Use the arrow keys to move between services."
         tabindex="0"
@@ -348,37 +396,21 @@ onBeforeUnmount(() => {
         @focusin="setFocus(true)"
         @focusout="setFocus(false)"
       >
-        <g>
-          <line
-            v-for="(e, i) in edges"
-            :key="e.key"
-            :ref="(el) => (edgeEls[i] = el as Element | null)"
-            class="map-edge"
-            :class="{ 'is-active': edgeLit(e) }"
-            :x1="nodes[e.from]!.x"
-            :y1="nodes[e.from]!.y"
-            :x2="nodes[e.to]!.x"
-            :y2="nodes[e.to]!.y"
-          />
-        </g>
-        <g aria-hidden="true">
-          <rect
-            v-for="i in services.length"
-            :key="i"
-            :ref="(el) => (pulseEls[i - 1] = el as SVGElement | null)"
-            class="map-pulse"
-            :width="PULSE"
-            :height="PULSE"
-          />
-        </g>
-        <g
+        <span
+          v-for="i in services.length"
+          :key="`pulse-${i}`"
+          :ref="(el) => (pulseEls[i - 1] = el as HTMLElement | null)"
+          class="map-pulse"
+          aria-hidden="true"
+        ></span>
+        <button
           v-for="(n, i) in nodes"
           :key="n.project.slug"
-          :ref="(el) => (nodeEls[i] = el as Element | null)"
+          :ref="(el) => (nodeEls[i] = el as HTMLElement | null)"
+          type="button"
           class="map-node"
-          :class="{ 'map-hub': n.project.role === 'hub' || n.project.role === 'vault', 'is-active': activeSlug === n.project.slug, 'is-lit': isLit(n) }"
-          :transform="`translate(${n.x - NODE_W / 2} ${n.y - NODE_H / 2})`"
-          role="button"
+          :class="{ 'map-hub': n.project.role === 'hub' || n.project.role === 'vault', 'is-active': activeSlug === n.project.slug }"
+          :style="at(n.x, n.y)"
           :aria-pressed="activeSlug === n.project.slug"
           :aria-label="roleOf(n.project) ? `${n.project.name}: ${n.project.role}` : n.project.name"
           tabindex="-1"
@@ -390,11 +422,10 @@ onBeforeUnmount(() => {
           @pointerup="onUp(i)"
           @pointercancel="onUp(i)"
         >
-          <rect :width="NODE_W" :height="NODE_H" rx="10" />
-          <text :x="NODE_W / 2" :y="roleOf(n.project) ? 17 : 24.5" text-anchor="middle">{{ n.project.name }}</text>
-          <text v-if="roleOf(n.project)" class="role" :x="NODE_W / 2" y="31" text-anchor="middle">{{ n.project.role }}</text>
-        </g>
-      </svg>
+          <span class="map-node-name">{{ n.project.name }}</span>
+          <span v-if="roleOf(n.project)" class="map-node-role">{{ n.project.role }}</span>
+        </button>
+      </div>
       <button v-if="canMove" class="map-play mono" type="button" :aria-pressed="!playing" @click="togglePlaying">
         {{ playing ? "Pause" : "Play" }}<span class="sr-only"> the tour of the family</span>
       </button>

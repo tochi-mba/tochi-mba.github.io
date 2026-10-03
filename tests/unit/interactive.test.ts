@@ -277,7 +277,7 @@ describe("SystemMap", () => {
   });
   it("moves between members with the arrow keys, wrapping round", async () => {
     const w = await mountMap();
-    const svg = w.find("svg.map-svg");
+    const svg = w.find(".map-nodes");
     await svg.trigger("keydown", { key: "ArrowLeft" });
     expect(w.find(".map-detail h3").text()).toBe(w.findAll(".map-chip").at(-1)!.text());
     await svg.trigger("keydown", { key: "ArrowRight" });
