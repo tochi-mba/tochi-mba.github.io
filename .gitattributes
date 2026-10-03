@@ -1,0 +1,6 @@
+# Every text file is stored and checked out with LF, whatever the platform. Biome checks line endings,
+# so without this a Windows clone with core.autocrlf got CRLF and failed `npm run lint` on every file.
+* text=auto eol=lf
+
+*.png binary
+*.woff2 binary
