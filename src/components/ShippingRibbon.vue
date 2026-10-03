@@ -336,15 +336,15 @@ function onKey(event: KeyboardEvent) {
   opacity: 0;
   transform: scale(0.2);
 }
-.motion .ribbon.reveal.visible .lane-line {
+.motion .ribbon.reveal[data-revealed] .lane-line {
   transform: none;
   transition: transform 900ms var(--ease-out);
 }
-.motion .ribbon.reveal.visible .tick .mark {
+.motion .ribbon.reveal[data-revealed] .tick .mark {
   animation: land 420ms var(--ease-out) forwards;
   animation-delay: calc(240ms + var(--i) * 24ms);
 }
-.motion .ribbon.reveal.visible .tick.is-active .mark {
+.motion .ribbon.reveal[data-revealed] .tick.is-active .mark {
   animation-name: land-active;
 }
 @keyframes land {

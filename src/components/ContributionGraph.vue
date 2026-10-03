@@ -163,7 +163,7 @@ const activeDays = computed(() => props.days.filter((d) => d[1] > 0).length);
   transform-box: fill-box;
   transform-origin: center;
 }
-.motion .reveal.visible .contrib-cell {
+.motion .reveal[data-revealed] .contrib-cell {
   animation: ignite 0.5s var(--ease-out) forwards;
   animation-delay: calc(var(--i) * 3ms);
 }

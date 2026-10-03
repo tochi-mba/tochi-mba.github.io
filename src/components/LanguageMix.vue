@@ -57,13 +57,15 @@ const pct1 = (v: number) => (v * 100 >= 10 ? `${Math.round(v * 100)}%` : `${(v *
   height: 100%;
   width: var(--w);
   background: var(--signal);
+  transform-origin: left;
 }
+/* The bars grow from the left by scaling, not by changing width: a transform needs no layout. */
 .motion .reveal .langs-bar {
-  width: 0;
+  transform: scaleX(0);
 }
-.motion .reveal.visible .langs-bar {
-  width: var(--w);
-  transition: width 0.9s var(--ease-out);
+.motion .reveal[data-revealed] .langs-bar {
+  transform: none;
+  transition: transform 0.9s var(--ease-out);
   transition-delay: calc(var(--i) * 60ms);
 }
 .langs-value {

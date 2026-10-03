@@ -166,7 +166,7 @@ strong {
     translate var(--t-slow) var(--ease-out);
   transition-delay: var(--delay, 0ms);
 }
-.motion .reveal.visible {
+.motion .reveal[data-revealed] {
   opacity: 1;
   translate: none;
 }
