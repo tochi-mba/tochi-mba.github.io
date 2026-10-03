@@ -52,6 +52,15 @@
 .site-header.scrolled {
   border-bottom-color: var(--rule);
 }
+/* The first 8px of the page: once this has scrolled off the screen, the header is "scrolled". */
+.scroll-marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 8px;
+  pointer-events: none;
+}
 .nav-wrap {
   min-height: var(--header-h);
   display: flex;
