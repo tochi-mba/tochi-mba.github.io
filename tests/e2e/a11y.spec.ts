@@ -17,7 +17,7 @@ for (const route of routes) {
     await page.goto(route);
     // Reveal everything so axe sees the page as a reader would after scrolling.
     await page.evaluate(() => {
-      for (const el of document.querySelectorAll(".reveal")) el.classList.add("visible");
+      for (const el of document.querySelectorAll(".reveal")) el.setAttribute("data-revealed", "");
     });
     await settle(page);
     await page.waitForTimeout(600);
@@ -31,17 +31,15 @@ for (const route of routes) {
 test("every interactive element has a visible focus ring", async ({ page, isMobile }) => {
   test.skip(isMobile, "no hardware keyboard");
   await open(page, "/work");
-  for (let i = 0; i < 8; i += 1) {
-    await page.keyboard.press("Tab");
-    const outline = await page.evaluate(() => {
-      const el = document.activeElement as HTMLElement | null;
-      if (!el || el === document.body) return "none";
-      const s = getComputedStyle(el);
-      // Chromium reports the outline's used width as 0 for some anchors under forced reduced motion;
-      // the style is what says a ring is drawn.
-      return s.outlineStyle !== "none" ? "ring" : `${el.tagName}:${s.outlineStyle}`;
-    });
-    expect(outline).toBe("ring");
+  const controls = page.locator('a[href], button:not([disabled]), input:not([disabled]), summary, [tabindex]:not([tabindex="-1"])');
+  for (let i = 0; i < (await controls.count()); i += 1) {
+    const control = controls.nth(i);
+    if (!(await control.isVisible())) continue;
+    await control.focus();
+    const outline = await control.evaluate((el) => getComputedStyle(el).outlineStyle);
+    // Chromium reports a used outline width of 0 for some anchors under reduced motion; the style
+    // is the cross-engine signal that the ring is drawn.
+    expect(outline, await control.evaluate((el) => `${el.tagName}.${el.className}`)).not.toBe("none");
   }
 });
 

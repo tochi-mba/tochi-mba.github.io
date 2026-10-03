@@ -3,9 +3,10 @@ import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vitest/config";
 
 // Every module that decides something is held to full coverage: the metadata contract, the
-// publication policy, the sync, link safety, the shipping log, and the logic behind the theme,
-// the command palette and the LUCY map. Command-line wrappers that only read files and talk to
-// the network around those modules are reported but not gated; their logic lives in the gated ones.
+// publication policy, the sync, link safety, the shipping log, the performance comparison, and the
+// logic behind the theme, the command palette and the LUCY map. Command-line wrappers that only read
+// files and talk to the network or a browser around those modules are reported but not gated; their
+// logic lives in the gated ones.
 const GATED = [
   "scripts/schema.mjs",
   "scripts/links.mjs",
@@ -13,6 +14,7 @@ const GATED = [
   "scripts/github.mjs",
   "scripts/shipping.mjs",
   "scripts/token.mjs",
+  "scripts/perf-report.mjs",
   "src/theme.ts",
   "src/search.ts",
   "src/palette.ts",

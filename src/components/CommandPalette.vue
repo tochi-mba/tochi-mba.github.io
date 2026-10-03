@@ -16,6 +16,7 @@ const list = ref<HTMLElement | null>(null);
 const query = ref("");
 const active = ref(0);
 const status = ref("");
+let returnFocus: HTMLElement | null = null;
 
 const items = buildItems(projects, profile);
 const featuredSlugs = new Set(projects.filter((p) => p.featured).map((p) => `project-${p.slug}`));
@@ -38,8 +39,22 @@ watch(results, (found) => {
 function show() {
   query.value = "";
   active.value = 0;
-  if (!dialog.value?.open) dialog.value?.showModal();
+  if (!dialog.value?.open) {
+    returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    dialog.value?.showModal();
+  }
   nextTick(() => input.value?.focus());
+}
+
+// Native dialogs restore focus in Chromium and Firefox, but WebKit does not do it reliably. Keep
+// the same promise in every engine, including when the dialog was closed by Escape.
+function onClose() {
+  paletteOpen.value = false;
+  const target = returnFocus;
+  returnFocus = null;
+  nextTick(() => {
+    if (target?.isConnected) target.focus();
+  });
 }
 watch(paletteOpen, (open) => {
   if (open) show();
@@ -91,7 +106,7 @@ function onBackdrop(event: MouseEvent) {
     ref="dialog"
     class="palette"
     aria-label="Search the site"
-    @close="paletteOpen = false"
+    @close="onClose"
     @click="onBackdrop"
   >
     <div class="palette-box">
