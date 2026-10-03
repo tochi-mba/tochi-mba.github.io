@@ -15,10 +15,11 @@ export const THEME_KEY = "theme";
 export const THEME_COLOR: Record<Theme, string> = { light: "#f4f4eb", dark: "#080b07" };
 
 /**
- * The script index.html runs in <head>, ahead of the stylesheet, so a stored choice never shows a
- * frame of the other theme. Kept here so a test can hold the page to it.
+ * The script index.html runs in <head>, ahead of the styles, so a stored choice never shows a frame
+ * of the other theme, and the browser's own chrome (the theme-color above it) matches from the start.
+ * Kept here so a test can hold the page to it.
  */
-export const THEME_BOOT = `try{const t=localStorage.getItem("${THEME_KEY}");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch{}`;
+export const THEME_BOOT = `try{const t=localStorage.getItem("${THEME_KEY}");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t;for(const m of document.querySelectorAll('meta[name="theme-color"]'))m.content=t==="light"?"${THEME_COLOR.light}":"${THEME_COLOR.dark}"}}catch{}`;
 
 export function parseTheme(value: unknown): Theme | null {
   return value === "light" || value === "dark" ? value : null;

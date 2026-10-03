@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#f4f4eb" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#080b07" media="(prefers-color-scheme: dark)" />
     <!-- A visitor's own theme, applied before the first paint. The same text as THEME_BOOT in src/theme.ts. -->
-    <script>try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch{}</script>
+    <script>try{const t=localStorage.getItem("theme");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t;for(const m of document.querySelectorAll('meta[name="theme-color"]'))m.content=t==="light"?"#f4f4eb":"#080b07"}}catch{}</script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin />

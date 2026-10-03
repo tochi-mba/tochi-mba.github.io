@@ -88,7 +88,7 @@ const links = computed(() => {
       <p class="mono faint">
         <span class="status" :class="`status-${project.status}`">{{ STATUS_LABEL[project.status] }}</span>
         <span v-if="project.visibility === 'private'"> · Private repository</span>
-        <span v-if="project.family === 'lucy'"> · LUCY family · {{ project.role }}</span>
+        <span v-if="project.family === 'lucy'"> · LUCY family<template v-if="project.role"> · {{ project.role }}</template></span>
       </p>
     </header>
 

@@ -1,12 +1,21 @@
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { computed, onBeforeUnmount, onMounted } from "vue";
 import { applyTheme, currentTheme, opposite, theme } from "../theme";
 
 // The prerendered page cannot know the theme, so the button starts with a label that is true either
-// way and names the theme it would switch to once the browser is running.
-onMounted(() => {
+// way and names the theme it would switch to once the browser is running. Until a visitor chooses,
+// the device decides, and the device can change its mind mid-visit (at sunset, say): the label
+// follows it.
+let device: MediaQueryList | null = null;
+const follow = () => {
   theme.value = currentTheme();
+};
+onMounted(() => {
+  follow();
+  device = window.matchMedia("(prefers-color-scheme: light)");
+  device.addEventListener("change", follow);
 });
+onBeforeUnmount(() => device?.removeEventListener("change", follow));
 const next = computed(() => (theme.value ? opposite(theme.value) : null));
 
 function toggle(event: MouseEvent) {
