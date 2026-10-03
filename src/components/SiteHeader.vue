@@ -14,9 +14,15 @@ function openPalette() {
   setMenu(false);
   paletteOpen.value = true;
 }
-const scrolled = ref(false);
 const menuButton = ref<HTMLButtonElement | null>(null);
 const nav = ref<HTMLElement | null>(null);
+
+// The header earns its border once the page has moved. A marker as tall as that first stretch of
+// scrolling sits at the very top of the page, and an observer says when it has left the screen:
+// reading the scroll position instead would make the browser lay the page out while it hydrates.
+const scrolled = ref(false);
+const marker = ref<HTMLElement | null>(null);
+let observer: IntersectionObserver | null = null;
 
 const links = [
   { to: "/work", label: "Work" },
@@ -31,10 +37,6 @@ function setMenu(value: boolean, returnFocus = false) {
   open.value = value;
   // Closing with the keyboard has to put focus somewhere sensible, or it falls back to the page.
   if (!value && returnFocus) menuButton.value?.focus();
-}
-
-function onScroll() {
-  scrolled.value = window.scrollY > 8;
 }
 
 function onKey(event: KeyboardEvent) {
@@ -58,19 +60,23 @@ watch(
 
 onMounted(() => {
   if (/Mac|iPhone|iPad/.test(navigator.platform)) shortcut.value = "⌘ K";
-  onScroll();
-  window.addEventListener("scroll", onScroll, { passive: true });
   document.addEventListener("keydown", onKey);
   document.addEventListener("focusin", onFocusIn);
+  if (!marker.value || !("IntersectionObserver" in window)) return;
+  observer = new IntersectionObserver(([entry]) => {
+    if (entry) scrolled.value = !entry.isIntersecting;
+  });
+  observer.observe(marker.value);
 });
 onBeforeUnmount(() => {
-  window.removeEventListener("scroll", onScroll);
+  observer?.disconnect();
   document.removeEventListener("keydown", onKey);
   document.removeEventListener("focusin", onFocusIn);
 });
 </script>
 
 <template>
+  <span ref="marker" class="scroll-marker" aria-hidden="true"></span>
   <header class="site-header" :class="{ scrolled }">
     <div class="container nav-wrap">
       <router-link class="brand" to="/" :aria-label="`${profile.name}, home`">

@@ -3,11 +3,20 @@
 *::after {
   box-sizing: border-box;
 }
+/* Sideways overflow is clipped at the window and nowhere else. `hidden` on the body would make the
+   body a scroll container of its own, and the sticky header would then stick to the body, which
+   never scrolls, instead of to the window. A browser without `clip` gets `hidden`: on the root it
+   applies to the window, so it is safe there. */
 html {
   background: var(--bg);
   -webkit-text-size-adjust: 100%;
   overflow-x: hidden;
   scroll-padding-top: calc(var(--header-h) + 16px);
+}
+@supports (overflow-x: clip) {
+  html {
+    overflow-x: clip;
+  }
 }
 body {
   margin: 0;
@@ -20,7 +29,6 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
   min-height: 100dvh;
 }
 #app {
