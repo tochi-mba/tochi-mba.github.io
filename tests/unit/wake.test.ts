@@ -25,8 +25,14 @@ describe("waking parts of a page later", () => {
   it("counts the parts still asleep on <html>, and clears the count when the last wakes", () => {
     const { strategy, parts } = byHand();
     const hydrated: string[] = [];
-    counted(strategy)(() => hydrated.push("a"), () => {});
-    counted(strategy)(() => hydrated.push("b"), () => {});
+    counted(strategy)(
+      () => hydrated.push("a"),
+      () => {},
+    );
+    counted(strategy)(
+      () => hydrated.push("b"),
+      () => {},
+    );
     expect(waking()).toBe("2");
     parts[0]!.wake();
     expect(waking()).toBe("1");
@@ -36,7 +42,10 @@ describe("waking parts of a page later", () => {
   });
   it("stops counting a part that is unmounted before it wakes, and stops its strategy", () => {
     const { strategy, parts } = byHand();
-    const teardown = counted(strategy)(() => {}, () => {}) as () => void;
+    const teardown = counted(strategy)(
+      () => {},
+      () => {},
+    ) as () => void;
     expect(waking()).toBe("1");
     teardown();
     expect(parts[0]!.stopped).toBe(true);
@@ -44,15 +53,24 @@ describe("waking parts of a page later", () => {
   });
   it("counts a part once, however often it is woken or torn down", () => {
     const { strategy, parts } = byHand();
-    counted(strategy)(() => {}, () => {});
-    const teardown = counted(strategy)(() => {}, () => {}) as () => void;
+    counted(strategy)(
+      () => {},
+      () => {},
+    );
+    const teardown = counted(strategy)(
+      () => {},
+      () => {},
+    ) as () => void;
     parts[1]!.wake();
     teardown();
     parts[1]!.wake();
     expect(waking()).toBe("1");
   });
   it("copes with a strategy that returns nothing to stop", () => {
-    const teardown = counted(() => undefined)(() => {}, () => {}) as () => void;
+    const teardown = counted(() => undefined)(
+      () => {},
+      () => {},
+    ) as () => void;
     expect(() => teardown()).not.toThrow();
     expect(waking()).toBeUndefined();
   });
