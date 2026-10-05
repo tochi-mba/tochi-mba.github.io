@@ -16,6 +16,7 @@
     "fonts": "node scripts/fonts.mjs",
     "sync": "node scripts/sync-projects.mjs && biome format --write data/projects.json",
     "shots": "node scripts/shots.mjs",
+    "perf": "node scripts/perf.mjs",
     "check": "npm run data && npm run lint && npm run typecheck && npm run test && npm run build:site && npm run check:site",
     "check:site": "node scripts/check-site.mjs dist",
     "lint": "biome check .",

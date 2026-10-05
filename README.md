@@ -25,6 +25,7 @@ npm run sync         # refresh data/projects.json from every repository's own fi
 npm run check        # data, lint, types, unit tests with coverage, build, site checks: what CI runs
 npm run test:e2e     # Playwright: Chromium, Firefox and WebKit; phone, tablet, desktop; both themes
 npm run shots        # screenshots of every page at three sizes in both themes (needs a preview server)
+npm run perf         # weight and speed of the build, compared with perf/baseline.json
 ```
 
 `npm run sync` uses `PORTFOLIO_TOKEN`, else `GITHUB_TOKEN`, else the GitHub CLI's sign-in. Run it
@@ -46,6 +47,8 @@ schema at `schema/project.schema.json`.
 | `scripts/build-data.mjs` | Applies the policy again, merges what was fetched, writes `src/generated/site-data.json`. |
 | `scripts/fetch-*.mjs` | GitHub activity, npm and PyPI packages, GitHub Pages sites and link checks, at build time. |
 | `scripts/check-site.mjs` | Fails the build on a dead local link, a link into an unpublished repository, a missing title and so on. |
+| `scripts/inline-css.mjs` | Puts the stylesheet inside every built page, so nothing stands between the HTML and the first paint. |
+| `scripts/perf.mjs`, `perf/baseline.json` | Measures each page's weight and speed and compares them with the committed baseline; see [docs/performance.md](docs/performance.md). |
 | `src/` | The Vue app: views, components, the theme, the command palette and the LUCY map's motion. |
 | `tests/unit` | Vitest, with every module that decides something held to 100% coverage. |
 | `tests/e2e` | Playwright: pages, filters, themes, the palette, the map, accessibility (axe) and performance. |
