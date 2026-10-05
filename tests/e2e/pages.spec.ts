@@ -43,6 +43,32 @@ test("the home page is prerendered: content exists before JavaScript runs", asyn
   await context.close();
 });
 
+test("the prerendered page is hydrated, not built a second time", async ({ page }) => {
+  // Keep hold of <main> as the parser creates it: hydration adopts that element, while rendering
+  // again empties the page and makes a new one.
+  await page.addInitScript(() => {
+    const w = window as unknown as { __main?: Element };
+    new MutationObserver((records, observer) => {
+      for (const r of records) {
+        for (const n of r.addedNodes) {
+          if (n instanceof Element && n.id === "main") {
+            w.__main = n;
+            observer.disconnect();
+          }
+        }
+      }
+    }).observe(document, { childList: true, subtree: true });
+  });
+  for (const path of ["/", "/work", "/about"]) {
+    await open(page, path);
+    const same = await page.evaluate(() => {
+      const w = window as unknown as { __main?: Element };
+      return Boolean(w.__main) && document.querySelector("#main") === w.__main;
+    });
+    expect(same, path).toBe(true);
+  }
+});
+
 test("every project with a website links to it from the work page", async ({ page }) => {
   await open(page, "/work");
   await page.locator(".archive-fold summary").click();

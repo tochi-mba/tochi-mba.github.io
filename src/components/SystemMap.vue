@@ -34,6 +34,12 @@ interface Node {
   x: number;
   y: number;
 }
+/**
+ * Two decimals of a unit: finer than any screen shows, and the same in Node, which prerenders the
+ * picture, and in the browser, whose Math.cos can differ in the last digit and make the hydrated
+ * attributes disagree with the prerendered ones.
+ */
+const round = (v: number) => Math.round(v * 100) / 100;
 const nodes: Node[] = [
   { project: hub, x: cx, y: cy },
   { project: vault, x: cx, y: H - 32 },
@@ -41,7 +47,7 @@ const nodes: Node[] = [
     // Three quarters of the ellipse, over the top from lower left to lower right: the gap at the
     // bottom is keyring's.
     const a = Math.PI * (0.75 + (1.5 * i) / Math.max(1, ring.length - 1));
-    return { project: p, x: cx + rx * Math.cos(a), y: cy + ry * Math.sin(a) };
+    return { project: p, x: round(cx + rx * Math.cos(a)), y: round(cy + ry * Math.sin(a)) };
   }),
 ];
 const order = nodes.map((n) => n.project.slug);
@@ -57,8 +63,8 @@ const edges = nodes.flatMap((n, i) => {
 const slotStyle = (n: Node, i: number) => {
   const loop = driftLoop(i);
   return {
-    left: `${(n.x / W) * 100}%`,
-    top: `${(n.y / H) * 100}%`,
+    left: `${round((n.x / W) * 100)}%`,
+    top: `${round((n.y / H) * 100)}%`,
     "--loop": `${loop.seconds.toFixed(2)}s`,
     "--start": `${loop.delay.toFixed(2)}s`,
   };

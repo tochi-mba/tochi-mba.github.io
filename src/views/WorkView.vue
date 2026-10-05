@@ -37,7 +37,9 @@ function readRoute() {
   category.value = typeof c === "string" && categories.includes(c as Category) ? (c as Category) : "all";
   query.value = typeof route.query.q === "string" ? route.query.q : "";
 }
-readRoute();
+// The prerendered page is every project, unfiltered: the page starts as that, so hydration matches
+// it, and applies a filter from the address once it is running.
+onMounted(readRoute);
 watch(() => route.query, readRoute);
 
 // Filters live in the URL, so a filtered view can be shared and the back button undoes a filter.
