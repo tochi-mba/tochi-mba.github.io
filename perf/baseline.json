@@ -1,0 +1,156 @@
+{
+  "version": 1,
+  "measuredAt": "2026-10-05T11:36:46.057Z",
+  "commit": "3289587+changes",
+  "environment": {
+    "node": "v24.19.0",
+    "chromium": "153.0.8010.12",
+    "os": "win32 10.0.26200",
+    "cpu": "Intel(R) Core(TM) i7-10510U CPU @ 1.80GHz",
+    "cores": 8,
+    "memoryGb": 34,
+    "benchmarkMs": 371
+  },
+  "settings": {
+    "runs": 5,
+    "settleMs": 3000,
+    "phone": "Pixel 7, CPU x4, 150 ms at 1.6 Mbps",
+    "desktop": "1440x900, 40 ms at 10 Mbps"
+  },
+  "pages": {
+    "/": {
+      "weight": {
+        "transfer": 202186,
+        "js": 80583,
+        "jsRaw": 224948,
+        "css": 0,
+        "html": 21159,
+        "fonts": 100444,
+        "requests": 9
+      },
+      "phone": {
+        "fcp": 3328,
+        "lcp": 3328,
+        "tbt": 1983,
+        "cls": 0,
+        "elements": 852,
+        "script": 94.321,
+        "style": 228.795,
+        "layout": 3176.342,
+        "heap": 4941772,
+        "busy": 0.1633333333330711
+      },
+      "desktop": {
+        "fcp": 712,
+        "lcp": 712,
+        "tbt": 200,
+        "cls": 0.00001722654910408093,
+        "elements": 852,
+        "script": 20.429,
+        "style": 47.237,
+        "layout": 584.412,
+        "heap": 4896100,
+        "busy": 42.42933333333335
+      }
+    },
+    "/work": {
+      "weight": {
+        "transfer": 188405,
+        "js": 73271,
+        "jsRaw": 204343,
+        "css": 0,
+        "html": 14690,
+        "fonts": 100444,
+        "requests": 9
+      },
+      "phone": {
+        "fcp": 2424,
+        "lcp": 2424,
+        "tbt": 1131,
+        "cls": 0,
+        "elements": 429,
+        "script": 59.403999999999996,
+        "style": 48.166000000000004,
+        "layout": 2427.4399999999996,
+        "heap": 4087988
+      },
+      "desktop": {
+        "fcp": 520,
+        "lcp": 520,
+        "tbt": 56,
+        "cls": 0.00009854791586291151,
+        "elements": 429,
+        "script": 11.274,
+        "style": 13.514,
+        "layout": 354.85299999999995,
+        "heap": 4186004
+      }
+    },
+    "/about": {
+      "weight": {
+        "transfer": 183580,
+        "js": 69955,
+        "jsRaw": 197131,
+        "css": 0,
+        "html": 13181,
+        "fonts": 100444,
+        "requests": 7
+      },
+      "phone": {
+        "fcp": 1416,
+        "lcp": 1416,
+        "tbt": 555,
+        "cls": 0,
+        "elements": 232,
+        "script": 20.941000000000003,
+        "style": 76.95,
+        "layout": 1381.483,
+        "heap": 3669268
+      },
+      "desktop": {
+        "fcp": 496,
+        "lcp": 496,
+        "tbt": 34,
+        "cls": 0.000016975677029749655,
+        "elements": 232,
+        "script": 12.68,
+        "style": 10.652999999999999,
+        "layout": 309.576,
+        "heap": 3665080
+      }
+    },
+    "/work/lucy-assistant": {
+      "weight": {
+        "transfer": 183783,
+        "js": 71657,
+        "jsRaw": 201433,
+        "css": 0,
+        "html": 11682,
+        "fonts": 100444,
+        "requests": 8
+      },
+      "phone": {
+        "fcp": 3080,
+        "lcp": 4392,
+        "tbt": 989,
+        "cls": 0,
+        "elements": 144,
+        "script": 60.363,
+        "style": 69.64,
+        "layout": 3102.611,
+        "heap": 3707544
+      },
+      "desktop": {
+        "fcp": 604,
+        "lcp": 604,
+        "tbt": 78,
+        "cls": 0.000016975677029749655,
+        "elements": 144,
+        "script": 17.887,
+        "style": 10.614,
+        "layout": 464.826,
+        "heap": 3684076
+      }
+    }
+  }
+}
