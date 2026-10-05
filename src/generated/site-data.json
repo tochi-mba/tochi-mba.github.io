@@ -1,12 +1,15 @@
 {
-  "generatedAt": "2026-10-02T15:22:24.073Z",
+  "generatedAt": "2026-10-05T11:02:26.662Z",
   "profile": {
     "name": "Tochi Mba",
     "handle": "tochi-mba",
     "company": "REX Technologies",
     "role": "AI engineer and full-stack developer",
-    "headline": "Agent systems that ship.",
     "lede": "I build production AI systems and the software around them: assistant hubs, workflow runtimes, the services that keep a person's data and secrets where they belong, and the desktop and mobile apps that make it all usable. First Class BSc Computer Science with Cybersecurity.",
+    "intro": [
+      "I'm Tochi, and I go by Rex. I'm an AI engineer at Jigsaw Create in London, where I designed and built Jigsaw Intelligence: a multi-agent system that lets people query and change complex business diagrams in plain language.",
+      "Outside work I run REX Technologies, my own product line: the LUCY assistant and its family of services, the weftai workflow runtime on npm and PyPI, and desktop and mobile apps like Flint and Android Headless Mirror. I graduated with a First in Computer Science with Cybersecurity from the University of Huddersfield."
+    ],
     "location": "United Kingdom",
     "email": "tochimba27@gmail.com",
     "github": "https://github.com/tochi-mba",
@@ -30,20 +33,57 @@
         "slug": "android-headless-mirror"
       }
     ],
-    "principles": [
-      {
-        "title": "Data is never instructions.",
-        "body": "Every service I build hands the model what a person said as a claim with provenance, not as a command. Four of the LUCY services make that an ADR with a test behind it."
+    "howIWork": {
+      "title": "Small pieces, well tested, shipped.",
+      "body": "I split a system into small services that each own one job, write down the decisions that matter, and keep the same checks in every repository so none of them drifts. I would rather ship something smaller that works than something bigger that almost does.",
+      "points": [
+        {
+          "title": "Models get data, never instructions.",
+          "body": "Whatever a person or a web page says reaches the model as a claim with its source, so a stray instruction in an email cannot steer it."
+        },
+        {
+          "title": "Safety comes before polish.",
+          "body": "When a service can run code or hold a credential, its boundaries are built and tested first, and the interface after."
+        },
+        {
+          "title": "The same checks everywhere.",
+          "body": "Lint, types and tests at full branch coverage in every repository, held by CI, so a change anywhere is held to the same bar."
+        }
+      ],
+      "deeper": [
+        "Agent orchestration",
+        "Evaluating agents",
+        "Prompt-injection defence",
+        "Real-time media on desktop and TV",
+        "Developer tooling"
+      ]
+    },
+    "home": {
+      "buildLog": {
+        "label": "Build log",
+        "title": "What I shipped lately.",
+        "body": "Read from GitHub every day: a square is a release, a tick a merged pull request, one row per project. Hover over one, or tap it, to see what it was."
       },
-      {
-        "title": "The sandbox is the feature.",
-        "body": "Environments-api is remote code execution as a product, so path containment, PID ownership and sandbox tiers come first and the polish comes after."
+      "topProjects": {
+        "label": "Top projects",
+        "title": "A closer look at my top projects.",
+        "body": "Products people install, services other services depend on, and a runtime published to npm and PyPI. Every one has a site, a changelog and a test gate."
       },
-      {
-        "title": "Every gate, everywhere.",
-        "body": "Lint, types, imports and tests at 100% branch coverage, the same four checks in every family repository, with a parity script that notices when one drifts."
+      "lucy": {
+        "label": "The LUCY system · {services} services",
+        "title": "A closer look at LUCY.",
+        "body": "LUCY is my assistant hub. Each service behind it owns one job and checks every caller against keyring, and what comes back to the model is data with its source, never instructions. Pick a member to see what it does, or pick one up and drag it."
+      },
+      "activity": {
+        "label": "GitHub · last 12 months",
+        "title": "Where the work went."
+      },
+      "contact": {
+        "label": "Contact",
+        "title": "Hiring for AI or full-stack? Let's talk.",
+        "body": "Email is fastest; every public repository above is open for a look first."
       }
-    ],
+    },
     "skills": [
       {
         "group": "AI and agents",
