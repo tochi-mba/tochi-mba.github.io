@@ -147,6 +147,11 @@
   stroke-width: 1.75;
   stroke-linecap: round;
 }
+/* Said in words, not left to a shortcut: a visitor who has never pressed Ctrl K still finds it. */
+.palette-word {
+  font-size: var(--fs-small);
+  font-weight: 500;
+}
 .palette-button kbd {
   font-family: var(--mono);
   font-size: var(--fs-mono-s);
@@ -243,6 +248,9 @@
 }
 
 @media (max-width: 900px) {
+  .palette-button kbd {
+    display: none;
+  }
   .section-label,
   .section-title {
     grid-column: 1 / -1;
@@ -265,7 +273,8 @@
   .header-tools {
     margin-left: auto;
   }
-  .palette-button kbd {
+  .palette-button kbd,
+  .palette-word {
     display: none;
   }
   .site-nav {

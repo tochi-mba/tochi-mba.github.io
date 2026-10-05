@@ -75,32 +75,46 @@
   color: var(--on-signal);
 }
 
-/* Home: hero */
+/* Home: hero. The name, large and set low, then who this is in the first person. */
 .hero {
-  padding: clamp(40px, 6vw, 80px) 0 clamp(32px, 4vw, 48px);
+  padding: clamp(64px, 11vw, 152px) 0 clamp(48px, 6vw, 88px);
   display: flex;
   flex-direction: column;
-  gap: clamp(24px, 3vw, 36px);
+  gap: clamp(28px, 3.5vw, 44px);
 }
-.hero-title {
-  font-size: clamp(3.25rem, 1.6rem + 6.6vw, 7.5rem);
+.hero-head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
-.hero-title .line {
-  display: block;
+.hero-name {
+  font-size: clamp(3rem, 1.7rem + 5.4vw, 6.25rem);
+}
+.hero-role {
+  font-size: clamp(1.2rem, 1rem + 0.9vw, 1.65rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text-2);
 }
 .hero-body {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--col-gap);
-  row-gap: 28px;
+  row-gap: 32px;
   align-items: end;
 }
-.hero-lede {
+.hero-intro {
   grid-column: 1 / span 7;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   font-size: var(--fs-3);
   line-height: 1.5;
   color: var(--text-2);
   max-width: 55rem;
+}
+.hero-intro p:first-child {
+  color: var(--text);
 }
 .hero-side {
   grid-column: 9 / span 4;
@@ -132,15 +146,12 @@
   flex-wrap: wrap;
   gap: 12px;
 }
-.motion .hero-title .line {
+.motion .hero-head {
   animation: rise var(--t-slow) var(--ease-out) both;
-}
-.motion .hero-title .line + .line {
-  animation-delay: 90ms;
 }
 .motion .hero-body {
   animation: rise var(--t-slow) var(--ease-out) both;
-  animation-delay: 180ms;
+  animation-delay: 120ms;
 }
 @keyframes rise {
   from {
@@ -153,30 +164,27 @@
   }
 }
 
-/* Home: build log */
-.log {
-  padding-bottom: clamp(56px, 8vw, 104px);
-}
-.log-head {
+/* Home: a section title with something beside it (the live push, a count), on one row. */
+.title-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
   gap: 8px 24px;
-  padding-top: 18px;
-  margin-bottom: 18px;
-  border-top: 1px solid var(--rule);
 }
-.log-title {
-  display: inline;
-  font-family: var(--mono);
+.title-count {
   font-size: var(--fs-mono);
-  font-weight: 600;
-  letter-spacing: 0;
-  color: var(--text);
+  white-space: nowrap;
 }
-.log-sub {
-  margin-left: 0.8em;
+/* Small print inside a section title keeps its own size, not the title paragraph's. */
+.section-title .live-line {
+  font-size: var(--fs-mono);
+  line-height: 1.5;
+}
+.section-title .log-sub {
+  font-size: var(--fs-mono-s);
+  line-height: 1.5;
+  color: var(--text-3);
 }
 
 .section-more {
@@ -234,22 +242,24 @@
   grid-column: 4 / span 6;
   color: var(--text-2);
 }
-.rigour {
-  margin: 36px 0 0;
+/* What the owner wants to go deeper on: a row of short labels. */
+.deeper {
+  margin-top: 36px;
+}
+.deeper-list {
+  margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 0;
+  gap: 8px;
+}
+.deeper-list li {
+  padding: 6px 12px;
+  border: 1px solid var(--rule-2);
+  border-radius: var(--radius);
   color: var(--text-2);
-}
-.rigour li::after {
-  content: "·";
-  color: var(--text-3);
-  margin: 0 0.8em;
-}
-.rigour li:last-child::after {
-  content: none;
+  font-size: var(--fs-mono-s);
 }
 
 /* Contact */
@@ -1055,7 +1065,7 @@
 }
 
 @media (max-width: 1000px) {
-  .hero-lede,
+  .hero-intro,
   .hero-side {
     grid-column: 1 / -1;
   }

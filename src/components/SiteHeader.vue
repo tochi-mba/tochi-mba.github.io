@@ -104,6 +104,7 @@ onBeforeUnmount(() => {
           @click="openPalette"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+          <span class="palette-word" aria-hidden="true">Search</span>
           <kbd aria-hidden="true">{{ shortcut }}</kbd>
         </button>
         <ThemeToggle />

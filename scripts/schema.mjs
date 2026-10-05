@@ -145,6 +145,14 @@ const Dated = z
   })
   .strict();
 
+/**
+ * A section of the home page in the owner's own words: the small label beside it, its title and
+ * the line under the title. {services}, {shown} and {featured} are filled in with the numbers.
+ */
+const HomeSection = z
+  .object({ label: z.string().min(1).max(60), title: z.string().min(1).max(90), body: z.string().max(400).optional() })
+  .strict();
+
 export const Profile = z
   .object({
     $schema: z.string().optional(),
@@ -152,8 +160,10 @@ export const Profile = z
     handle: z.string(),
     company: z.string(),
     role: z.string(),
-    headline: z.string().max(60),
+    // One sentence for search results and link previews.
     lede: z.string().max(400),
+    // The home page's opening: who this is, a short paragraph or two in the first person.
+    intro: z.array(z.string().min(1).max(500)).min(1).max(3),
     location: z.string(),
     email: z.string().email(),
     github: url,
@@ -161,7 +171,24 @@ export const Profile = z
     site: url,
     availability: z.string(),
     now: z.array(z.object({ label: z.string(), detail: z.string(), slug })).max(4),
-    principles: z.array(z.object({ title: z.string(), body: z.string() })).max(4),
+    // How the owner likes to work, and what they want to go deeper on: near the top of the home page.
+    howIWork: z
+      .object({
+        title: z.string().min(1).max(90),
+        body: z.string().max(400),
+        points: z.array(z.object({ title: z.string(), body: z.string() }).strict()).max(4),
+        deeper: z.array(z.string().min(1).max(60)).max(8),
+      })
+      .strict(),
+    home: z
+      .object({
+        buildLog: HomeSection,
+        topProjects: HomeSection,
+        lucy: HomeSection,
+        activity: HomeSection,
+        contact: HomeSection,
+      })
+      .strict(),
     skills: z.array(z.object({ group: z.string(), items: z.array(z.string()).min(1) })),
     experience: z.array(Dated),
     education: z.array(Dated),
