@@ -193,6 +193,8 @@ test.describe("the LUCY map", () => {
     await expect.poll(() => drifting(page)).toBe(0);
     await expect(page.locator(".map-trace")).not.toHaveClass(/is-playing/);
     await page.getByRole("button", { name: "Play the tour of the family" }).click();
+    // Clicking may scroll; the map only drifts while it is mostly on screen, so bring it back.
+    await page.locator(".map-stage").evaluate((stage) => stage.scrollIntoView({ block: "center" }));
     await expect.poll(() => drifting(page)).toBeGreaterThan(0);
   });
 
