@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "measuredAt": "2026-10-05T11:36:46.057Z",
-  "commit": "3289587+changes",
+  "measuredAt": "2026-10-05T13:30:05.210Z",
+  "commit": "8a06c8a",
   "environment": {
     "node": "v24.19.0",
     "chromium": "153.0.8010.12",
@@ -9,7 +9,7 @@
     "cpu": "Intel(R) Core(TM) i7-10510U CPU @ 1.80GHz",
     "cores": 8,
     "memoryGb": 34,
-    "benchmarkMs": 371
+    "benchmarkMs": 327
   },
   "settings": {
     "runs": 5,
@@ -20,136 +20,136 @@
   "pages": {
     "/": {
       "weight": {
-        "transfer": 202186,
-        "js": 80583,
-        "jsRaw": 224948,
+        "transfer": 202167,
+        "js": 80861,
+        "jsRaw": 225573,
         "css": 0,
-        "html": 21159,
+        "html": 20862,
         "fonts": 100444,
         "requests": 9
       },
       "phone": {
-        "fcp": 3328,
-        "lcp": 3328,
-        "tbt": 1983,
+        "fcp": 2000,
+        "lcp": 2000,
+        "tbt": 1351,
         "cls": 0,
         "elements": 852,
-        "script": 94.321,
-        "style": 228.795,
-        "layout": 3176.342,
-        "heap": 4941772,
-        "busy": 0.1633333333330711
+        "script": 408.88,
+        "style": 375.838,
+        "layout": 2391.511,
+        "heap": 5027988,
+        "busy": 0.20366666666671307
       },
       "desktop": {
-        "fcp": 712,
-        "lcp": 712,
-        "tbt": 200,
-        "cls": 0.00001722654910408093,
+        "fcp": 536,
+        "lcp": 536,
+        "tbt": 50,
+        "cls": 0.000016975677029749655,
         "elements": 852,
-        "script": 20.429,
-        "style": 47.237,
-        "layout": 584.412,
-        "heap": 4896100,
-        "busy": 42.42933333333335
+        "script": 66.578,
+        "style": 70.221,
+        "layout": 387.727,
+        "heap": 5018980,
+        "busy": 43.387666666666604
       }
     },
     "/work": {
       "weight": {
-        "transfer": 188405,
-        "js": 73271,
-        "jsRaw": 204343,
+        "transfer": 188491,
+        "js": 73328,
+        "jsRaw": 204499,
         "css": 0,
-        "html": 14690,
+        "html": 14719,
         "fonts": 100444,
         "requests": 9
       },
       "phone": {
-        "fcp": 2424,
-        "lcp": 2424,
-        "tbt": 1131,
+        "fcp": 1532,
+        "lcp": 1532,
+        "tbt": 1057,
         "cls": 0,
         "elements": 429,
-        "script": 59.403999999999996,
-        "style": 48.166000000000004,
-        "layout": 2427.4399999999996,
-        "heap": 4087988
-      },
-      "desktop": {
-        "fcp": 520,
-        "lcp": 520,
-        "tbt": 56,
-        "cls": 0.00009854791586291151,
-        "elements": 429,
-        "script": 11.274,
-        "style": 13.514,
-        "layout": 354.85299999999995,
-        "heap": 4186004
-      }
-    },
-    "/about": {
-      "weight": {
-        "transfer": 183580,
-        "js": 69955,
-        "jsRaw": 197131,
-        "css": 0,
-        "html": 13181,
-        "fonts": 100444,
-        "requests": 7
-      },
-      "phone": {
-        "fcp": 1416,
-        "lcp": 1416,
-        "tbt": 555,
-        "cls": 0,
-        "elements": 232,
-        "script": 20.941000000000003,
-        "style": 76.95,
-        "layout": 1381.483,
-        "heap": 3669268
+        "script": 77.21600000000001,
+        "style": 39.995000000000005,
+        "layout": 1570.879,
+        "heap": 4112224
       },
       "desktop": {
         "fcp": 496,
         "lcp": 496,
-        "tbt": 34,
-        "cls": 0.000016975677029749655,
+        "tbt": 30,
+        "cls": 0.00009854791586291151,
+        "elements": 429,
+        "script": 15.048,
+        "style": 10.08,
+        "layout": 324.893,
+        "heap": 4094068
+      }
+    },
+    "/about": {
+      "weight": {
+        "transfer": 183657,
+        "js": 70005,
+        "jsRaw": 197278,
+        "css": 0,
+        "html": 13208,
+        "fonts": 100444,
+        "requests": 7
+      },
+      "phone": {
+        "fcp": 1160,
+        "lcp": 1160,
+        "tbt": 790.8999999761581,
+        "cls": 0,
         "elements": 232,
-        "script": 12.68,
-        "style": 10.652999999999999,
-        "layout": 309.576,
-        "heap": 3665080
+        "script": 33.13,
+        "style": 49.846000000000004,
+        "layout": 1199.265,
+        "heap": 3663732
+      },
+      "desktop": {
+        "fcp": 380,
+        "lcp": 380,
+        "tbt": 5,
+        "cls": 0.00001722654910408093,
+        "elements": 232,
+        "script": 13.742,
+        "style": 6.784,
+        "layout": 210.122,
+        "heap": 3660940
       }
     },
     "/work/lucy-assistant": {
       "weight": {
-        "transfer": 183783,
-        "js": 71657,
-        "jsRaw": 201433,
+        "transfer": 183928,
+        "js": 71779,
+        "jsRaw": 201723,
         "css": 0,
-        "html": 11682,
+        "html": 11705,
         "fonts": 100444,
         "requests": 8
       },
       "phone": {
-        "fcp": 3080,
-        "lcp": 4392,
-        "tbt": 989,
+        "fcp": 2248,
+        "lcp": 2248,
+        "tbt": 836.8999999761581,
         "cls": 0,
         "elements": 144,
-        "script": 60.363,
-        "style": 69.64,
-        "layout": 3102.611,
-        "heap": 3707544
+        "script": 88.125,
+        "style": 9.709000000000001,
+        "layout": 2051.079,
+        "heap": 3703776
       },
       "desktop": {
-        "fcp": 604,
-        "lcp": 604,
-        "tbt": 78,
-        "cls": 0.000016975677029749655,
+        "fcp": 384,
+        "lcp": 384,
+        "tbt": 1,
+        "cls": 0.00001722654910408093,
         "elements": 144,
-        "script": 17.887,
-        "style": 10.614,
-        "layout": 464.826,
-        "heap": 3684076
+        "script": 12.125,
+        "style": 3.743,
+        "layout": 228.416,
+        "heap": 3682064
       }
     }
   }
