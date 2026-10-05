@@ -32,9 +32,10 @@ test("the home page is prerendered: content exists before JavaScript runs", asyn
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto("/");
-  await expect(page.locator("h1")).toContainText("Agent systems");
+  await expect(page.locator("h1")).toHaveText(site.profile.name);
+  await expect(page.locator(".hero-intro p").first()).toContainText("Rex");
   await expect(page.locator(".case").first()).toBeVisible();
-  await expect(page.locator(".principle").first()).toBeVisible();
+  await expect(page.locator("#how-i-work .principle").first()).toBeVisible();
   if (shipping.length) {
     await expect(page.locator(".ribbon a.tick")).toHaveCount(shipping.length);
     await expect(page.locator(".ribbon-now strong")).toHaveText(shipping[0]!.title);

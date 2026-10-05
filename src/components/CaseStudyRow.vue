@@ -113,6 +113,7 @@ const daily = computed(() => props.project.proof?.npm?.daily.map((d) => d[1]) ??
   min-height: 44px;
   display: inline-flex;
   align-items: center;
+  gap: 0.35em;
 }
 .case-more {
   font-weight: 600;

@@ -86,13 +86,22 @@ export interface Dated {
   source: "github" | "cv";
 }
 
+/** A home page section in the owner's own words (see `fill` for the numbers it may name). */
+export interface HomeSection {
+  label: string;
+  title: string;
+  body?: string;
+}
+
 export interface Profile {
   name: string;
   handle: string;
   company: string;
   role: string;
-  headline: string;
+  /** One sentence for search results and link previews. */
   lede: string;
+  /** The home page's opening paragraphs. */
+  intro: string[];
   location: string;
   email: string;
   github: string;
@@ -100,7 +109,8 @@ export interface Profile {
   site: string;
   availability: string;
   now: { label: string; detail: string; slug: string }[];
-  principles: { title: string; body: string }[];
+  howIWork: { title: string; body: string; points: { title: string; body: string }[]; deeper: string[] };
+  home: Record<"buildLog" | "topProjects" | "lucy" | "activity" | "contact", HomeSection>;
   skills: { group: string; items: string[] }[];
   experience: Dated[];
   education: Dated[];
@@ -184,6 +194,14 @@ export function shortDate(iso: string): string {
     ...(sameYear ? {} : { year: "numeric" }),
     timeZone: "UTC",
   });
+}
+
+/**
+ * Copy from the profile with its numbers filled in: "{services} services" → "9 services". A name
+ * with no value is left as it is, so a typo shows on the page instead of vanishing.
+ */
+export function fill(text: string, values: Record<string, number | string>): string {
+  return text.replace(/\{(\w+)\}/g, (whole, name: string) => (name in values ? String(values[name]) : whole));
 }
 
 /** 1356 → "1.4k"; under a thousand stays exact. */

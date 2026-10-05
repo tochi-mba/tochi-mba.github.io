@@ -14,6 +14,7 @@ import {
   bySlug,
   compact,
   featured,
+  fill,
   lanes,
   lucyFamily,
   profile,
@@ -96,6 +97,21 @@ describe("shipping log and proof", () => {
     expect(versionsInProse(projects, profile)).toEqual([]);
     const stale = [{ ...projects[0]!, description: "Version 2.3.1 is out." }];
     expect(versionsInProse(stale, { ...profile, now: [] })).toEqual([`${projects[0]!.slug}.description: "2.3.1"`]);
+  });
+  it("fills the numbers into the owner's own words, and leaves an unknown name showing", () => {
+    expect(fill("The LUCY system · {services} services", { services: 9 })).toBe("The LUCY system · 9 services");
+    expect(fill("{featured} of {shown}", { featured: 6, shown: 42 })).toBe("6 of 42");
+    expect(fill("{sevrices} services", { services: 9 })).toBe("{sevrices} services");
+    expect(fill("no numbers here", {})).toBe("no numbers here");
+  });
+  it("gives every home section a label and a title, and fills every name it uses", () => {
+    const names = { services: 9, shown: 42, featured: 6 };
+    for (const [key, section] of Object.entries(profile.home)) {
+      for (const text of [section.label, section.title, section.body ?? ""]) {
+        expect(fill(text, names), key).not.toMatch(/\{\w+\}/);
+      }
+    }
+    expect(profile.intro.length).toBeGreaterThan(0);
   });
   it("shortens counts the way the proof line prints them", () => {
     expect(compact(950)).toBe("950");

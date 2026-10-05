@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
-import { computed } from "vue";
 import CaseStudyRow from "../components/CaseStudyRow.vue";
 import ContributionGraph from "../components/ContributionGraph.vue";
 import CopyButton from "../components/CopyButton.vue";
@@ -9,7 +8,7 @@ import LiveLine from "../components/LiveLine.vue";
 import ShippingRibbon from "../components/ShippingRibbon.vue";
 import SystemMap from "../components/SystemMap.vue";
 import { useReveal } from "../composables/useReveal";
-import { activity, featured, lanes, lucyServices, profile, shipping, shortDate, site, totals } from "../data";
+import { activity, featured, fill, lanes, lucyServices, profile, shipping, shortDate, site, totals } from "../data";
 
 useHead({
   title: null,
@@ -38,17 +37,18 @@ useHead({
 
 useReveal();
 
-// The headline on two lines, broken at the word nearest its middle.
-const headline = computed(() => {
-  const words = profile.headline.split(" ");
-  let best = 1;
-  for (let i = 1; i < words.length; i += 1) {
-    const left = words.slice(0, i).join(" ").length;
-    const bestLeft = words.slice(0, best).join(" ").length;
-    if (Math.abs(left * 2 - profile.headline.length) < Math.abs(bestLeft * 2 - profile.headline.length)) best = i;
-  }
-  return [words.slice(0, best).join(" "), words.slice(best).join(" ")];
-});
+// Every section's words are the owner's, in data/profile.json; the numbers are filled in here.
+const numbers = { services: lucyServices.length, shown: totals.shown, featured: featured.length };
+const copy = Object.fromEntries(
+  Object.entries(profile.home).map(([key, section]) => [
+    key,
+    {
+      label: fill(section.label, numbers),
+      title: fill(section.title, numbers),
+      body: section.body ? fill(section.body, numbers) : "",
+    },
+  ]),
+) as Record<keyof typeof profile.home, { label: string; title: string; body: string }>;
 
 const releases = shipping.filter((e) => e.kind === "release").length;
 const merged = shipping.filter((e) => e.kind === "pr").length;
@@ -59,8 +59,6 @@ const logSummary = [
   .filter(Boolean)
   .join(" and ");
 
-const services = lucyServices.length;
-
 // The current role, from the CV: the first experience entry that is not the portfolio's own work.
 const job = profile.experience.find((e) => e.source === "cv");
 const employer = job?.org.split(" · ")[0] ?? "";
@@ -69,27 +67,21 @@ const days = activity.calendar?.days ?? [];
 const recentDays = days.slice(-91);
 const activeDays = days.filter((d) => d[1] > 0).length;
 const busiest = days.reduce<[string, number] | null>((a, d) => (!a || d[1] > a[1] ? d : a), null);
-
-const rigour = [
-  "Lint, types, imports and tests at 100% branch coverage in every LUCY repository",
-  "This site: Playwright and axe in Chromium, Firefox and WebKit, phone to desktop, both themes",
-  "A dead or private link never reaches a page",
-  "Rebuilt from GitHub, npm and PyPI every day",
-];
 </script>
 
 <template>
   <div>
     <section class="hero container" aria-labelledby="hero-title">
-      <h1 id="hero-title" class="hero-title">
-        <span class="line">{{ headline[0] }}</span>
-        <span class="line">{{ headline[1] }}</span>
-      </h1>
+      <div class="hero-head">
+        <h1 id="hero-title" class="hero-name">{{ profile.name }}</h1>
+        <p class="hero-role">{{ profile.role }}</p>
+      </div>
       <div class="hero-body">
-        <p class="hero-lede">{{ profile.lede }}</p>
+        <div class="hero-intro">
+          <p v-for="para in profile.intro" :key="para">{{ para }}</p>
+        </div>
         <div class="hero-side">
           <dl class="hero-facts mono">
-            <div><dt>Who</dt><dd>{{ profile.name }}, call me Rex</dd></div>
             <div><dt>Based in</dt><dd>{{ profile.location }}</dd></div>
             <div><dt>Looking for</dt><dd>{{ profile.availability.replace(/^Open to /, "") }}</dd></div>
           </dl>
@@ -101,24 +93,59 @@ const rigour = [
       </div>
     </section>
 
-    <section v-if="shipping.length" class="log container" aria-labelledby="log-title">
-      <div class="log-head">
-        <div>
-          <h2 id="log-title" class="log-title">Build log</h2>
-          <span class="log-sub mono faint">the latest {{ logSummary }}, fetched {{ shortDate(site.generatedAt) }}</span>
+    <section class="section" id="how-i-work" aria-labelledby="how-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-label">How I work</p>
+          <div class="section-title">
+            <h2 id="how-title">{{ profile.howIWork.title }}</h2>
+            <p>{{ profile.howIWork.body }}</p>
+          </div>
+        </header>
+        <div class="section-body">
+          <div class="principles">
+            <article v-for="p in profile.howIWork.points" :key="p.title" class="principle">
+              <h3>{{ p.title }}</h3>
+              <p>{{ p.body }}</p>
+            </article>
+          </div>
+          <div v-if="profile.howIWork.deeper.length" class="deeper">
+            <p class="figure-label">Where I want to go deeper</p>
+            <ul class="deeper-list mono">
+              <li v-for="d in profile.howIWork.deeper" :key="d">{{ d }}</li>
+            </ul>
+          </div>
         </div>
-        <LiveLine />
       </div>
-      <ShippingRibbon class="reveal" :events="shipping" :lanes="lanes" />
+    </section>
+
+    <section v-if="shipping.length" class="section log" aria-labelledby="log-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-label">{{ copy.buildLog.label }}</p>
+          <div class="section-title">
+            <div class="title-row">
+              <h2 id="log-title">{{ copy.buildLog.title }}</h2>
+              <LiveLine />
+            </div>
+            <p>{{ copy.buildLog.body }}</p>
+            <p class="mono faint log-sub">The latest {{ logSummary }}, fetched {{ shortDate(site.generatedAt) }}.</p>
+          </div>
+        </header>
+        <ShippingRibbon class="reveal" :events="shipping" :lanes="lanes" />
+      </div>
     </section>
 
     <section class="section" id="work" aria-labelledby="work-title">
       <div class="container">
         <header class="section-head">
-          <p class="section-label">Selected work · {{ featured.length }} of {{ totals.shown }}</p>
+          <p class="section-label">{{ copy.topProjects.label }}</p>
           <div class="section-title">
-            <h2 id="work-title">Built to be used, not demoed.</h2>
-            <p>Products people install, services other services depend on, and a runtime published to npm and PyPI. Every one has a site, a changelog and a test gate.</p>
+            <div class="title-row">
+              <h2 id="work-title">{{ copy.topProjects.title }}</h2>
+              <span class="title-count mono faint">{{ featured.length }} of {{ totals.shown }}</span>
+            </div>
+            <p v-if="copy.topProjects.body">{{ copy.topProjects.body }}</p>
           </div>
         </header>
         <div class="cases">
@@ -149,10 +176,10 @@ const rigour = [
     <section class="section" id="system" aria-labelledby="system-title">
       <div class="container">
         <header class="section-head">
-          <p class="section-label">The LUCY system · {{ services }} services</p>
+          <p class="section-label">{{ copy.lucy.label }}</p>
           <div class="section-title">
-            <h2 id="system-title">One hub, {{ services }} services, one rule.</h2>
-            <p>Every service authenticates against keyring and hands the model data with provenance, never instructions. Pick one to see what it does.</p>
+            <h2 id="system-title">{{ copy.lucy.title }}</h2>
+            <p v-if="copy.lucy.body">{{ copy.lucy.body }}</p>
           </div>
         </header>
         <SystemMap class="reveal" />
@@ -162,13 +189,13 @@ const rigour = [
     <section v-if="activity.available && activity.calendar" class="section" id="activity" aria-labelledby="activity-title">
       <div class="container">
         <header class="section-head">
-          <p class="section-label">GitHub · last 12 months</p>
+          <p class="section-label">{{ copy.activity.label }}</p>
           <div class="section-title">
-            <h2 id="activity-title">Where the work went.</h2>
+            <h2 id="activity-title">{{ copy.activity.title }}</h2>
             <p>
               {{ activity.calendar.total.toLocaleString("en-GB") }} contributions on {{ activeDays }} days:
               {{ activity.counts?.commits.toLocaleString("en-GB") }} commits and {{ activity.counts?.pullRequests }} pull requests<template v-if="busiest && busiest[1] > 0">, the busiest day {{ busiest[1] }} on {{ shortDate(busiest[0]) }}</template>.
-              The build log above is the record of what shipped.
+              <template v-if="copy.activity.body">{{ copy.activity.body }}</template>
             </p>
           </div>
         </header>
@@ -185,35 +212,13 @@ const rigour = [
       </div>
     </section>
 
-    <section class="section" id="principles" aria-labelledby="principles-title">
-      <div class="container">
-        <header class="section-head">
-          <p class="section-label">How I work</p>
-          <div class="section-title">
-            <h2 id="principles-title">Three rules I don't bend.</h2>
-          </div>
-        </header>
-        <div class="section-body">
-          <div class="principles">
-            <article v-for="p in profile.principles" :key="p.title" class="principle">
-              <h3>{{ p.title }}</h3>
-              <p>{{ p.body }}</p>
-            </article>
-          </div>
-          <ul class="rigour mono" aria-label="Engineering practice">
-            <li v-for="r in rigour" :key="r">{{ r }}</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
     <section class="section" id="contact" aria-labelledby="contact-title">
       <div class="container">
         <header class="section-head">
-          <p class="section-label">Contact</p>
+          <p class="section-label">{{ copy.contact.label }}</p>
           <div class="section-title">
-            <h2 id="contact-title">Hiring for AI or full-stack? Let's talk.</h2>
-            <p>{{ profile.availability }}. Email is fastest; every public repository above is open for a look first.</p>
+            <h2 id="contact-title">{{ copy.contact.title }}</h2>
+            <p>{{ profile.availability }}.<template v-if="copy.contact.body"> {{ copy.contact.body }}</template></p>
           </div>
         </header>
         <div class="contact section-body">

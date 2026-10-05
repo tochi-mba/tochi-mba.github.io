@@ -31,7 +31,9 @@ for (const route of routes) {
 test("every interactive element has a visible focus ring", async ({ page, isMobile }) => {
   test.skip(isMobile, "no hardware keyboard");
   await open(page, "/work");
-  const controls = page.locator('a[href], button:not([disabled]), input:not([disabled]), summary, [tabindex]:not([tabindex="-1"])');
+  const controls = page.locator(
+    'a[href], button:not([disabled]), input:not([disabled]), summary, [tabindex]:not([tabindex="-1"])',
+  );
   for (let i = 0; i < (await controls.count()); i += 1) {
     const control = controls.nth(i);
     if (!(await control.isVisible())) continue;
