@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { lucyFamily, type Project } from "../data";
-import { advance, along, clampPull, drift, type Vec } from "../systemMotion";
+import { advance, clampPull, driftLoop, type Vec } from "../systemMotion";
 import { journeys, traceFor } from "../systemTrace";
 
 // The hub in the middle, keyring (the vault everything authenticates against) directly beneath it,
@@ -11,12 +11,12 @@ import { journeys, traceFor } from "../systemTrace";
 // It is prerendered still. Once the browser is running, and only when motion is allowed, it plays
 // back what the family does: a mark travels from the hub to a service, to keyring and back, while
 // the caption says which step that is; then it moves on to the next member. A person who hovers,
-// focuses or drags takes over, and the tour waits. Nodes can be picked up; they spring home.
+// focuses or drags takes over, and the tour waits. Members can be picked up; they spring home.
 //
-// The lines are an SVG drawn once; the members and the travelling marks are HTML laid over it and
-// moved with transforms, which the compositor applies without repainting anything. Drifting a few
-// pixels never moves a line: its ends sit under the members, out of sight. A line is redrawn only
-// while one of its members has been pulled away.
+// What it costs while it plays is next to nothing: the drift is a CSS animation and each travelling
+// mark a Web Animation, both run by the compositor; the steps of the tour are timers. Script runs
+// every frame only while a member is being dragged or is springing home, and a line is redrawn
+// only while one of its members is pulled away from its place.
 const hub = lucyFamily.find((p) => p.role === "hub")!;
 const vault = lucyFamily.find((p) => p.role === "vault")!;
 const ring = lucyFamily.filter((p) => p !== hub && p !== vault);
@@ -28,7 +28,6 @@ const cy = 205;
 const rx = 300;
 const ry = 172;
 const PULSE = 8;
-const DRIFT = 3;
 
 interface Node {
   project: Project;
@@ -54,8 +53,16 @@ const edges = nodes.flatMap((n, i) => {
   if (i !== 1) out.push({ from: 1, to: i, key: `vault-${n.project.slug}` });
   return out;
 });
-/** Where a point of the picture sits in its box, as percentages, so it scales with the box. */
-const at = (x: number, y: number) => ({ left: `${(x / W) * 100}%`, top: `${(y / H) * 100}%` });
+/** A member's place in its box, as percentages so it scales with the box, and its drift loop. */
+const slotStyle = (n: Node, i: number) => {
+  const loop = driftLoop(i);
+  return {
+    left: `${(n.x / W) * 100}%`,
+    top: `${(n.y / H) * 100}%`,
+    "--loop": `${loop.seconds.toFixed(2)}s`,
+    "--start": `${loop.delay.toFixed(2)}s`,
+  };
+};
 
 const activeSlug = ref<string>(hub.slug);
 const active = computed(() => nodes[indexOf.get(activeSlug.value) ?? 0]!);
@@ -66,6 +73,9 @@ const step = ref(-1);
 const canMove = ref(false);
 /** The tour and the drift; the pause button turns both off. */
 const playing = ref(true);
+/** Whether the picture is on screen; the drift and the tour stop when it is not. */
+const inView = ref(false);
+const drifting = computed(() => canMove.value && playing.value && inView.value);
 /** False while the tour is the one changing the selection, so a screen reader is not read a slideshow. */
 const byPerson = ref(true);
 
@@ -74,13 +84,13 @@ const roleOf = (p: Project) => (p.role && p.role.toLowerCase() !== p.name.toLowe
 
 const edgeLit = (e: (typeof edges)[number]) => order[e.from] === activeSlug.value || order[e.to] === activeSlug.value;
 
-// ---- Movement. Plain arrays and direct style and attribute writes: sixty frames a second is no
-// place for reactivity, and Vue leaves alone what it did not render (a transform, an edge's ends).
 const STEP_MS = 900;
 const TRAVEL_MS = 720;
 const DWELL_MS = 1500;
 const HOLD_MS = 6000;
 const PULL_LIMIT = 150;
+/** Beyond this distance from its place a member counts as pulled, and its lines follow it. */
+const PULLED = 2;
 
 const root = ref<HTMLElement | null>(null);
 const stage = ref<HTMLElement | null>(null);
@@ -97,7 +107,6 @@ let raf = 0;
 let last = 0;
 /** Pixels per unit of the picture, kept up to date as the box is resized. */
 let scale = 1;
-let inView = false;
 let hovering = false;
 let focused = false;
 let holdUntil = 0;
@@ -105,76 +114,95 @@ let dragging = -1;
 let grab: Vec = { x: 0, y: 0 };
 let box = { left: 0, top: 0 };
 let lastPull = { at: 0, x: 0, y: 0 };
-let traceStart = 0;
-let traceEnd = 0;
-let pulses: { from: number; to: number; start: number }[] = [];
+let timer = 0;
+let travelling: Animation[] = [];
 
-/** Starts the frame loop if it is idle. The loop keeps itself going for as long as something moves. */
-function wake() {
-  if (raf || typeof requestAnimationFrame !== "function") return;
-  last = performance.now();
-  raf = requestAnimationFrame(frame);
+const mapShown = () => (stage.value?.getClientRects().length ?? 0) > 0;
+const px = (units: number) => units * scale;
+
+// ---- The tour: a timer per step, and the marks of each step played by the compositor.
+function stopTravelling() {
+  for (const animation of travelling) animation.cancel();
+  travelling = [];
 }
 
-function playStep(index: number, now: number) {
+function playStep(index: number) {
   step.value = index;
+  stopTravelling();
   const current = steps.value[index];
-  pulses = current
-    ? journeys(current, services).map(([from, to]) => ({ from: indexOf.get(from)!, to: indexOf.get(to)!, start: now }))
-    : [];
+  if (!current) return;
+  const at = (p: Vec) => `translate3d(${px(p.x - PULSE / 2)}px, ${px(p.y - PULSE / 2)}px, 0)`;
+  journeys(current, services).forEach(([from, to], k) => {
+    const el = pulseEls[k];
+    if (!el || typeof el.animate !== "function") return;
+    const a = home[indexOf.get(from)!]!;
+    const b = home[indexOf.get(to)!]!;
+    travelling.push(
+      el.animate(
+        [
+          { transform: at(a), opacity: 1 },
+          { transform: at(b), opacity: 1 },
+        ],
+        { duration: TRAVEL_MS, easing: "ease-in-out" },
+      ),
+    );
+  });
+}
+
+function schedule(next: () => void, ms: number) {
+  clearTimeout(timer);
+  timer = window.setTimeout(next, ms);
 }
 
 function startTrace() {
-  if (!canMove.value || !playing.value || !mapShown()) return;
-  traceStart = performance.now();
-  traceEnd = 0;
-  playStep(0, traceStart);
-  wake();
+  if (!canMove.value || !playing.value || !inView.value || !mapShown()) return;
+  const play = (index: number) => {
+    if (index < steps.value.length) {
+      playStep(index);
+      schedule(() => play(index + 1), STEP_MS);
+      return;
+    }
+    step.value = -1;
+    stopTravelling();
+    schedule(tour, DWELL_MS);
+  };
+  play(0);
 }
 
-function advanceTrace(now: number) {
-  if (traceStart === 0) return;
-  const index = Math.floor((now - traceStart) / STEP_MS);
-  if (index === step.value) return;
-  if (index < steps.value.length) {
-    playStep(index, now);
+/** On to the next member, unless someone has taken over; then it asks again a little later. */
+function tour() {
+  if (!playing.value || !inView.value) return;
+  const wait = Math.max(holdUntil - performance.now(), 0);
+  if (hovering || focused || dragging !== -1 || wait > 0 || !mapShown()) {
+    schedule(tour, Math.max(wait, 500));
     return;
   }
-  traceStart = 0;
-  traceEnd = now;
-  step.value = -1;
-  pulses = [];
-}
-
-const mapShown = () => (stage.value?.getClientRects().length ?? 0) > 0;
-
-function tour(now: number) {
-  const free = playing.value && inView && !hovering && !focused && dragging === -1 && now > holdUntil;
-  if (!free || traceStart !== 0 || now - traceEnd < DWELL_MS || !mapShown()) return;
   byPerson.value = false;
   activeSlug.value = order[((indexOf.get(activeSlug.value) ?? 0) + 1) % order.length]!;
 }
 
-const away = (i: number) => Math.hypot(pos[i]!.x - home[i]!.x, pos[i]!.y - home[i]!.y) > DRIFT + 0.5;
-const px = (units: number) => units * scale;
-
-/** What each element was last given, so a member at rest is not restyled sixty times a second. */
-const written = new WeakMap<HTMLElement, string>();
-function setStyle(el: HTMLElement, transform: string, opacity: string) {
-  const value = `${transform}|${opacity}`;
-  if (written.get(el) === value) return;
-  written.set(el, value);
-  el.style.transform = transform;
-  el.style.opacity = opacity;
+function stopTour() {
+  clearTimeout(timer);
+  step.value = -1;
+  stopTravelling();
 }
 
-function draw(now: number) {
+// ---- Dragging: the one time script runs every frame, until the member is home again.
+const away = (i: number) => Math.hypot(pos[i]!.x - home[i]!.x, pos[i]!.y - home[i]!.y) > PULLED;
+
+/** What each member was last given, so one at rest is not restyled. */
+const written = new WeakMap<HTMLElement, string>();
+
+function draw() {
   nodes.forEach((_, i) => {
     const el = nodeEls[i];
     if (!el) return;
     const dx = pos[i]!.x - home[i]!.x;
     const dy = pos[i]!.y - home[i]!.y;
-    setStyle(el, dx || dy ? `translate3d(${px(dx)}px, ${px(dy)}px, 0)` : "", "");
+    const transform = dx || dy ? `translate3d(${px(dx)}px, ${px(dy)}px, 0)` : "";
+    if (written.get(el) === transform) return;
+    written.set(el, transform);
+    el.style.transform = transform;
   });
   edges.forEach((e, i) => {
     const el = edgeEls[i];
@@ -189,42 +217,31 @@ function draw(now: number) {
     el.setAttribute("y2", String(to.y));
     edgeAway[i] = pulled;
   });
-  pulseEls.forEach((el, i) => {
-    if (!el) return;
-    const pulse = pulses[i];
-    const t = pulse ? (now - pulse.start) / TRAVEL_MS : 2;
-    if (!pulse || t > 1) {
-      setStyle(el, el.style.transform, "0");
-      return;
-    }
-    const point = along(pos[pulse.from]!, pos[pulse.to]!, t);
-    setStyle(el, `translate3d(${px(point.x - PULSE / 2)}px, ${px(point.y - PULSE / 2)}px, 0)`, "1");
-  });
+}
+
+/** Starts the frame loop if it is idle. It runs for as long as a member is held or springing. */
+function wake() {
+  if (raf || typeof requestAnimationFrame !== "function") return;
+  last = performance.now();
+  raf = requestAnimationFrame(frame);
 }
 
 function frame(now: number) {
   raf = 0;
-  if (!canMove.value) return;
   // The time since the last frame, up to a tenth of a second, so a tab that was in the background
-  // does not fling every node on its return. `advance` splits it into 60 Hz steps.
+  // does not fling a member on its return. `advance` splits it into 60 Hz steps.
   const elapsed = Math.min(0.1, Math.max(0.001, (now - last) / 1000));
   last = now;
-  const drifting = playing.value && inView && canMove.value;
-  let busy = drifting || dragging !== -1 || traceStart !== 0;
+  let busy = dragging !== -1;
   nodes.forEach((_, i) => {
     if (i === dragging) return;
-    // The hub and keyring are the fixed points; the ring floats around them.
-    const offset = drifting && i > 1 ? drift(i, now / 1000, DRIFT) : { x: 0, y: 0 };
-    const target = { x: home[i]!.x + offset.x, y: home[i]!.y + offset.y };
-    // Once close enough and slow enough it lands exactly, so a node let go rests where it started.
-    const next = advance(pos[i]!, vel[i]!, target, elapsed);
+    // Once close enough and slow enough it lands exactly, so a member let go rests where it started.
+    const next = advance(pos[i]!, vel[i]!, home[i]!, elapsed);
     pos[i] = next.pos;
     vel[i] = next.vel;
     if (!next.settled) busy = true;
   });
-  advanceTrace(now);
-  tour(now);
-  draw(now);
+  draw();
   // Straight on to the next frame, keeping `last` as this frame's time: going through wake() would
   // restart the clock after this frame's own work and undercount the next frame's time.
   if (busy) raf = requestAnimationFrame(frame);
@@ -289,33 +306,28 @@ function onUp(i: number) {
 
 function setHover(value: boolean) {
   hovering = value;
-  if (!value) holdUntil = performance.now() + 2000;
-  wake();
+  if (!value) holdUntil = Math.max(holdUntil, performance.now() + 2000);
 }
 function setFocus(value: boolean) {
   focused = value;
-  wake();
 }
 function togglePlaying() {
   playing.value = !playing.value;
-  if (!playing.value) stopMotion();
-  else startTrace();
-  wake();
+  if (playing.value) startTrace();
+  else stopTour();
 }
 
 function stopMotion() {
+  stopTour();
   if (raf) cancelAnimationFrame(raf);
   raf = 0;
-  traceStart = 0;
-  step.value = -1;
-  pulses = [];
   dragging = -1;
   root.value?.classList.remove("is-dragging");
   home.forEach((h, i) => {
     pos[i] = { ...h };
     vel[i] = { x: 0, y: 0 };
   });
-  draw(performance.now());
+  draw();
 }
 
 let observer: IntersectionObserver | null = null;
@@ -325,11 +337,8 @@ onMounted(() => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const applyMotion = () => {
     canMove.value = !reduce.matches;
-    if (!canMove.value) stopMotion();
-    else if (inView) {
-      startTrace();
-      wake();
-    }
+    if (canMove.value) startTrace();
+    else stopMotion();
   };
   applyMotion();
   reduce.addEventListener("change", applyMotion);
@@ -347,15 +356,17 @@ onMounted(() => {
   let started = false;
   observer = new IntersectionObserver(
     ([entry]) => {
-      inView = Boolean(entry?.isIntersecting);
-      if (!inView) return;
+      inView.value = Boolean(entry?.isIntersecting);
+      if (!inView.value) {
+        stopTour();
+        return;
+      }
       // The first time it is seen, it shows what the hub does; after that it just carries on.
       if (!started) {
         started = true;
         byPerson.value = false;
-        startTrace();
       }
-      wake();
+      startTrace();
     },
     { threshold: 0.35 },
   );
@@ -365,12 +376,13 @@ onBeforeUnmount(() => {
   observer?.disconnect();
   resizer?.disconnect();
   removeMotionListener();
+  stopTour();
   if (raf) cancelAnimationFrame(raf);
 });
 </script>
 
 <template>
-  <div ref="root" class="system-map" :class="{ 'can-move': canMove }">
+  <div ref="root" class="system-map" :class="{ 'can-move': canMove, drifting }">
     <div ref="stage" class="map-stage">
       <svg class="map-lines" :viewBox="`0 0 ${W} ${H}`" aria-hidden="true" focusable="false">
         <line
@@ -403,28 +415,33 @@ onBeforeUnmount(() => {
           class="map-pulse"
           aria-hidden="true"
         ></span>
-        <button
+        <span
           v-for="(n, i) in nodes"
           :key="n.project.slug"
-          :ref="(el) => (nodeEls[i] = el as HTMLElement | null)"
-          type="button"
-          class="map-node"
-          :class="{ 'map-hub': n.project.role === 'hub' || n.project.role === 'vault', 'is-active': activeSlug === n.project.slug }"
-          :style="at(n.x, n.y)"
-          :aria-pressed="activeSlug === n.project.slug"
-          :aria-label="roleOf(n.project) ? `${n.project.name}: ${n.project.role}` : n.project.name"
-          tabindex="-1"
-          @pointerenter="pick(n.project.slug)"
-          @focus="pick(n.project.slug)"
-          @click="pick(n.project.slug)"
-          @pointerdown="onDown($event, i)"
-          @pointermove="onMove($event, i)"
-          @pointerup="onUp(i)"
-          @pointercancel="onUp(i)"
+          class="map-slot"
+          :class="{ drifts: i > 1 }"
+          :style="slotStyle(n, i)"
         >
-          <span class="map-node-name">{{ n.project.name }}</span>
-          <span v-if="roleOf(n.project)" class="map-node-role">{{ n.project.role }}</span>
-        </button>
+          <button
+            :ref="(el) => (nodeEls[i] = el as HTMLElement | null)"
+            type="button"
+            class="map-node"
+            :class="{ 'map-hub': n.project.role === 'hub' || n.project.role === 'vault', 'is-active': activeSlug === n.project.slug }"
+            :aria-pressed="activeSlug === n.project.slug"
+            :aria-label="roleOf(n.project) ? `${n.project.name}: ${n.project.role}` : n.project.name"
+            tabindex="-1"
+            @pointerenter="pick(n.project.slug)"
+            @focus="pick(n.project.slug)"
+            @click="pick(n.project.slug)"
+            @pointerdown="onDown($event, i)"
+            @pointermove="onMove($event, i)"
+            @pointerup="onUp(i)"
+            @pointercancel="onUp(i)"
+          >
+            <span class="map-node-name">{{ n.project.name }}</span>
+            <span v-if="roleOf(n.project)" class="map-node-role">{{ n.project.role }}</span>
+          </button>
+        </span>
       </div>
       <button v-if="canMove" class="map-play mono" type="button" :aria-pressed="!playing" @click="togglePlaying">
         {{ playing ? "Pause" : "Play" }}<span class="sr-only"> the tour of the family</span>

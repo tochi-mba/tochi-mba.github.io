@@ -5,8 +5,11 @@ import { countFrames, framesDuring, open } from "./helpers";
 const background = (page: Page) => page.evaluate(() => getComputedStyle(document.body).backgroundColor);
 const chrome = (page: Page) =>
   page.locator('meta[name="theme-color"]').evaluateAll((metas) => metas.map((m) => m.getAttribute("content")));
-/** How far a map member has moved from its place: its transform, empty when it is at home. */
+/** How far a map member has been dragged from its place: its transform, empty when it is at home. */
 const offset = (node: Locator) => node.evaluate((el) => (el as HTMLElement).style.transform);
+/** How many of the map's members are drifting: animations the compositor plays, not script. */
+const drifting = (page: Page) =>
+  page.locator(".map-slot").evaluateAll((slots) => slots.filter((s) => s.getAnimations().length > 0).length);
 const DARK_BG = "rgb(8, 11, 7)";
 const LIGHT_BG = "rgb(244, 244, 235)";
 
@@ -140,10 +143,9 @@ test.describe("the LUCY map", () => {
     await page.locator("#system").scrollIntoViewIfNeeded();
     await expect(page.locator(".map-trace")).toHaveClass(/is-playing/);
     await expect(page.locator(".map-trace li.is-now")).toHaveCount(1);
+    // A travelling mark is a Web Animation, not a style the script rewrites every frame.
     await expect
-      .poll(() =>
-        page.locator(".map-pulse").evaluateAll((els) => els.some((e) => (e as HTMLElement).style.opacity === "1")),
-      )
+      .poll(() => page.locator(".map-pulse").evaluateAll((els) => els.some((e) => e.getAnimations().length > 0)))
       .toBe(true);
   });
 
@@ -186,13 +188,12 @@ test.describe("the LUCY map", () => {
     test.skip(isMobile || !motion(info.project.name), "the picture shows on a wide screen with motion allowed");
     await open(page, "/");
     await page.locator("#system").scrollIntoViewIfNeeded();
+    await expect.poll(() => drifting(page)).toBeGreaterThan(0);
     await page.getByRole("button", { name: "Pause the tour of the family" }).click();
-    const node = page.locator(".map-node").last();
-    const still = await offset(node);
-    await page.waitForTimeout(400);
-    expect(await offset(node)).toBe(still);
+    await expect.poll(() => drifting(page)).toBe(0);
+    await expect(page.locator(".map-trace")).not.toHaveClass(/is-playing/);
     await page.getByRole("button", { name: "Play the tour of the family" }).click();
-    await expect.poll(() => offset(node)).not.toBe(still);
+    await expect.poll(() => drifting(page)).toBeGreaterThan(0);
   });
 
   test("stays still with no tour to pause under reduced motion, and stops when the preference changes", async ({
@@ -208,6 +209,7 @@ test.describe("the LUCY map", () => {
     await expect(page.locator(".system-map")).not.toHaveClass(/can-move/);
     await expect(page.locator(".map-play")).toHaveCount(0);
     await expect(page.locator(".map-trace")).not.toHaveClass(/is-playing/);
+    expect(await drifting(page)).toBe(0);
   });
 
   test("moves neither itself nor what follows it as the entry beside it changes", async ({ page, isMobile }) => {
@@ -268,15 +270,50 @@ test.describe("the LUCY map", () => {
     expect(await framesDuring(page, 1000)).toBe(0);
   });
 
-  test("stops asking for animation frames once it is scrolled away", async ({ page, isMobile }, info) => {
+  test("redraws no line while its members only drift, so the picture is never repainted for it", async ({
+    page,
+    isMobile,
+  }, info) => {
+    test.skip(isMobile || !motion(info.project.name), "the picture shows on a wide screen with motion allowed");
+    await open(page, "/");
+    await page.locator(".map-stage").evaluate((stage) => stage.scrollIntoView({ block: "center" }));
+    // Drifting members move, and their lines must not: a line's ends sit under the members.
+    await expect.poll(() => drifting(page)).toBeGreaterThan(0);
+    const redrawn = await page.evaluate(async () => {
+      let writes = 0;
+      const watcher = new MutationObserver((records) => {
+        writes += records.length;
+      });
+      for (const line of document.querySelectorAll(".map-edge")) {
+        watcher.observe(line, { attributes: true, attributeFilter: ["x1", "y1", "x2", "y2"] });
+      }
+      await new Promise((done) => setTimeout(done, 2000));
+      watcher.disconnect();
+      return writes;
+    });
+    expect(redrawn).toBe(0);
+  });
+
+  test("plays its tour without asking for a single animation frame", async ({ page, isMobile }, info) => {
     test.skip(isMobile || !motion(info.project.name), "the picture shows on a wide screen with motion allowed");
     await countFrames(page);
     await open(page, "/");
-    await page.locator("#system").scrollIntoViewIfNeeded();
-    await expect.poll(() => framesDuring(page, 300)).toBeGreaterThan(0);
+    await page.locator(".map-stage").evaluate((stage) => stage.scrollIntoView({ block: "center" }));
+    await expect(page.locator(".map-trace")).toHaveClass(/is-playing/);
+    // Drift, travelling marks and steps are all compositor animations and timers: no script per frame.
+    expect(await framesDuring(page, 1500)).toBe(0);
+  });
+
+  test("stops drifting once it is scrolled away, and starts again on its return", async ({ page, isMobile }, info) => {
+    test.skip(isMobile || !motion(info.project.name), "the picture shows on a wide screen with motion allowed");
+    await open(page, "/");
+    const stage = page.locator(".map-stage");
+    await stage.evaluate((el) => el.scrollIntoView({ block: "center" }));
+    await expect.poll(() => drifting(page)).toBeGreaterThan(0);
     await page.evaluate(() => window.scrollTo(0, 0));
-    // A request being played back finishes first; then the members settle and the loop ends.
-    await expect.poll(() => framesDuring(page, 300), { timeout: 10_000 }).toBe(0);
+    await expect.poll(() => drifting(page)).toBe(0);
+    await stage.evaluate((el) => el.scrollIntoView({ block: "center" }));
+    await expect.poll(() => drifting(page)).toBeGreaterThan(0);
   });
 });
 
