@@ -1,6 +1,6 @@
 // The arithmetic behind the LUCY map's movement: a spring that brings a node back to where it
-// belongs, a slow drift so the picture is never quite still, and a point travelling between two
-// nodes. No DOM and no clock in here, so every number is unit-tested.
+// belongs after a drag, and the timing of the slow drift that keeps the picture from being quite
+// still. No DOM and no clock in here, so every number is unit-tested.
 
 export interface Vec {
   x: number;
@@ -49,28 +49,15 @@ export function advance(pos: Vec, vel: Vec, target: Vec, seconds: number): { pos
 }
 
 /**
- * Where node `index` has drifted to after `seconds`: a slow loop a few units wide, with a period
- * and a phase of its own so no two nodes move together.
+ * The slow loop member `index` drifts round, as the timing of a CSS animation the compositor plays
+ * without any script: a period of 9 to 14 seconds, and a head start that puts it partway round, so
+ * no two members move together. Neighbours are a golden angle apart, so they are never in step.
  */
-export function drift(index: number, seconds: number, amplitude = 3): Vec {
-  const phase = index * 2.399963; // the golden angle, so neighbours are never in step
-  const rate = 0.45 + (index % 5) * 0.06;
-  return {
-    x: amplitude * Math.sin(seconds * rate + phase),
-    y: amplitude * Math.cos(seconds * rate * 0.8 + phase * 1.7),
-  };
-}
-
-/** Slow at both ends, so a travelling mark leaves and arrives rather than teleporting. */
-export function easeInOut(t: number): number {
-  const c = Math.min(1, Math.max(0, t));
-  return c < 0.5 ? 2 * c * c : 1 - (-2 * c + 2) ** 2 / 2;
-}
-
-/** The point a fraction `t` of the way from one node to another. */
-export function along(from: Vec, to: Vec, t: number): Vec {
-  const e = easeInOut(t);
-  return { x: from.x + (to.x - from.x) * e, y: from.y + (to.y - from.y) * e };
+export function driftLoop(index: number): { seconds: number; delay: number } {
+  const rate = 0.45 + (index % 5) * 0.06; // radians a second
+  const seconds = (2 * Math.PI) / rate;
+  const turn = ((index * 2.399963) / (2 * Math.PI)) % 1;
+  return { seconds, delay: -turn * seconds };
 }
 
 /** How far a drag may pull a node from home, so it cannot be lost off the edge of the picture. */

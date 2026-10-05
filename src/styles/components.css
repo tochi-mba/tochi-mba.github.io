@@ -330,7 +330,8 @@
 .map-nodes:focus-visible {
   outline-offset: 8px;
 }
-/* A travelling request: the one thing on the map in the evidence colour. */
+/* A travelling request: the one thing on the map in the evidence colour. Hidden until the script
+   plays it from one member to the next as a Web Animation, which the compositor runs. */
 .map-pulse {
   position: absolute;
   left: 0;
@@ -341,13 +342,40 @@
   opacity: 0;
   pointer-events: none;
 }
-/* A member: placed at its point of the picture by left and top, centred on it by translate, and
-   moved (drifting, dragged, springing home) by transform, which the compositor applies. */
-.map-node {
+/* A member's place: set at its point of the picture by left and top, centred on it by translate.
+   While the tour plays it drifts round a loop a few units wide: a CSS animation the compositor
+   runs with no script at all, each slot on its own period and phase (see driftLoop). */
+.map-slot {
   position: absolute;
   width: calc(112 / 760 * 100%);
   height: calc(40 / 470 * 100%);
   translate: -50% -50%;
+}
+.drifting .map-slot.drifts {
+  animation: map-drift var(--loop) ease-in-out var(--start) infinite;
+}
+/* Three units of the picture either way, as a share of the slot's own size (112 by 40 units): a
+   percentage of the element itself is something the compositor can animate on its own, where a
+   container unit would send every frame back to the main thread. */
+@keyframes map-drift {
+  0%,
+  100% {
+    transform: translate(0, 7.5%);
+  }
+  25% {
+    transform: translate(2.68%, 0);
+  }
+  50% {
+    transform: translate(0, -7.5%);
+  }
+  75% {
+    transform: translate(-2.68%, 0);
+  }
+}
+/* The member itself fills its slot; a drag and the spring home move it by transform. */
+.map-node {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -377,10 +405,10 @@
 .can-move .map-node {
   cursor: grab;
   touch-action: none;
-  will-change: transform;
 }
+.can-move .map-slot,
 .can-move .map-pulse {
-  will-change: transform, opacity;
+  will-change: transform;
 }
 .is-dragging .map-node {
   cursor: grabbing;
