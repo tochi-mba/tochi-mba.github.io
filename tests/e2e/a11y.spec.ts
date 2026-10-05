@@ -31,18 +31,24 @@ for (const route of routes) {
 test("every interactive element has a visible focus ring", async ({ page, isMobile }) => {
   test.skip(isMobile, "no hardware keyboard");
   await open(page, "/work");
-  const controls = page.locator(
-    'a[href], button:not([disabled]), input:not([disabled]), summary, [tabindex]:not([tabindex="-1"])',
-  );
-  for (let i = 0; i < (await controls.count()); i += 1) {
-    const control = controls.nth(i);
-    if (!(await control.isVisible())) continue;
-    await control.focus();
-    const outline = await control.evaluate((el) => getComputedStyle(el).outlineStyle);
-    // Chromium reports a used outline width of 0 for some anchors under reduced motion; the style
-    // is the cross-engine signal that the ring is drawn.
-    expect(outline, await control.evaluate((el) => `${el.tagName}.${el.className}`)).not.toBe("none");
-  }
+  // Every control on the page, in one pass inside the page: a round trip per control is a hundred
+  // round trips, too slow for a busy machine.
+  const withoutRing = await page.evaluate(() => {
+    const controls = document.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), input:not([disabled]), summary, [tabindex]:not([tabindex="-1"])',
+    );
+    const missing: string[] = [];
+    for (const control of controls) {
+      if (control.getClientRects().length === 0 || getComputedStyle(control).visibility === "hidden") continue;
+      control.focus();
+      if (document.activeElement !== control) continue;
+      // Chromium reports a used outline width of 0 for some anchors under reduced motion; the style
+      // is the cross-engine signal that the ring is drawn.
+      if (getComputedStyle(control).outlineStyle === "none") missing.push(`${control.tagName}.${control.className}`);
+    }
+    return missing;
+  });
+  expect(withoutRing).toEqual([]);
 });
 
 test("touch targets are at least 44px on the phone", async ({ page, isMobile }) => {
