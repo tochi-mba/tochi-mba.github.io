@@ -1,9 +1,12 @@
 import type { Page } from "@playwright/test";
 
-/** Opens a page and waits for the app to hydrate, so keyboard and click handlers exist. */
+/**
+ * Opens a page and waits for the app to hydrate, so keyboard and click handlers exist: the page
+ * itself, and every part woken a moment later (see src/wakeLater.ts).
+ */
 export async function open(page: Page, path: string) {
   const response = await page.goto(path);
-  await page.waitForSelector("html[data-hydrated]", { state: "attached" });
+  await page.waitForSelector("html[data-hydrated]:not([data-waking])", { state: "attached" });
   return response;
 }
 

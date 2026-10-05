@@ -22,6 +22,7 @@ const GATED = [
   "src/systemTrace.ts",
   "src/activity.ts",
   "src/data.ts",
+  "src/wakeLater.ts",
 ];
 
 export default defineConfig({

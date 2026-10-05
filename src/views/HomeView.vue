@@ -1,14 +1,23 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
-import CaseStudyRow from "../components/CaseStudyRow.vue";
-import ContributionGraph from "../components/ContributionGraph.vue";
+import CaseStudyRowNow from "../components/CaseStudyRow.vue";
+import ContributionGraphNow from "../components/ContributionGraph.vue";
 import CopyButton from "../components/CopyButton.vue";
-import LanguageMix from "../components/LanguageMix.vue";
+import LanguageMixNow from "../components/LanguageMix.vue";
 import LiveLine from "../components/LiveLine.vue";
-import ShippingRibbon from "../components/ShippingRibbon.vue";
-import SystemMap from "../components/SystemMap.vue";
+import ShippingRibbonNow from "../components/ShippingRibbon.vue";
+import SystemMapNow from "../components/SystemMap.vue";
 import { useReveal } from "../composables/useReveal";
 import { activity, featured, fill, lanes, lucyServices, profile, shipping, shortDate, site, totals } from "../data";
+import { wakeLater } from "../wakeLater";
+
+// Everything below the first screen is drawn with the page but woken in idle moments just after,
+// so the first screen is interactive without waiting for the whole page (see wakeLater).
+const ShippingRibbon = wakeLater(ShippingRibbonNow);
+const CaseStudyRow = wakeLater(CaseStudyRowNow);
+const SystemMap = wakeLater(SystemMapNow);
+const ContributionGraph = wakeLater(ContributionGraphNow);
+const LanguageMix = wakeLater(LanguageMixNow);
 
 useHead({
   title: null,
