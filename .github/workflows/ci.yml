@@ -32,6 +32,10 @@ jobs:
         run: npm run check
       - name: End-to-end tests in Chromium, Firefox and WebKit
         run: npm run test:e2e
+      # Weight only: it is the same on every machine. Timings depend on the runner, so they are
+      # compared locally (npm run perf) rather than checked here.
+      - name: Page weight against the committed baseline
+        run: npm run perf -- --weight --check
       - uses: actions/upload-artifact@v7
         if: failure()
         with:
