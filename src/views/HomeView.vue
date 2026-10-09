@@ -6,6 +6,7 @@ import CopyButton from "../components/CopyButton.vue";
 import LanguageMixNow from "../components/LanguageMix.vue";
 import LiveLine from "../components/LiveLine.vue";
 import ShippingRibbonNow from "../components/ShippingRibbon.vue";
+import LucyPeek from "../components/LucyPeek.vue";
 import SystemMapNow from "../components/SystemMap.vue";
 import { useReveal } from "../composables/useReveal";
 import { activity, featured, fill, lanes, lucyServices, profile, shipping, shortDate, site, totals } from "../data";
@@ -90,6 +91,7 @@ const busiest = days.reduce<[string, number] | null>((a, d) => (!a || d[1] > a[1
           <p v-for="para in profile.intro" :key="para">{{ para }}</p>
         </div>
         <div class="hero-side">
+          <LucyPeek class="hero-lucy" />
           <dl class="hero-facts mono">
             <div><dt>Based in</dt><dd>{{ profile.location }}</dd></div>
             <div><dt>Looking for</dt><dd>{{ profile.availability.replace(/^Open to /, "") }}</dd></div>
