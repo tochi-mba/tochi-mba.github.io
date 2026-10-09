@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
 import { computed } from "vue";
+import LucyStage from "../components/LucyStage.vue";
 import ProofChips from "../components/ProofChips.vue";
 import { useReveal } from "../composables/useReveal";
 import { bySlug, CATEGORY_LABEL, profile, projects, STATUS_LABEL, shortDate } from "../data";
+import { STAGED } from "../lucyFace";
 import NotFoundView from "./NotFoundView.vue";
 
 const props = defineProps<{ slug: string }>();
 const project = computed(() => bySlug.get(props.slug));
+// Lucy's own pages put her on stage beside the title.
+const staged = computed(() => STAGED.has(props.slug));
 
 const index = computed(() => projects.findIndex((p) => p.slug === props.slug));
 const prev = computed(() => (index.value > 0 ? projects[index.value - 1] : undefined));
@@ -78,7 +82,7 @@ const links = computed(() => {
 <template>
   <NotFoundView v-if="!project" />
   <div v-else class="container">
-    <header class="page-hero">
+    <header class="page-hero" :class="{ 'page-hero-staged': staged }">
       <nav aria-label="Breadcrumb" class="crumbs">
         <router-link to="/work">Work</router-link> <span aria-hidden="true">/</span> {{ CATEGORY_LABEL[project.category] }}
       </nav>
@@ -90,6 +94,7 @@ const links = computed(() => {
         <span v-if="project.visibility === 'private'"> · Private repository</span>
         <span v-if="project.family === 'lucy'"> · LUCY family<template v-if="project.role"> · {{ project.role }}</template></span>
       </p>
+      <LucyStage v-if="staged" class="hero-stage" />
     </header>
 
     <div class="project-layout">
