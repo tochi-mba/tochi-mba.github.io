@@ -67,8 +67,8 @@ onBeforeUnmount(() => {
     <button type="button" class="lucy-peek-face" :aria-label="label" :title="label" @click="pat">
       <agent-robot-avatar v-if="live" ref="face" size="104" :color="FACE_COLOR" auto-sleep="0" motion="auto" />
       <svg v-else class="lucy-asleep" viewBox="0 0 104 104" aria-hidden="true">
-        <circle cx="52" cy="10" r="4" fill="currentColor" opacity="0.5" />
-        <rect x="8" y="16" width="88" height="82" rx="30" fill="currentColor" />
+        <circle cx="52" cy="10" r="4" :fill="FACE_COLOR" opacity="0.6" />
+        <rect x="8" y="16" width="88" height="82" rx="30" :fill="FACE_COLOR" />
         <path d="M32 58q6 6 12 0M60 58q6 6 12 0" stroke="#f4f4eb" stroke-width="4" stroke-linecap="round" fill="none" />
       </svg>
     </button>
@@ -91,7 +91,7 @@ onBeforeUnmount(() => {
   padding: 10px;
   border: 1px solid var(--rule);
   border-radius: 50%;
-  background: var(--bg-2);
+  background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--signal) 22%, transparent), transparent 70%), var(--bg-2);
   color: var(--text);
   cursor: pointer;
   transition: border-color 150ms ease;
