@@ -75,6 +75,9 @@ test("the command palette has no axe violations while it is open", async ({ page
   await page.getByRole("button", { name: "Search the site" }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.getByRole("combobox").fill("lucy");
+  // The palette fades in; WebKit sometimes ran axe mid-fade and read the half-transparent text as
+  // failing contrast (scheduled builds failed on 6 and 9 October, passed between).
+  await settle(page);
   const results = await new AxeBuilder({ page })
     .include(".palette")
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"])
