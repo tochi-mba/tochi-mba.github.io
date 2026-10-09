@@ -1,38 +1,10 @@
 {
   "available": true,
   "recordAvailable": true,
-  "fetchedAt": "2026-10-02T02:18:43.621Z",
+  "fetchedAt": "2026-10-09T21:54:54.160Z",
   "calendar": {
-    "total": 1055,
+    "total": 2054,
     "days": [
-      [
-        "2025-09-28",
-        0
-      ],
-      [
-        "2025-09-29",
-        0
-      ],
-      [
-        "2025-09-30",
-        0
-      ],
-      [
-        "2025-10-01",
-        0
-      ],
-      [
-        "2025-10-02",
-        0
-      ],
-      [
-        "2025-10-03",
-        0
-      ],
-      [
-        "2025-10-04",
-        0
-      ],
       [
         "2025-10-05",
         0
@@ -1479,99 +1451,127 @@
       ],
       [
         "2026-10-01",
-        178
+        180
       ],
       [
         "2026-10-02",
-        11
+        202
+      ],
+      [
+        "2026-10-03",
+        36
+      ],
+      [
+        "2026-10-04",
+        58
+      ],
+      [
+        "2026-10-05",
+        252
+      ],
+      [
+        "2026-10-06",
+        191
+      ],
+      [
+        "2026-10-07",
+        133
+      ],
+      [
+        "2026-10-08",
+        77
+      ],
+      [
+        "2026-10-09",
+        59
       ]
     ]
   },
   "counts": {
-    "commits": 726,
-    "pullRequests": 215,
+    "commits": 1432,
+    "pullRequests": 458,
     "issues": 0,
-    "repositoriesCreated": 21,
-    "publicRepositories": 28
+    "repositoriesCreated": 26,
+    "publicRepositories": 33
   },
   "languages": [
     {
       "name": "Python",
-      "share": 0.564732462277432
+      "share": 0.532411202848472
     },
     {
       "name": "C#",
-      "share": 0.18144055616086063
+      "share": 0.22640619445977123
     },
     {
       "name": "Kotlin",
-      "share": 0.13703385186367942
+      "share": 0.1229046541746592
     },
     {
       "name": "TypeScript",
-      "share": 0.040962785512027845
+      "share": 0.04022604028344313
     },
     {
       "name": "Rust",
-      "share": 0.034109486475416194
+      "share": 0.038365234580102256
     },
     {
       "name": "JavaScript",
-      "share": 0.026171922674775656
+      "share": 0.024837457345379396
     },
     {
       "name": "Vue",
-      "share": 0.015548935035808259
+      "share": 0.014849216308172783
     }
   ],
   "recent": [
     {
-      "name": "Settings-api",
-      "pushedAt": "2026-10-02T02:18:34Z"
+      "name": "Android_Headless_Mirror",
+      "pushedAt": "2026-10-09T21:53:58Z"
     },
     {
-      "name": "Android_Headless_Mirror",
-      "pushedAt": "2026-10-02T02:14:36Z"
+      "name": "tochi-mba.github.io",
+      "pushedAt": "2026-10-09T17:17:51Z"
+    },
+    {
+      "name": "flint-app-firestick-cast",
+      "pushedAt": "2026-10-09T15:45:54Z"
     },
     {
       "name": "LUCY-assistant",
-      "pushedAt": "2026-10-02T02:11:39Z"
+      "pushedAt": "2026-10-09T15:35:46Z"
     },
     {
-      "name": "Memory-api",
-      "pushedAt": "2026-10-02T00:15:21Z"
-    },
-    {
-      "name": "Web-search-api",
-      "pushedAt": "2026-10-02T00:07:16Z"
+      "name": "clyde",
+      "pushedAt": "2026-10-09T07:34:45Z"
     }
   ],
   "repos": [
     {
       "name": "webtools",
-      "pushedAt": "2024-02-15T10:39:08Z",
-      "commits": 79,
+      "pushedAt": "2026-10-02T03:00:50Z",
+      "commits": 80,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "csharp-workspace",
-      "pushedAt": "2024-01-26T07:13:58Z",
-      "commits": 5,
+      "pushedAt": "2026-10-02T02:59:37Z",
+      "commits": 6,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "Simple-Calculator-IMPOSSIBLE-TO-BREAK",
-      "pushedAt": "2024-01-30T13:38:01Z",
-      "commits": 3,
+      "pushedAt": "2026-10-02T02:59:28Z",
+      "commits": 4,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "ToDoList",
-      "pushedAt": "2024-02-14T21:52:10Z",
-      "commits": 13,
+      "pushedAt": "2026-10-02T02:59:15Z",
+      "commits": 14,
       "releaseCount": 2,
       "releases": [
         {
@@ -1598,8 +1598,8 @@
     },
     {
       "name": "NoughtsAndCrosses",
-      "pushedAt": "2024-02-03T18:53:27Z",
-      "commits": 3,
+      "pushedAt": "2026-10-02T02:59:30Z",
+      "commits": 4,
       "releaseCount": 1,
       "releases": [
         {
@@ -1616,22 +1616,22 @@
     },
     {
       "name": "valentine-s",
-      "pushedAt": "2024-02-05T06:46:08Z",
-      "commits": 6,
+      "pushedAt": "2026-10-02T02:59:15Z",
+      "commits": 7,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "JigsawProject",
-      "pushedAt": "2024-02-16T12:19:18Z",
-      "commits": 2,
+      "pushedAt": "2026-10-02T02:59:14Z",
+      "commits": 3,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "chika",
-      "pushedAt": "2026-05-07T13:02:36Z",
-      "commits": 98,
+      "pushedAt": "2026-10-02T02:58:59Z",
+      "commits": 99,
       "releaseCount": 1,
       "releases": [
         {
@@ -1648,22 +1648,22 @@
     },
     {
       "name": "ai-context-bridge",
-      "pushedAt": "2026-04-29T19:19:59Z",
-      "commits": 4,
+      "pushedAt": "2026-10-02T02:58:59Z",
+      "commits": 5,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "maryjo-events",
-      "pushedAt": "2026-06-25T14:08:47Z",
-      "commits": 21,
+      "pushedAt": "2026-10-02T02:59:15Z",
+      "commits": 22,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "flint-app-firestick-cast",
-      "pushedAt": "2026-10-02T00:07:09Z",
-      "commits": 147,
+      "pushedAt": "2026-10-09T15:45:54Z",
+      "commits": 181,
       "releaseCount": 2,
       "releases": [
         {
@@ -1690,43 +1690,43 @@
     },
     {
       "name": "Spotify-api",
-      "pushedAt": "2026-10-01T21:55:51Z",
-      "commits": 50,
+      "pushedAt": "2026-10-05T12:09:53Z",
+      "commits": 54,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "Web-search-api",
-      "pushedAt": "2026-10-02T00:07:16Z",
-      "commits": 46,
+      "pushedAt": "2026-10-06T18:42:58Z",
+      "commits": 56,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "Keyring-api",
-      "pushedAt": "2026-10-01T19:51:00Z",
-      "commits": 50,
+      "pushedAt": "2026-10-07T20:14:36Z",
+      "commits": 56,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "Persona-api",
-      "pushedAt": "2026-10-01T14:15:42Z",
-      "commits": 34,
+      "pushedAt": "2026-10-05T12:33:32Z",
+      "commits": 40,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "User-api",
-      "pushedAt": "2026-10-01T23:54:02Z",
-      "commits": 55,
+      "pushedAt": "2026-10-05T12:10:57Z",
+      "commits": 60,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "Playground",
-      "pushedAt": "2026-09-13T00:22:58Z",
-      "commits": 4,
+      "pushedAt": "2026-10-02T02:59:10Z",
+      "commits": 5,
       "releaseCount": 4,
       "releases": [
         {
@@ -1773,29 +1773,29 @@
     },
     {
       "name": "Settings-api",
-      "pushedAt": "2026-10-02T02:18:34Z",
-      "commits": 50,
+      "pushedAt": "2026-10-08T03:26:09Z",
+      "commits": 61,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "Environments-api",
-      "pushedAt": "2026-10-02T00:06:51Z",
-      "commits": 47,
+      "pushedAt": "2026-10-05T16:00:00Z",
+      "commits": 53,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "LUCY-assistant",
-      "pushedAt": "2026-10-02T02:11:39Z",
-      "commits": 270,
+      "pushedAt": "2026-10-09T15:35:46Z",
+      "commits": 431,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "weftai",
-      "pushedAt": "2026-10-01T19:51:37Z",
-      "commits": 53,
+      "pushedAt": "2026-10-02T02:58:44Z",
+      "commits": 54,
       "releaseCount": 35,
       "releases": [
         {
@@ -2052,17 +2052,147 @@
     },
     {
       "name": "Memory-api",
-      "pushedAt": "2026-10-02T00:15:21Z",
-      "commits": 40,
+      "pushedAt": "2026-10-06T18:39:45Z",
+      "commits": 49,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "Android_Headless_Mirror",
-      "pushedAt": "2026-10-02T02:14:36Z",
-      "commits": 209,
-      "releaseCount": 19,
+      "pushedAt": "2026-10-09T21:53:58Z",
+      "commits": 282,
+      "releaseCount": 32,
       "releases": [
+        {
+          "tagName": "v2.18.0",
+          "name": "v2.18.0",
+          "publishedAt": "2026-10-07T21:57:18Z",
+          "isPrerelease": false,
+          "isDraft": false,
+          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.18.0",
+          "assetCount": 2,
+          "downloads": 2
+        },
+        {
+          "tagName": "v2.17.0",
+          "name": "v2.17.0",
+          "publishedAt": "2026-10-07T00:14:56Z",
+          "isPrerelease": false,
+          "isDraft": false,
+          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.17.0",
+          "assetCount": 2,
+          "downloads": 1
+        },
+        {
+          "tagName": "v2.16.1",
+          "name": "v2.16.1",
+          "publishedAt": "2026-10-06T18:41:43Z",
+          "isPrerelease": false,
+          "isDraft": false,
+          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.16.1",
+          "assetCount": 2,
+          "downloads": 2
+        },
+        {
+          "tagName": "v2.16.0",
+          "name": "v2.16.0",
+          "publishedAt": "2026-10-06T04:52:34Z",
+          "isPrerelease": false,
+          "isDraft": false,
+          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.16.0",
+          "assetCount": 2,
+          "downloads": 0
+        },
+        {
+          "tagName": "v2.15.0",
+          "name": "v2.15.0",
+          "publishedAt": "2026-10-06T04:38:10Z",
+          "isPrerelease": false,
+          "isDraft": false,
+          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.15.0",
+          "assetCount": 2,
+          "downloads": 0
+        },
+        {
+          "tagName": "v2.14.0",
+          "name": "v2.14.0",
+          "publishedAt": "2026-10-06T02:55:43Z",
+          "isPrerelease": false,
+          "isDraft": false,
+          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.14.0",
+          "assetCount": 2,
+          "downloads": 0
+        },
+        {
+          "tagName": "v2.13.0",
+          "name": "v2.13.0",
+          "publishedAt": "2026-10-05T23:44:20Z",
+          "isPrerelease": false,
+          "isDraft": false,
+          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.13.0",
+          "assetCount": 2,
+          "downloads": 0
+        },
+        {
+          "tagName": "v2.12.0",
+          "name": "v2.12.0",
+          "publishedAt": "2026-10-05T21:42:03Z",
+          "isPrerelease": false,
+          "isDraft": false,
+          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.12.0",
+          "assetCount": 2,
+          "downloads": 0
+        },
+        {
+          "tagName": "v2.11.0",
+          "name": "v2.11.0",
+          "publishedAt": "2026-10-05T17:20:53Z",
+          "isPrerelease": false,
+          "isDraft": false,
+          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.11.0",
+          "assetCount": 2,
+          "downloads": 0
+        },
+        {
+          "tagName": "v2.10.0",
+          "name": "v2.10.0",
+          "publishedAt": "2026-10-05T16:47:21Z",
+          "isPrerelease": false,
+          "isDraft": false,
+          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.10.0",
+          "assetCount": 2,
+          "downloads": 0
+        },
+        {
+          "tagName": "v2.9.0",
+          "name": "v2.9.0",
+          "publishedAt": "2026-10-04T02:10:56Z",
+          "isPrerelease": false,
+          "isDraft": false,
+          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.9.0",
+          "assetCount": 2,
+          "downloads": 0
+        },
+        {
+          "tagName": "v2.8.0",
+          "name": "v2.8.0",
+          "publishedAt": "2026-10-04T00:10:49Z",
+          "isPrerelease": false,
+          "isDraft": false,
+          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.8.0",
+          "assetCount": 2,
+          "downloads": 0
+        },
+        {
+          "tagName": "v2.7.0",
+          "name": "v2.7.0",
+          "publishedAt": "2026-10-03T15:26:15Z",
+          "isPrerelease": false,
+          "isDraft": false,
+          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.7.0",
+          "assetCount": 2,
+          "downloads": 0
+        },
         {
           "tagName": "v2.6.0",
           "name": "v2.6.0",
@@ -2071,7 +2201,7 @@
           "isDraft": false,
           "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.6.0",
           "assetCount": 2,
-          "downloads": 2
+          "downloads": 3
         },
         {
           "tagName": "v2.5.0",
@@ -2182,918 +2312,756 @@
           "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.0.8",
           "assetCount": 2,
           "downloads": 2
-        },
-        {
-          "tagName": "v2.0.7",
-          "name": "v2.0.7",
-          "publishedAt": "2026-09-30T20:14:39Z",
-          "isPrerelease": false,
-          "isDraft": false,
-          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.0.7",
-          "assetCount": 2,
-          "downloads": 2
-        },
-        {
-          "tagName": "v2.0.5",
-          "name": "v2.0.5",
-          "publishedAt": "2026-09-30T05:17:18Z",
-          "isPrerelease": false,
-          "isDraft": false,
-          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.0.5",
-          "assetCount": 2,
-          "downloads": 1
-        },
-        {
-          "tagName": "v2.0.4",
-          "name": "v2.0.4",
-          "publishedAt": "2026-09-23T05:07:27Z",
-          "isPrerelease": false,
-          "isDraft": false,
-          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.0.4",
-          "assetCount": 2,
-          "downloads": 3
-        },
-        {
-          "tagName": "v2.0.3",
-          "name": "v2.0.3",
-          "publishedAt": "2026-09-23T02:26:03Z",
-          "isPrerelease": false,
-          "isDraft": false,
-          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.0.3",
-          "assetCount": 2,
-          "downloads": 1
-        },
-        {
-          "tagName": "v2.0.2",
-          "name": "v2.0.2",
-          "publishedAt": "2026-09-23T01:06:58Z",
-          "isPrerelease": false,
-          "isDraft": false,
-          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.0.2",
-          "assetCount": 2,
-          "downloads": 1
-        },
-        {
-          "tagName": "v2.0.1",
-          "name": "v2.0.1",
-          "publishedAt": "2026-09-23T00:45:08Z",
-          "isPrerelease": false,
-          "isDraft": false,
-          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.0.1",
-          "assetCount": 2,
-          "downloads": 1
-        },
-        {
-          "tagName": "v2.0.0",
-          "name": "v2.0.0",
-          "publishedAt": "2026-09-22T23:16:00Z",
-          "isPrerelease": false,
-          "isDraft": false,
-          "url": "https://github.com/tochi-mba/Android_Headless_Mirror/releases/tag/v2.0.0",
-          "assetCount": 2,
-          "downloads": 1
         }
       ]
     },
     {
       "name": "clyde",
-      "pushedAt": "2026-10-01T19:51:04Z",
-      "commits": 21,
+      "pushedAt": "2026-10-09T07:34:45Z",
+      "commits": 26,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "textwire",
-      "pushedAt": "2026-10-01T15:13:27Z",
-      "commits": 18,
+      "pushedAt": "2026-10-07T10:36:04Z",
+      "commits": 26,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "tochi-mba.github.io",
-      "pushedAt": "2026-10-01T19:24:29Z",
-      "commits": 12,
+      "pushedAt": "2026-10-09T17:17:51Z",
+      "commits": 39,
       "releaseCount": 0,
       "releases": []
     },
     {
       "name": "Github-api",
-      "pushedAt": "2026-10-01T20:14:21Z",
-      "commits": 4,
+      "pushedAt": "2026-10-02T02:58:37Z",
+      "commits": 5,
       "releaseCount": 0,
       "releases": []
     }
   ],
   "pullRequests": [
     {
-      "repo": "Settings-api",
-      "number": 12,
-      "title": "feat(client): the test fake keeps profiles apart (settings-client 0.4.0)",
-      "url": "https://github.com/tochi-mba/Settings-api/pull/12",
-      "merged": false,
-      "mergedAt": null
-    },
-    {
-      "repo": "LUCY-assistant",
-      "number": 49,
-      "title": "fix(agents): a helper reads the conversation's files, not an empty folder of its own",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/49",
-      "merged": false,
-      "mergedAt": null
-    },
-    {
-      "repo": "Android_Headless_Mirror",
-      "number": 48,
-      "title": "Sending files to the phone: drop, pick, paste, Send to and the command line (2.7.0)",
-      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/48",
-      "merged": false,
-      "mergedAt": null
-    },
-    {
-      "repo": "Memory-api",
-      "number": 7,
-      "title": "feat: a new memory is held to the importance floor its owner chose",
-      "url": "https://github.com/tochi-mba/Memory-api/pull/7",
-      "merged": false,
-      "mergedAt": null
-    },
-    {
-      "repo": "User-api",
-      "number": 4,
-      "title": "feat(preferences): land unscoped-by-omission writes in the person's default compartment",
-      "url": "https://github.com/tochi-mba/User-api/pull/4",
-      "merged": false,
-      "mergedAt": null
-    },
-    {
-      "repo": "Web-search-api",
-      "number": 9,
-      "title": "fix(search): a blocked Google search is reported as soon as the block page loads",
-      "url": "https://github.com/tochi-mba/Web-search-api/pull/9",
-      "merged": false,
-      "mergedAt": null
-    },
-    {
-      "repo": "Environments-api",
-      "number": 5,
-      "title": "feat: environments.default_shell picks the shell a person's sessions start",
-      "url": "https://github.com/tochi-mba/Environments-api/pull/5",
-      "merged": false,
-      "mergedAt": null
-    },
-    {
-      "repo": "flint-app-firestick-cast",
-      "number": 40,
-      "title": "Make this PC's ADB key before the handshake clock starts",
-      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/40",
-      "merged": true,
-      "mergedAt": "2026-10-01T23:53:32Z"
-    },
-    {
-      "repo": "LUCY-assistant",
-      "number": 48,
-      "title": "docs(changelog): one Fixed section",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/48",
-      "merged": true,
-      "mergedAt": "2026-10-02T00:09:37Z"
-    },
-    {
-      "repo": "LUCY-assistant",
-      "number": 47,
-      "title": "docs: preserve evaluation scenarios and lock customization revisions",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/47",
-      "merged": true,
-      "mergedAt": "2026-10-01T22:43:06Z"
-    },
-    {
-      "repo": "LUCY-assistant",
-      "number": 46,
-      "title": "fix: start GitHub with the generated family configuration",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/46",
-      "merged": true,
-      "mergedAt": "2026-10-01T22:37:50Z"
-    },
-    {
-      "repo": "Settings-api",
-      "number": 11,
-      "title": "docs: mark explicit-content filtering as implemented",
-      "url": "https://github.com/tochi-mba/Settings-api/pull/11",
-      "merged": true,
-      "mergedAt": "2026-10-01T22:36:15Z"
-    },
-    {
-      "repo": "LUCY-assistant",
-      "number": 45,
-      "title": "fix: apply personal command and memory defaults",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/45",
-      "merged": true,
-      "mergedAt": "2026-10-01T22:34:30Z"
-    },
-    {
-      "repo": "Spotify-api",
-      "number": 11,
-      "title": "fix: apply explicit-content preferences to lookup and named tracks",
-      "url": "https://github.com/tochi-mba/Spotify-api/pull/11",
-      "merged": true,
-      "mergedAt": "2026-10-01T21:55:25Z"
-    },
-    {
-      "repo": "Android_Headless_Mirror",
-      "number": 47,
-      "title": "An Apps tab: every app on the phone by name, favourites as tiles and keys (2.6.0)",
-      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/47",
-      "merged": true,
-      "mergedAt": "2026-10-01T22:54:33Z"
-    },
-    {
-      "repo": "Settings-api",
-      "number": 10,
-      "title": "feat(catalogue): six entries a service now reads say so, and two defaults match it",
-      "url": "https://github.com/tochi-mba/Settings-api/pull/10",
-      "merged": true,
-      "mergedAt": "2026-10-01T22:19:23Z"
-    },
-    {
-      "repo": "Web-search-api",
-      "number": 8,
-      "title": "feat(search): a person's safe-search level and recency reach the search backend",
-      "url": "https://github.com/tochi-mba/Web-search-api/pull/8",
-      "merged": true,
-      "mergedAt": "2026-10-01T21:30:12Z"
-    },
-    {
-      "repo": "LUCY-assistant",
-      "number": 44,
-      "title": "test: the watch and MCP pack tests answer DNS themselves",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/44",
-      "merged": true,
-      "mergedAt": "2026-10-01T21:30:06Z"
-    },
-    {
-      "repo": "LUCY-assistant",
-      "number": 43,
-      "title": "Two settings for how a reply is laid out: formatting and emoji",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/43",
-      "merged": true,
-      "mergedAt": "2026-10-01T21:13:05Z"
-    },
-    {
-      "repo": "Settings-api",
-      "number": 9,
-      "title": "feat(catalogue): formatting and emoji, and three entries that now match what is built",
-      "url": "https://github.com/tochi-mba/Settings-api/pull/9",
-      "merged": true,
-      "mergedAt": "2026-10-01T20:50:24Z"
-    },
-    {
-      "repo": "LUCY-assistant",
-      "number": 42,
-      "title": "A person's time zone, language, units, clock and currency reach the model",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/42",
-      "merged": true,
-      "mergedAt": "2026-10-01T20:30:36Z"
-    },
-    {
-      "repo": "Spotify-api",
-      "number": 10,
-      "title": "feat(player): a new play takes the person's shuffle and repeat",
-      "url": "https://github.com/tochi-mba/Spotify-api/pull/10",
-      "merged": true,
-      "mergedAt": "2026-10-01T20:28:23Z"
-    },
-    {
-      "repo": "LUCY-assistant",
-      "number": 41,
-      "title": "test: the sweep-interval test waits for two sweeps, not for twenty milliseconds",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/41",
-      "merged": true,
-      "mergedAt": "2026-10-01T20:30:24Z"
-    },
-    {
-      "repo": "Settings-api",
-      "number": 8,
-      "title": "feat(common): the five conventions are read by the hub, and locale defaults to none",
-      "url": "https://github.com/tochi-mba/Settings-api/pull/8",
-      "merged": true,
-      "mergedAt": "2026-10-01T20:23:23Z"
-    },
-    {
-      "repo": "Github-api",
-      "number": 2,
-      "title": "docs(site): a GitHub Pages site for Github-api, and the repository names REX Technologies",
-      "url": "https://github.com/tochi-mba/Github-api/pull/2",
-      "merged": true,
-      "mergedAt": "2026-10-01T20:14:20Z"
-    },
-    {
-      "repo": "Github-api",
-      "number": 1,
-      "title": "fix: lucy-signals comes from its tag, not from a merged branch",
-      "url": "https://github.com/tochi-mba/Github-api/pull/1",
-      "merged": true,
-      "mergedAt": "2026-10-01T20:03:26Z"
-    },
-    {
-      "repo": "LUCY-assistant",
-      "number": 40,
-      "title": "repos.lock at every sibling's head, the Github-api checkout ignored, and nine services counted",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/40",
-      "merged": true,
-      "mergedAt": "2026-10-01T20:23:17Z"
-    },
-    {
-      "repo": "Spotify-api",
-      "number": 9,
-      "title": "Remove dead code found by the family sweep",
-      "url": "https://github.com/tochi-mba/Spotify-api/pull/9",
-      "merged": true,
-      "mergedAt": "2026-10-01T19:48:10Z"
-    },
-    {
-      "repo": "weftai",
-      "number": 15,
-      "title": "Remove dead code found by the family sweep",
-      "url": "https://github.com/tochi-mba/weftai/pull/15",
-      "merged": true,
-      "mergedAt": "2026-10-01T19:48:16Z"
-    },
-    {
-      "repo": "Web-search-api",
-      "number": 7,
-      "title": "Remove dead code found by the family sweep",
-      "url": "https://github.com/tochi-mba/Web-search-api/pull/7",
-      "merged": true,
-      "mergedAt": "2026-10-01T19:48:04Z"
-    },
-    {
-      "repo": "flint-app-firestick-cast",
-      "number": 39,
-      "title": "Add playback controls to the Media page",
-      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/39",
-      "merged": true,
-      "mergedAt": "2026-10-01T20:50:24Z"
-    },
-    {
-      "repo": "Android_Headless_Mirror",
-      "number": 46,
-      "title": "The phone's sound on this PC (2.5.0)",
-      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/46",
-      "merged": true,
-      "mergedAt": "2026-10-01T20:20:28Z"
-    },
-    {
-      "repo": "flint-app-firestick-cast",
-      "number": 38,
-      "title": "Notice when the TV goes away, and offer Disconnect",
-      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/38",
-      "merged": true,
-      "mergedAt": "2026-10-01T19:23:39Z"
-    },
-    {
-      "repo": "Settings-api",
-      "number": 7,
-      "title": "Add the github namespace: where new repositories go and who can see them",
-      "url": "https://github.com/tochi-mba/Settings-api/pull/7",
-      "merged": true,
-      "mergedAt": "2026-10-01T18:58:05Z"
-    },
-    {
       "repo": "tochi-mba.github.io",
-      "number": 3,
-      "title": "Redesign the portfolio as a build log of what shipped",
-      "url": "https://github.com/tochi-mba/tochi-mba.github.io/pull/3",
+      "number": 7,
+      "title": "update",
+      "url": "https://github.com/tochi-mba/tochi-mba.github.io/pull/7",
       "merged": true,
-      "mergedAt": "2026-10-01T19:24:29Z"
+      "mergedAt": "2026-10-09T17:17:51Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 39,
-      "title": "Repositories: a GitHub connector, scoped grants, and jobs that wake a session",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/39",
+      "number": 150,
+      "title": "docs: record the web client as the sibling repository LUCY-ui (ADR-0018)",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/150",
       "merged": true,
-      "mergedAt": "2026-10-01T19:48:41Z"
-    },
-    {
-      "repo": "Android_Headless_Mirror",
-      "number": 45,
-      "title": "Shortcuts from anywhere (2.4.0)",
-      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/45",
-      "merged": true,
-      "mergedAt": "2026-10-01T19:11:48Z"
-    },
-    {
-      "repo": "Android_Headless_Mirror",
-      "number": 44,
-      "title": "Fix three crashes and a stuck touch found by CI (2.3.4)",
-      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/44",
-      "merged": true,
-      "mergedAt": "2026-10-01T18:13:04Z"
-    },
-    {
-      "repo": "Keyring-api",
-      "number": 6,
-      "title": "Let a service record standing consent for itself while the person is present",
-      "url": "https://github.com/tochi-mba/Keyring-api/pull/6",
-      "merged": true,
-      "mergedAt": "2026-10-01T18:28:22Z"
-    },
-    {
-      "repo": "weftai",
-      "number": 13,
-      "title": "Operation annotations and an optional step note (0.6.0)",
-      "url": "https://github.com/tochi-mba/weftai/pull/13",
-      "merged": true,
-      "mergedAt": "2026-10-01T18:28:16Z"
-    },
-    {
-      "repo": "Android_Headless_Mirror",
-      "number": 43,
-      "title": "Site and docs foundation: nine pages made with the app, checked before they publish, help in the app (2.3.3)",
-      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/43",
-      "merged": true,
-      "mergedAt": "2026-10-01T17:30:36Z"
-    },
-    {
-      "repo": "tochi-mba.github.io",
-      "number": 2,
-      "title": "Count language bytes from current repositories only",
-      "url": "https://github.com/tochi-mba/tochi-mba.github.io/pull/2",
-      "merged": true,
-      "mergedAt": "2026-10-01T17:19:35Z"
-    },
-    {
-      "repo": "tochi-mba.github.io",
-      "number": 1,
-      "title": "Build the portfolio site",
-      "url": "https://github.com/tochi-mba/tochi-mba.github.io/pull/1",
-      "merged": true,
-      "mergedAt": "2026-10-01T17:00:18Z"
+      "mergedAt": "2026-10-09T15:35:45Z"
     },
     {
       "repo": "flint-app-firestick-cast",
-      "number": 37,
-      "title": "Build the settings foundation",
-      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/37",
+      "number": 57,
+      "title": "Share from the command line with the app's choices, and bring the docs up to date",
+      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/57",
       "merged": true,
-      "mergedAt": "2026-10-01T18:04:14Z"
-    },
-    {
-      "repo": "Android_Headless_Mirror",
-      "number": 42,
-      "title": "Groundwork: settings groups in their own files, a catalogue of every setting, one ADB dispatcher, full crash logs (2.3.2)",
-      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/42",
-      "merged": true,
-      "mergedAt": "2026-10-01T16:54:34Z"
+      "mergedAt": "2026-10-09T15:26:37Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 38,
-      "title": "Keep the live-state tests below the repository file limit",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/38",
+      "number": 149,
+      "title": "fix(work): a work id field says it takes the id itself, and how to run and wait",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/149",
       "merged": true,
-      "mergedAt": "2026-10-01T15:14:20Z"
+      "mergedAt": "2026-10-09T15:12:22Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 148,
+      "title": "fix(turn): a plan with no steps is a spoken reply",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/148",
+      "merged": true,
+      "mergedAt": "2026-10-09T15:11:27Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 147,
+      "title": "fix(packs): a step's result stays available to the next plan, as the schema promises",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/147",
+      "merged": true,
+      "mergedAt": "2026-10-09T15:19:23Z"
+    },
+    {
+      "repo": "Android_Headless_Mirror",
+      "number": 65,
+      "title": "2.18.1: whole-app UI/UX audit — the Info tab follows your keys, a real gear, tidier tiles and words",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/65",
+      "merged": true,
+      "mergedAt": "2026-10-09T21:53:43Z"
     },
     {
       "repo": "flint-app-firestick-cast",
-      "number": 36,
-      "title": "Split the Cast page's view model by concern",
-      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/36",
+      "number": 56,
+      "title": "Show the mouse pointer on the TV while sharing the screen",
+      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/56",
       "merged": true,
-      "mergedAt": "2026-10-01T14:53:20Z"
+      "mergedAt": "2026-10-09T14:33:22Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 146,
+      "title": "feat(decide): every decision event is also a log line",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/146",
+      "merged": true,
+      "mergedAt": "2026-10-09T15:10:27Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 145,
+      "title": "fix(prompt): the helpers page says a file is yours to write",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/145",
+      "merged": true,
+      "mergedAt": "2026-10-09T08:07:02Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 144,
+      "title": "fix(coder): a plan-mode task says nothing was written, and how to carry the plan out",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/144",
+      "merged": true,
+      "mergedAt": "2026-10-09T08:02:34Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 143,
+      "title": "fix(coder): a resumed turn does not show the last turn's answer or refusals",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/143",
+      "merged": true,
+      "mergedAt": "2026-10-09T07:53:33Z"
+    },
+    {
+      "repo": "flint-app-firestick-cast",
+      "number": 55,
+      "title": "Keep Flint running in the tray, with global shortcuts",
+      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/55",
+      "merged": true,
+      "mergedAt": "2026-10-09T07:55:33Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 142,
+      "title": "fix(prompt): the Claude Code page says to show the plan and where the switches live",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/142",
+      "merged": true,
+      "mergedAt": "2026-10-09T07:45:47Z"
     },
     {
       "repo": "clyde",
-      "number": 9,
-      "title": "docs: the repository names REX Technologies",
-      "url": "https://github.com/tochi-mba/clyde/pull/9",
+      "number": 14,
+      "title": "fix(translate): the system prompt disowns Claude Code's environment block",
+      "url": "https://github.com/tochi-mba/clyde/pull/14",
       "merged": true,
-      "mergedAt": "2026-10-01T14:42:47Z"
-    },
-    {
-      "repo": "weftai",
-      "number": 12,
-      "title": "docs(site): a GitHub Pages site for Weftai",
-      "url": "https://github.com/tochi-mba/weftai/pull/12",
-      "merged": true,
-      "mergedAt": "2026-10-01T14:42:34Z"
+      "mergedAt": "2026-10-09T07:34:39Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 37,
-      "title": "docs: the repository names REX Technologies",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/37",
+      "number": 141,
+      "title": "fix(prompt): the workspace page names the shell and says to watch rather than poll",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/141",
       "merged": true,
-      "mergedAt": "2026-10-01T15:44:28Z"
-    },
-    {
-      "repo": "Persona-api",
-      "number": 4,
-      "title": "docs(site): a GitHub Pages site for persona-api, and the repository names REX Technologies",
-      "url": "https://github.com/tochi-mba/Persona-api/pull/4",
-      "merged": true,
-      "mergedAt": "2026-10-01T14:15:40Z"
-    },
-    {
-      "repo": "Environments-api",
-      "number": 4,
-      "title": "docs(site): a GitHub Pages site for environments-api, and the repository names REX Technologies",
-      "url": "https://github.com/tochi-mba/Environments-api/pull/4",
-      "merged": true,
-      "mergedAt": "2026-10-01T13:55:57Z"
-    },
-    {
-      "repo": "Spotify-api",
-      "number": 8,
-      "title": "docs(site): a GitHub Pages site for spotify-api, and the repository names REX Technologies",
-      "url": "https://github.com/tochi-mba/Spotify-api/pull/8",
-      "merged": true,
-      "mergedAt": "2026-10-01T13:55:44Z"
-    },
-    {
-      "repo": "Web-search-api",
-      "number": 6,
-      "title": "docs(site): a GitHub Pages site for web-search-api, and the repository names REX Technologies",
-      "url": "https://github.com/tochi-mba/Web-search-api/pull/6",
-      "merged": true,
-      "mergedAt": "2026-10-01T13:55:27Z"
-    },
-    {
-      "repo": "Memory-api",
-      "number": 6,
-      "title": "docs(site): a GitHub Pages site for memory-api, and the repository names REX Technologies",
-      "url": "https://github.com/tochi-mba/Memory-api/pull/6",
-      "merged": true,
-      "mergedAt": "2026-10-01T13:50:53Z"
-    },
-    {
-      "repo": "Settings-api",
-      "number": 6,
-      "title": "docs(site): a GitHub Pages site for settings-api, and the repository names REX Technologies",
-      "url": "https://github.com/tochi-mba/Settings-api/pull/6",
-      "merged": true,
-      "mergedAt": "2026-10-01T13:50:13Z"
-    },
-    {
-      "repo": "User-api",
-      "number": 3,
-      "title": "docs(site): a GitHub Pages site for user-api, and the repository names REX Technologies",
-      "url": "https://github.com/tochi-mba/User-api/pull/3",
-      "merged": true,
-      "mergedAt": "2026-10-01T13:50:02Z"
-    },
-    {
-      "repo": "Keyring-api",
-      "number": 5,
-      "title": "docs(site): a GitHub Pages site for keyring, and the repository names REX Technologies",
-      "url": "https://github.com/tochi-mba/Keyring-api/pull/5",
-      "merged": true,
-      "mergedAt": "2026-10-01T13:49:51Z"
-    },
-    {
-      "repo": "clyde",
-      "number": 8,
-      "title": "Add a GitHub Pages site, checked before it is published",
-      "url": "https://github.com/tochi-mba/clyde/pull/8",
-      "merged": true,
-      "mergedAt": "2026-10-01T13:27:17Z"
-    },
-    {
-      "repo": "textwire",
-      "number": 6,
-      "title": "Operator dashboard and the Android UI redesign",
-      "url": "https://github.com/tochi-mba/textwire/pull/6",
-      "merged": true,
-      "mergedAt": "2026-10-01T15:12:48Z"
+      "mergedAt": "2026-10-09T07:30:50Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 36,
-      "title": "A window smaller than the turn is named as a setting to raise, not as compaction that happened",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/36",
+      "number": 140,
+      "title": "chore: keep the container under the family's thousand-line cap",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/140",
       "merged": true,
-      "mergedAt": "2026-10-01T13:05:53Z"
+      "mergedAt": "2026-10-09T07:17:23Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 35,
-      "title": "A GitHub Pages site for Lucy, in the REX style, checked before it is published",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/35",
+      "number": 139,
+      "title": "fix(workspace): a command stopped at its ceiling is failed work that says so",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/139",
       "merged": true,
-      "mergedAt": "2026-10-01T13:02:22Z"
-    },
-    {
-      "repo": "textwire",
-      "number": 5,
-      "title": "Documentation site on GitHub Pages",
-      "url": "https://github.com/tochi-mba/textwire/pull/5",
-      "merged": true,
-      "mergedAt": "2026-10-01T12:58:53Z"
+      "mergedAt": "2026-10-09T07:26:41Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 34,
-      "title": "The CLI writes UTF-8 whatever the console's code page",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/34",
+      "number": 138,
+      "title": "fix(work): a check-in that could never open is refused before any card",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/138",
       "merged": true,
-      "mergedAt": "2026-10-01T12:59:19Z"
+      "mergedAt": "2026-10-08T21:51:45Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 33,
-      "title": "Lucy tells the person what happened in plain words, not that the harness did it",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/33",
+      "number": 137,
+      "title": "fix(packs): a plan that reaches for a ready capability loads it",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/137",
       "merged": true,
-      "mergedAt": "2026-10-01T12:44:46Z"
+      "mergedAt": "2026-10-08T21:44:53Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 32,
-      "title": "A restart is not announced as a cancellation: an interrupted helper stays continuable",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/32",
+      "number": 136,
+      "title": "fix(decide): a decision call that times out rests the decider",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/136",
       "merged": true,
-      "mergedAt": "2026-10-01T02:35:48Z"
+      "mergedAt": "2026-10-08T21:42:21Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 31,
-      "title": "The eval watchdog lets the model repair a plan the hub sent back",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/31",
+      "number": 135,
+      "title": "fix(decide): decision events name the turn they were made in",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/135",
       "merged": true,
-      "mergedAt": "2026-10-01T02:32:09Z"
+      "mergedAt": "2026-10-08T21:36:01Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 30,
-      "title": "Signing in with a device code can be finished: lucy approve, and a page that exists",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/30",
+      "number": 134,
+      "title": "fix: 'Claude Code' finds the coder capability, and a never-setting is refused before any card",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/134",
       "merged": true,
-      "mergedAt": "2026-10-01T02:17:23Z"
+      "mergedAt": "2026-10-08T20:23:37Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 29,
-      "title": "A long eval run renews its own token with --token-command",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/29",
+      "number": 133,
+      "title": "build(laya): a CPU-only torch and patient pip, so the image builds on a slow link",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/133",
       "merged": true,
-      "mergedAt": "2026-10-01T02:10:04Z"
+      "mergedAt": "2026-10-08T20:23:49Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 28,
-      "title": "Notes Lucy has just found can be forgotten, corrected or confirmed in the same plan",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/28",
+      "number": 132,
+      "title": "fix(coder): stopping the work item stops the Claude Code task behind it",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/132",
       "merged": true,
-      "mergedAt": "2026-10-01T01:32:27Z"
-    },
-    {
-      "repo": "textwire",
-      "number": 4,
-      "title": "The Android app",
-      "url": "https://github.com/tochi-mba/textwire/pull/4",
-      "merged": true,
-      "mergedAt": "2026-10-01T01:36:23Z"
-    },
-    {
-      "repo": "LUCY-assistant",
-      "number": 27,
-      "title": "A setting changed through Lucy applies to the very next turn",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/27",
-      "merged": true,
-      "mergedAt": "2026-10-01T01:21:16Z"
-    },
-    {
-      "repo": "Android_Headless_Mirror",
-      "number": 41,
-      "title": "Pause copies nobody can see, and say so",
-      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/41",
-      "merged": true,
-      "mergedAt": "2026-10-01T01:42:50Z"
-    },
-    {
-      "repo": "Settings-api",
-      "number": 5,
-      "title": "feat(client): forget stops serving a person's cached settings, and settings-client 0.3.0",
-      "url": "https://github.com/tochi-mba/Settings-api/pull/5",
-      "merged": true,
-      "mergedAt": "2026-10-01T01:14:04Z"
-    },
-    {
-      "repo": "LUCY-assistant",
-      "number": 26,
-      "title": "The family is locked at the commits it passed together",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/26",
-      "merged": true,
-      "mergedAt": "2026-10-01T00:45:16Z"
-    },
-    {
-      "repo": "LUCY-assistant",
-      "number": 25,
-      "title": "A capability probe answers for its own session",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/25",
-      "merged": true,
-      "mergedAt": "2026-10-01T00:36:25Z"
+      "mergedAt": "2026-10-08T20:12:55Z"
     },
     {
       "repo": "flint-app-firestick-cast",
-      "number": 35,
-      "title": "Ask before switching what the TV shows",
-      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/35",
+      "number": 54,
+      "title": "Play this PC's sound on the TV while sharing the screen",
+      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/54",
       "merged": true,
-      "mergedAt": "2026-10-01T00:30:53Z"
-    },
-    {
-      "repo": "Android_Headless_Mirror",
-      "number": 40,
-      "title": "Finish the Settings tab: restart bar in sight, rows that line up, search by row",
-      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/40",
-      "merged": true,
-      "mergedAt": "2026-10-01T00:20:00Z"
+      "mergedAt": "2026-10-08T20:09:13Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 24,
-      "title": "The baseline records the song that would not play",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/24",
+      "number": 131,
+      "title": "fix(coder): a plan delegation is read-only whatever the person's allowlist says",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/131",
       "merged": true,
-      "mergedAt": "2026-10-01T00:03:07Z"
-    },
-    {
-      "repo": "textwire",
-      "number": 3,
-      "title": "Protocol, content pipeline, service, simulator and golden vectors",
-      "url": "https://github.com/tochi-mba/textwire/pull/3",
-      "merged": true,
-      "mergedAt": "2026-10-01T01:02:26Z"
+      "mergedAt": "2026-10-08T20:04:14Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 23,
-      "title": "An eval turn can expect the hub to refuse the message",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/23",
+      "number": 130,
+      "title": "fix: what the first live Claude Code delegation found",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/130",
       "merged": true,
-      "mergedAt": "2026-09-30T22:56:06Z"
-    },
-    {
-      "repo": "Android_Headless_Mirror",
-      "number": 39,
-      "title": "Finish the Phone and Info tabs: honest Reset, readable keys, focus kept, one key column",
-      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/39",
-      "merged": true,
-      "mergedAt": "2026-10-01T00:02:11Z"
+      "mergedAt": "2026-10-08T19:35:13Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 22,
-      "title": "The hub runs weftai 0.5.2",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/22",
+      "number": 129,
+      "title": "feat(coder): Lucy delegates whole tasks to Claude Code, and uses it like a person would",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/129",
       "merged": true,
-      "mergedAt": "2026-09-30T22:13:33Z"
+      "mergedAt": "2026-10-08T03:48:38Z"
     },
     {
-      "repo": "Android_Headless_Mirror",
-      "number": 38,
-      "title": "Let people shape the window: on top, panel side, top bar, status bar, zoom and swipes",
-      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/38",
-      "merged": true,
-      "mergedAt": "2026-09-30T22:25:37Z"
-    },
-    {
-      "repo": "LUCY-assistant",
-      "number": 21,
-      "title": "Lucy runs a team of helpers: queued past the cap, told once per group, approved on one card",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/21",
-      "merged": true,
-      "mergedAt": "2026-09-30T21:53:56Z"
-    },
-    {
-      "repo": "User-api",
-      "number": 2,
-      "title": "fix(storage): the commit after an erasure no longer fails by GC timing",
-      "url": "https://github.com/tochi-mba/User-api/pull/2",
-      "merged": true,
-      "mergedAt": "2026-09-30T21:39:24Z"
-    },
-    {
-      "repo": "Android_Headless_Mirror",
-      "number": 37,
-      "title": "Let people tune video, audio, the session and every mouse button",
-      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/37",
-      "merged": true,
-      "mergedAt": "2026-09-30T22:03:50Z"
-    },
-    {
-      "repo": "LUCY-assistant",
+      "repo": "Settings-api",
       "number": 20,
-      "title": "Fix hub audit findings: search hit fields, dead config, CLI help, Makefiles, changelog, connections page",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/20",
+      "title": "feat(lucy): claude_code_run_level gains ask, and reads as a ceiling",
+      "url": "https://github.com/tochi-mba/Settings-api/pull/20",
       "merged": true,
-      "mergedAt": "2026-09-30T21:30:30Z"
-    },
-    {
-      "repo": "Persona-api",
-      "number": 3,
-      "title": "Fix documentation-audit findings: matrix, smoke variable, profile-scoped recall default",
-      "url": "https://github.com/tochi-mba/Persona-api/pull/3",
-      "merged": true,
-      "mergedAt": "2026-09-30T21:26:09Z"
-    },
-    {
-      "repo": "Spotify-api",
-      "number": 7,
-      "title": "Fix documentation-audit findings",
-      "url": "https://github.com/tochi-mba/Spotify-api/pull/7",
-      "merged": true,
-      "mergedAt": "2026-09-30T21:21:27Z"
-    },
-    {
-      "repo": "Android_Headless_Mirror",
-      "number": 36,
-      "title": "Keep the picture the video's shape from the moment it is embedded",
-      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/36",
-      "merged": true,
-      "mergedAt": "2026-09-30T21:22:32Z"
-    },
-    {
-      "repo": "Web-search-api",
-      "number": 5,
-      "title": "Fix documentation-audit findings",
-      "url": "https://github.com/tochi-mba/Web-search-api/pull/5",
-      "merged": true,
-      "mergedAt": "2026-09-30T21:30:27Z"
-    },
-    {
-      "repo": "Memory-api",
-      "number": 5,
-      "title": "Fix the defects the documentation audit found",
-      "url": "https://github.com/tochi-mba/Memory-api/pull/5",
-      "merged": true,
-      "mergedAt": "2026-09-30T21:20:59Z"
-    },
-    {
-      "repo": "Settings-api",
-      "number": 4,
-      "title": "Fix documentation-audit findings: matrix, smoke variable, LICENSE, docstrings, origins",
-      "url": "https://github.com/tochi-mba/Settings-api/pull/4",
-      "merged": true,
-      "mergedAt": "2026-09-30T21:29:52Z"
-    },
-    {
-      "repo": "weftai",
-      "number": 11,
-      "title": "Writes run in plan order, and a gate reads a noul as the probability of yes (0.5.2)",
-      "url": "https://github.com/tochi-mba/weftai/pull/11",
-      "merged": true,
-      "mergedAt": "2026-09-30T21:14:14Z"
-    },
-    {
-      "repo": "clyde",
-      "number": 7,
-      "title": "Fix three audit findings: make live's exit status, the route count, a stale ruff ignore",
-      "url": "https://github.com/tochi-mba/clyde/pull/7",
-      "merged": true,
-      "mergedAt": "2026-09-30T21:36:47Z"
-    },
-    {
-      "repo": "Environments-api",
-      "number": 3,
-      "title": "Fix the defects the documentation audit found",
-      "url": "https://github.com/tochi-mba/Environments-api/pull/3",
-      "merged": true,
-      "mergedAt": "2026-09-30T21:18:19Z"
-    },
-    {
-      "repo": "Android_Headless_Mirror",
-      "number": 35,
-      "title": "Keep copies in step with pauses and turns of the PC view",
-      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/35",
-      "merged": true,
-      "mergedAt": "2026-09-30T20:59:22Z"
+      "mergedAt": "2026-10-08T03:26:07Z"
     },
     {
       "repo": "LUCY-assistant",
-      "number": 19,
-      "title": "Documentation says what the hub does today",
-      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/19",
+      "number": 128,
+      "title": "feat(coder): drive a Claude Code session the way a person at the keyboard does",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/128",
       "merged": true,
-      "mergedAt": "2026-09-30T21:06:09Z"
+      "mergedAt": "2026-10-08T03:32:52Z"
     },
     {
       "repo": "flint-app-firestick-cast",
-      "number": 34,
-      "title": "Test the Cast page's remaining install failures",
-      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/34",
+      "number": 53,
+      "title": "Capture and encode this PC's sound for the TV",
+      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/53",
       "merged": true,
-      "mergedAt": "2026-09-30T20:57:10Z"
+      "mergedAt": "2026-10-08T03:28:06Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 127,
+      "title": "fix(coder): find the real claude, and never run a brief through a shell",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/127",
+      "merged": true,
+      "mergedAt": "2026-10-08T03:26:31Z"
+    },
+    {
+      "repo": "Settings-api",
+      "number": 19,
+      "title": "feat(lucy): the person's half of Claude Code delegation, as three settings",
+      "url": "https://github.com/tochi-mba/Settings-api/pull/19",
+      "merged": true,
+      "mergedAt": "2026-10-08T02:41:27Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 126,
+      "title": "feat(coder): the Claude Code bridge, host-run and inert until the hub points at it",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/126",
+      "merged": true,
+      "mergedAt": "2026-10-08T02:46:24Z"
+    },
+    {
+      "repo": "flint-app-firestick-cast",
+      "number": 52,
+      "title": "Pause a screen share for privacy, by hand or when this PC locks",
+      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/52",
+      "merged": true,
+      "mergedAt": "2026-10-08T01:46:54Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 125,
+      "title": "fix(work): a waking command, watch or helper carries the person's consent",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/125",
+      "merged": true,
+      "mergedAt": "2026-10-08T01:39:47Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 124,
+      "title": "fix(work): preserve the clock sample for minimum check-ins",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/124",
+      "merged": true,
+      "mergedAt": "2026-10-08T00:45:24Z"
+    },
+    {
+      "repo": "flint-app-firestick-cast",
+      "number": 51,
+      "title": "Choose a display and a picture for screen sharing, and change either while sharing",
+      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/51",
+      "merged": true,
+      "mergedAt": "2026-10-08T00:39:34Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 123,
+      "title": "fix(packs): a habit seed leaves one slot to the catalogue's own ranking",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/123",
+      "merged": true,
+      "mergedAt": "2026-10-08T00:20:44Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 122,
+      "title": "fix(prompt): keeping a memory is a step, never a sentence",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/122",
+      "merged": true,
+      "mergedAt": "2026-10-07T21:56:38Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 121,
+      "title": "fix(agents): reading a helper's transcript is not an injection attempt",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/121",
+      "merged": true,
+      "mergedAt": "2026-10-07T21:40:08Z"
+    },
+    {
+      "repo": "Android_Headless_Mirror",
+      "number": 64,
+      "title": "2.18.0: upright phone-size second screen, surviving folder pickers, settings where you need them",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/64",
+      "merged": true,
+      "mergedAt": "2026-10-07T21:38:17Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 120,
+      "title": "fix: calls to a sibling no longer queue behind each other",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/120",
+      "merged": true,
+      "mergedAt": "2026-10-07T21:13:32Z"
+    },
+    {
+      "repo": "Keyring-api",
+      "number": 10,
+      "title": "fix(credentials): renew one grant once, however many callers ask at once",
+      "url": "https://github.com/tochi-mba/Keyring-api/pull/10",
+      "merged": true,
+      "mergedAt": "2026-10-07T20:14:34Z"
+    },
+    {
+      "repo": "flint-app-firestick-cast",
+      "number": 50,
+      "title": "Hold a mirror to its frame rate, and list the displays capture can open",
+      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/50",
+      "merged": true,
+      "mergedAt": "2026-10-07T21:12:26Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 119,
+      "title": "fix: background work follows the person's wake rules",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/119",
+      "merged": true,
+      "mergedAt": "2026-10-07T19:24:33Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 118,
+      "title": "fix(approvals): an approved call runs after what its plan wrote first",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/118",
+      "merged": true,
+      "mergedAt": "2026-10-07T19:14:40Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 117,
+      "title": "fix(music): a search that could not run is an outage, not a missing song",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/117",
+      "merged": true,
+      "mergedAt": "2026-10-07T19:30:43Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 116,
+      "title": "perf(capabilities): a profile's habits are bound from a session's first turn",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/116",
+      "merged": true,
+      "mergedAt": "2026-10-07T17:49:50Z"
+    },
+    {
+      "repo": "flint-app-firestick-cast",
+      "number": 49,
+      "title": "Reconnect to the TV without its code, on start and after a drop",
+      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/49",
+      "merged": true,
+      "mergedAt": "2026-10-07T18:22:53Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 115,
+      "title": "fix(approvals): a card names what a reference stands for",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/115",
+      "merged": true,
+      "mergedAt": "2026-10-07T17:25:59Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 114,
+      "title": "fix(music): the hub's advice is a notice, not part of the answer",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/114",
+      "merged": true,
+      "mergedAt": "2026-10-07T17:48:47Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 113,
+      "title": "docs(baselines): clyde:haiku at main 002d293, 14 of 14",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/113",
+      "merged": true,
+      "mergedAt": "2026-10-07T15:31:19Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 112,
+      "title": "chore(lock): Web-search-api 786b058 and Memory-api f4b6dd4",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/112",
+      "merged": true,
+      "mergedAt": "2026-10-07T15:03:00Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 111,
+      "title": "fix(research): a research step waits as long as the call inside it",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/111",
+      "merged": true,
+      "mergedAt": "2026-10-07T02:37:12Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 110,
+      "title": "fix(compose): a page summary fits the step",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/110",
+      "merged": true,
+      "mergedAt": "2026-10-07T02:20:30Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 109,
+      "title": "fix(research): a research step waits as long as its summary takes",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/109",
+      "merged": true,
+      "mergedAt": "2026-10-07T01:48:27Z"
+    },
+    {
+      "repo": "flint-app-firestick-cast",
+      "number": 48,
+      "title": "Fix what a real Fire TV showed: next files, GIF, pictures, volume, seeks; name a VPN",
+      "url": "https://github.com/tochi-mba/flint-app-firestick-cast/pull/48",
+      "merged": true,
+      "mergedAt": "2026-10-07T00:59:02Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 108,
+      "title": "chore(deps): weftai 0.6.0, and drop the interim description patch",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/108",
+      "merged": true,
+      "mergedAt": "2026-10-07T00:44:53Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 107,
+      "title": "fix(settings): a with_approval setting asks every time, whatever the mode",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/107",
+      "merged": true,
+      "mergedAt": "2026-10-07T00:38:23Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 106,
+      "title": "fix(evals): an error is not a regression",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/106",
+      "merged": true,
+      "mergedAt": "2026-10-06T23:55:14Z"
+    },
+    {
+      "repo": "Android_Headless_Mirror",
+      "number": 63,
+      "title": "Desktop tests close a notification banner that holds the foreground",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/63",
+      "merged": true,
+      "mergedAt": "2026-10-06T23:56:28Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 105,
+      "title": "feat(family): SearXNG backs up web search",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/105",
+      "merged": true,
+      "mergedAt": "2026-10-06T23:48:19Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 104,
+      "title": "fix(evals): a turn no model answered is an error, not a failure",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/104",
+      "merged": true,
+      "mergedAt": "2026-10-06T22:32:18Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 103,
+      "title": "fix(compose): the hub's database lives on its volume",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/103",
+      "merged": true,
+      "mergedAt": "2026-10-06T19:54:38Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 102,
+      "title": "fix(workspace): a finished profile gives its sandbox back",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/102",
+      "merged": true,
+      "mergedAt": "2026-10-06T19:53:44Z"
+    },
+    {
+      "repo": "Android_Headless_Mirror",
+      "number": 62,
+      "title": "2.17.0: any action in the top bar, brief view names, a committed cost baseline",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/62",
+      "merged": true,
+      "mergedAt": "2026-10-06T22:57:57Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 101,
+      "title": "fix(evals): each conversation runs in a profile of its own",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/101",
+      "merged": true,
+      "mergedAt": "2026-10-06T19:07:58Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 100,
+      "title": "fix(prompt): a step's result comes back to Lucy, never to the person",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/100",
+      "merged": true,
+      "mergedAt": "2026-10-06T18:55:33Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 99,
+      "title": "test(checkins): wait for a firing's result instead of assuming a pause",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/99",
+      "merged": true,
+      "mergedAt": "2026-10-06T18:55:12Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 98,
+      "title": "fix(settings): a sibling's never-setting is refused, not just lucy's",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/98",
+      "merged": true,
+      "mergedAt": "2026-10-06T18:54:29Z"
+    },
+    {
+      "repo": "Settings-api",
+      "number": 18,
+      "title": "feat(schema): the catalogue says whether an assistant may change each setting",
+      "url": "https://github.com/tochi-mba/Settings-api/pull/18",
+      "merged": true,
+      "mergedAt": "2026-10-06T18:37:13Z"
+    },
+    {
+      "repo": "Memory-api",
+      "number": 12,
+      "title": "fix(consolidate): a merge is as trusted as its least trusted member",
+      "url": "https://github.com/tochi-mba/Memory-api/pull/12",
+      "merged": true,
+      "mergedAt": "2026-10-06T18:39:43Z"
+    },
+    {
+      "repo": "Web-search-api",
+      "number": 15,
+      "title": "fix(summary): cite numbered sources, tag the source block, ask for no reasoning",
+      "url": "https://github.com/tochi-mba/Web-search-api/pull/15",
+      "merged": true,
+      "mergedAt": "2026-10-06T18:42:56Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 97,
+      "title": "fix(agents): a helper knows nobody answers, and how long its answer may be",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/97",
+      "merged": true,
+      "mergedAt": "2026-10-06T18:54:09Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 96,
+      "title": "fix(notes): a summary note says it is merged notes, not a distillation",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/96",
+      "merged": true,
+      "mergedAt": "2026-10-06T18:37:07Z"
+    },
+    {
+      "repo": "Android_Headless_Mirror",
+      "number": 61,
+      "title": "The site's pictures and pages, last pass; the sound panel opens inside the window (2.16.1)",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/61",
+      "merged": true,
+      "mergedAt": "2026-10-06T18:28:38Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 95,
+      "title": "fix(prompt): safety and the tool idiom come straight after identity",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/95",
+      "merged": true,
+      "mergedAt": "2026-10-07T01:42:16Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 94,
+      "title": "fix(prompt): each rule once, named calls, a note that is named",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/94",
+      "merged": true,
+      "mergedAt": "2026-10-06T04:59:36Z"
+    },
+    {
+      "repo": "Android_Headless_Mirror",
+      "number": 60,
+      "title": "Your own Controls tab (2.16.0)",
+      "url": "https://github.com/tochi-mba/Android_Headless_Mirror/pull/60",
+      "merged": true,
+      "mergedAt": "2026-10-06T04:40:22Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 93,
+      "title": "fix(context): the live block says only what is true",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/93",
+      "merged": true,
+      "mergedAt": "2026-10-06T04:52:54Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 92,
+      "title": "fix(mcp): an imported tool says its arguments",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/92",
+      "merged": true,
+      "mergedAt": "2026-10-06T04:28:10Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 91,
+      "title": "The live block says which sources it missed, not that a capability is failing",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/91",
+      "merged": true,
+      "mergedAt": "2026-10-06T04:21:51Z"
+    },
+    {
+      "repo": "LUCY-assistant",
+      "number": 90,
+      "title": "Every described field reaches the model, and says its default",
+      "url": "https://github.com/tochi-mba/LUCY-assistant/pull/90",
+      "merged": true,
+      "mergedAt": "2026-10-06T03:58:17Z"
     }
   ],
   "commitsByRepo": [
     {
       "repo": "LUCY-assistant",
-      "total": 191,
+      "total": 349,
       "days": [
         [
+          "2026-10-09",
+          10
+        ],
+        [
+          "2026-10-08",
+          26
+        ],
+        [
+          "2026-10-07",
+          19
+        ],
+        [
+          "2026-10-06",
+          39
+        ],
+        [
+          "2026-10-05",
+          40
+        ],
+        [
+          "2026-10-04",
+          4
+        ],
+        [
+          "2026-10-03",
+          6
+        ],
+        [
           "2026-10-02",
-          1
+          15
         ],
         [
           "2026-10-01",
@@ -3135,11 +3103,35 @@
     },
     {
       "repo": "Android_Headless_Mirror",
-      "total": 176,
+      "total": 249,
       "days": [
         [
+          "2026-10-09",
+          9
+        ],
+        [
+          "2026-10-07",
+          6
+        ],
+        [
+          "2026-10-06",
+          24
+        ],
+        [
+          "2026-10-05",
+          8
+        ],
+        [
+          "2026-10-04",
+          5
+        ],
+        [
+          "2026-10-02",
+          19
+        ],
+        [
           "2026-10-01",
-          15
+          17
         ],
         [
           "2026-09-30",
@@ -3160,34 +3152,36 @@
       ]
     },
     {
-      "repo": "chika",
-      "total": 89,
-      "days": [
-        [
-          "2026-05-06",
-          42
-        ],
-        [
-          "2026-05-05",
-          6
-        ],
-        [
-          "2026-04-30",
-          8
-        ],
-        [
-          "2026-04-29",
-          33
-        ]
-      ]
-    },
-    {
       "repo": "flint-app-firestick-cast",
-      "total": 80,
+      "total": 112,
       "days": [
+        [
+          "2026-10-09",
+          3
+        ],
+        [
+          "2026-10-08",
+          5
+        ],
+        [
+          "2026-10-07",
+          11
+        ],
+        [
+          "2026-10-05",
+          5
+        ],
+        [
+          "2026-10-04",
+          2
+        ],
+        [
+          "2026-10-03",
+          2
+        ],
         [
           "2026-10-02",
-          1
+          5
         ],
         [
           "2026-10-01",
@@ -3228,9 +3222,123 @@
       ]
     },
     {
-      "repo": "weftai",
-      "total": 30,
+      "repo": "chika",
+      "total": 90,
       "days": [
+        [
+          "2026-10-02",
+          1
+        ],
+        [
+          "2026-05-06",
+          42
+        ],
+        [
+          "2026-05-05",
+          6
+        ],
+        [
+          "2026-04-30",
+          8
+        ],
+        [
+          "2026-04-29",
+          33
+        ]
+      ]
+    },
+    {
+      "repo": "Settings-api",
+      "total": 33,
+      "days": [
+        [
+          "2026-10-08",
+          2
+        ],
+        [
+          "2026-10-06",
+          1
+        ],
+        [
+          "2026-10-05",
+          2
+        ],
+        [
+          "2026-10-03",
+          1
+        ],
+        [
+          "2026-10-02",
+          5
+        ],
+        [
+          "2026-10-01",
+          7
+        ],
+        [
+          "2026-09-30",
+          1
+        ],
+        [
+          "2026-09-24",
+          3
+        ],
+        [
+          "2026-09-22",
+          3
+        ],
+        [
+          "2026-09-18",
+          1
+        ],
+        [
+          "2026-09-17",
+          1
+        ],
+        [
+          "2026-09-16",
+          6
+        ]
+      ]
+    },
+    {
+      "repo": "tochi-mba.github.io",
+      "total": 31,
+      "days": [
+        [
+          "2026-10-09",
+          1
+        ],
+        [
+          "2026-10-05",
+          9
+        ],
+        [
+          "2026-10-04",
+          2
+        ],
+        [
+          "2026-10-03",
+          7
+        ],
+        [
+          "2026-10-02",
+          8
+        ],
+        [
+          "2026-10-01",
+          4
+        ]
+      ]
+    },
+    {
+      "repo": "weftai",
+      "total": 31,
+      "days": [
+        [
+          "2026-10-02",
+          1
+        ],
         [
           "2026-10-01",
           3
@@ -3263,8 +3371,16 @@
     },
     {
       "repo": "Spotify-api",
-      "total": 22,
+      "total": 26,
       "days": [
+        [
+          "2026-10-05",
+          1
+        ],
+        [
+          "2026-10-02",
+          3
+        ],
         [
           "2026-10-01",
           3
@@ -3292,43 +3408,25 @@
       ]
     },
     {
-      "repo": "Settings-api",
-      "total": 22,
-      "days": [
-        [
-          "2026-10-01",
-          7
-        ],
-        [
-          "2026-09-30",
-          1
-        ],
-        [
-          "2026-09-24",
-          3
-        ],
-        [
-          "2026-09-22",
-          3
-        ],
-        [
-          "2026-09-18",
-          1
-        ],
-        [
-          "2026-09-17",
-          1
-        ],
-        [
-          "2026-09-16",
-          6
-        ]
-      ]
-    },
-    {
       "repo": "textwire",
-      "total": 18,
+      "total": 26,
       "days": [
+        [
+          "2026-10-05",
+          2
+        ],
+        [
+          "2026-10-04",
+          2
+        ],
+        [
+          "2026-10-03",
+          1
+        ],
+        [
+          "2026-10-02",
+          3
+        ],
         [
           "2026-10-01",
           15
@@ -3340,9 +3438,67 @@
       ]
     },
     {
-      "repo": "Environments-api",
-      "total": 15,
+      "repo": "Web-search-api",
+      "total": 25,
       "days": [
+        [
+          "2026-10-06",
+          3
+        ],
+        [
+          "2026-10-05",
+          3
+        ],
+        [
+          "2026-10-03",
+          1
+        ],
+        [
+          "2026-10-02",
+          3
+        ],
+        [
+          "2026-10-01",
+          2
+        ],
+        [
+          "2026-09-30",
+          2
+        ],
+        [
+          "2026-09-24",
+          1
+        ],
+        [
+          "2026-09-22",
+          1
+        ],
+        [
+          "2026-09-18",
+          1
+        ],
+        [
+          "2026-09-17",
+          1
+        ],
+        [
+          "2026-09-16",
+          7
+        ]
+      ]
+    },
+    {
+      "repo": "Environments-api",
+      "total": 21,
+      "days": [
+        [
+          "2026-10-05",
+          2
+        ],
+        [
+          "2026-10-02",
+          4
+        ],
         [
           "2026-10-01",
           1
@@ -3370,61 +3526,21 @@
       ]
     },
     {
-      "repo": "Web-search-api",
-      "total": 15,
-      "days": [
-        [
-          "2026-10-01",
-          2
-        ],
-        [
-          "2026-09-30",
-          2
-        ],
-        [
-          "2026-09-24",
-          1
-        ],
-        [
-          "2026-09-22",
-          1
-        ],
-        [
-          "2026-09-18",
-          1
-        ],
-        [
-          "2026-09-17",
-          1
-        ],
-        [
-          "2026-09-16",
-          7
-        ]
-      ]
-    },
-    {
-      "repo": "clyde",
-      "total": 13,
-      "days": [
-        [
-          "2026-10-01",
-          2
-        ],
-        [
-          "2026-09-24",
-          7
-        ],
-        [
-          "2026-09-23",
-          4
-        ]
-      ]
-    },
-    {
       "repo": "Keyring-api",
-      "total": 13,
+      "total": 19,
       "days": [
+        [
+          "2026-10-07",
+          1
+        ],
+        [
+          "2026-10-05",
+          1
+        ],
+        [
+          "2026-10-02",
+          4
+        ],
         [
           "2026-10-01",
           2
@@ -3452,35 +3568,51 @@
       ]
     },
     {
-      "repo": "User-api",
-      "total": 11,
+      "repo": "clyde",
+      "total": 18,
       "days": [
         [
-          "2026-10-01",
+          "2026-10-09",
           1
         ],
         [
-          "2026-09-22",
+          "2026-10-06",
+          1
+        ],
+        [
+          "2026-10-05",
           2
         ],
         [
-          "2026-09-18",
+          "2026-10-02",
           1
         ],
         [
-          "2026-09-17",
-          1
+          "2026-10-01",
+          2
         ],
         [
-          "2026-09-16",
-          6
+          "2026-09-24",
+          7
+        ],
+        [
+          "2026-09-23",
+          4
         ]
       ]
     },
     {
       "repo": "Persona-api",
-      "total": 11,
+      "total": 17,
       "days": [
+        [
+          "2026-10-05",
+          1
+        ],
+        [
+          "2026-10-02",
+          5
+        ],
         [
           "2026-10-01",
           1
@@ -3505,8 +3637,24 @@
     },
     {
       "repo": "Memory-api",
-      "total": 8,
+      "total": 17,
       "days": [
+        [
+          "2026-10-06",
+          1
+        ],
+        [
+          "2026-10-05",
+          2
+        ],
+        [
+          "2026-10-03",
+          3
+        ],
+        [
+          "2026-10-02",
+          3
+        ],
         [
           "2026-10-01",
           1
@@ -3534,9 +3682,47 @@
       ]
     },
     {
-      "repo": "ai-context-bridge",
-      "total": 6,
+      "repo": "User-api",
+      "total": 16,
       "days": [
+        [
+          "2026-10-05",
+          1
+        ],
+        [
+          "2026-10-02",
+          4
+        ],
+        [
+          "2026-10-01",
+          1
+        ],
+        [
+          "2026-09-22",
+          2
+        ],
+        [
+          "2026-09-18",
+          1
+        ],
+        [
+          "2026-09-17",
+          1
+        ],
+        [
+          "2026-09-16",
+          6
+        ]
+      ]
+    },
+    {
+      "repo": "ai-context-bridge",
+      "total": 7,
+      "days": [
+        [
+          "2026-10-02",
+          1
+        ],
         [
           "2026-04-29",
           6
@@ -3544,22 +3730,46 @@
       ]
     },
     {
-      "repo": "tochi-mba.github.io",
-      "total": 4,
+      "repo": "Github-api",
+      "total": 3,
       "days": [
         [
+          "2026-10-02",
+          1
+        ],
+        [
           "2026-10-01",
-          4
+          2
         ]
       ]
     },
     {
-      "repo": "Github-api",
-      "total": 2,
+      "repo": "webtools",
+      "total": 1,
       "days": [
         [
-          "2026-10-01",
-          2
+          "2026-10-02",
+          1
+        ]
+      ]
+    },
+    {
+      "repo": "csharp-workspace",
+      "total": 1,
+      "days": [
+        [
+          "2026-10-02",
+          1
+        ]
+      ]
+    },
+    {
+      "repo": "NoughtsAndCrosses",
+      "total": 1,
+      "days": [
+        [
+          "2026-10-02",
+          1
         ]
       ]
     }
