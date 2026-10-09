@@ -2,7 +2,7 @@ import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue({ template: { compilerOptions: { isCustomElement: (tag) => tag === "agent-robot-avatar" } } })],
   // `VUE_MISMATCH=1 npm run build` makes the production build name any place where the prerendered
   // HTML and the page the browser renders differ, which hydration would otherwise patch in silence.
   define: { __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: process.env.VUE_MISMATCH === "1" },

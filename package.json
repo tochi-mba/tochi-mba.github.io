@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@unhead/vue": "^2.1.17",
+    "agent-robot-avatar": "^0.5.2",
     "vue": "^3.5.43",
     "vue-router": "^5.3.1"
   },

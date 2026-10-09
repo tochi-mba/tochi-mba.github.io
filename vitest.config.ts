@@ -23,10 +23,11 @@ const GATED = [
   "src/activity.ts",
   "src/data.ts",
   "src/wakeLater.ts",
+  "src/lucyFace.ts",
 ];
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue({ template: { compilerOptions: { isCustomElement: (tag) => tag === "agent-robot-avatar" } } })],
   resolve: { alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) } },
   test: {
     include: ["tests/unit/**/*.test.ts"],
