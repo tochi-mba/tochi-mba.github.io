@@ -206,6 +206,33 @@
 .page-hero .lede {
   max-width: 53rem;
 }
+/* Lucy's own pages: the title on the left, her stage on the right; stacked on a phone. */
+.page-hero-staged {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--col-gap);
+  row-gap: 20px;
+  align-items: start;
+}
+.page-hero-staged > * {
+  grid-column: 1;
+}
+.page-hero-staged > .hero-stage {
+  grid-column: 2;
+  grid-row: 1 / span 6;
+  align-self: center;
+}
+@media (max-width: 900px) {
+  .page-hero-staged {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .page-hero-staged > .hero-stage {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: center;
+    margin-top: 12px;
+  }
+}
 .crumbs {
   font-family: var(--mono);
   font-size: var(--fs-mono);

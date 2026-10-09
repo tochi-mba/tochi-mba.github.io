@@ -37,3 +37,51 @@ export function announcement(trick: Trick | null): string {
   };
   return said[trick];
 }
+
+// On her own pages Lucy gets a stage: a bigger face and the moods LUCY-ui shows during a
+// conversation, each one a button. The calls are the ones LUCY-ui's face driver makes for the
+// same mood, so what a visitor sees here is what a person sees in the app.
+
+/** The moods a visitor can ask for, in the order a conversation passes through them. */
+export const MOODS = [
+  { id: "thinking", label: "Thinking", says: "Thinking: the request is with her model." },
+  { id: "working", label: "Working", says: "Working: the steps of her plan are running." },
+  { id: "speaking", label: "Speaking", says: "Speaking: her reply is streaming in." },
+  { id: "needs_you", label: "Needs you", says: "Needs you: a step waits for your approval." },
+  { id: "done", label: "Done", says: "Done: the turn finished." },
+  { id: "failed", label: "Failed", says: "Failed: something broke, and she says so." },
+] as const;
+export type MoodId = (typeof MOODS)[number]["id"];
+
+/** The part of `<agent-robot-avatar>` a mood uses. */
+export interface MoodFace {
+  play(action: string): unknown;
+  input(active?: boolean): unknown;
+  startWaiting(options?: { variant?: "default" | "wrap" }): unknown;
+  stopWaiting(): unknown;
+}
+
+/** The face's methods may return a promise; one that rejects is an animation cut short. */
+function settle(result: unknown): void {
+  if (result instanceof Promise) result.catch(() => {});
+}
+
+/** Put the face in one mood, ending whatever the last one left running. */
+export function showMood(face: MoodFace, mood: MoodId): void {
+  settle(face.stopWaiting());
+  settle(face.input(false));
+  if (mood === "thinking") settle(face.startWaiting());
+  else if (mood === "working") settle(face.startWaiting({ variant: "wrap" }));
+  else if (mood === "speaking") settle(face.input(true));
+  else settle(face.play(mood === "needs_you" ? "warning" : mood === "done" ? "success" : "failure"));
+}
+
+/** What the caption under her stage says. */
+export function stageCaption(state: { awake: boolean; mood: MoodId | null }): string {
+  if (!state.awake) return "Asleep. Pick a mood, or press her face.";
+  const mood = MOODS.find((m) => m.id === state.mood);
+  return mood ? mood.says : "Awake. Her eyes follow your cursor; press her face for a trick.";
+}
+
+/** The pages she has a stage on: the hub and the client that wears her face. */
+export const STAGED = new Set(["lucy-assistant", "lucy-ui"]);
